@@ -9,6 +9,18 @@ needs all the customization for vim, emacs, etc. No install script, no comments,
 nothing... for now, "what you see is what it is"...
 
 
+Requirements
+------------
+
+```
+$ yum install tmux zsh mc
+```
+
+```
+$ apt-get install tmux zsh mc
+```
+
+
 Authors
 -------
 
