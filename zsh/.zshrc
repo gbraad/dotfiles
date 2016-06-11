@@ -78,7 +78,11 @@ if [ -d "$HOME/.local/bin" ]; then
 fi
 
 # User specific aliases and functions
-for f in ~/.zshrc.d/*; do
-  source $f;
-done
-
+if [ -d $HOME/.zshrc.d ]; then
+  for file in $HOME/.zshrc.d/*.zsh; do
+    source $file
+  done
+  for file in $HOME/.zshrc.d/*.sh; do
+    source $file
+  done
+fi

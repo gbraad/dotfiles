@@ -12,13 +12,26 @@ nothing... for now, "what you see is what it is"...
 Requirements
 ------------
 
+CentOS/Fedora
 ```
-$ yum install tmux zsh mc
+$ yum install tmux zsh mc stow #dnf
 ```
 
+Debian/Ubuntu
 ```
-$ apt-get install tmux zsh mc
+$ apt-get install tmux zsh mc stow
 ```
+
+After this you can use GNU `stow` to install the dotfiles per application
+
+```
+$ git clone https://github.com/gbraad/dotfiles.git .dotfiles
+$ cd .dotfiles
+$ git submodule init
+$ git submodule update
+$ stow zsh
+```
+
 
 
 Authors
