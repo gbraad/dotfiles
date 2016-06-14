@@ -3,10 +3,10 @@
 # Crude multi-os installation option
 if [ -x "/usr/bin/apt-get" ]
 then
-   apt-get install -y tmux zsh mc stow
+   apt-get install -y tmux zsh mc stow python-psutil
 elif [ -x "/usr/bin/dnf" ]
 then
-   dnf install -y tmux zsh mc stow
+   dnf install -y tmux zsh mc stow python-psutil
 fi
 
 # Add missing directory layout
