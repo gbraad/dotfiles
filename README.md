@@ -5,8 +5,8 @@ Do not use this directly, but take parts and learn from it. I share it because
 I got frustrated about moving a tarball around (and being scared of loosing
 it). Which eventually happened when my notebook got stolen... so, this is not
 an ideal solution yet. It only contains the basic from an old tarball, and still
-needs all the customization for vim, emacs, etc. No install script, no comments,
-nothing... for now, "what you see is what it is"...
+needs all the customization for vim, emacs, etc. For now, No support, no comments,
+nothing... "what you see is what it is"...
 
 
 Requirements
@@ -32,6 +32,12 @@ $ git submodule update
 $ stow zsh
 ```
 
+Install script
+--------------
+
+```
+$ curl -sSL https://raw.githubusercontent.com/gbraad/dotfiles/master/install.sh | sh
+```
 
 
 Authors
