@@ -5,13 +5,13 @@ RPMPKGS="tmux zsh mc stow python-psutil"
 # Crude multi-os installation option
 if [ -x "/usr/bin/apt-get" ]
 then
-   apt-get install -y $APTPKGS
+   sudo apt-get install -y $APTPKGS
 elif [ -x "/usr/bin/dnf" ]
 then
-   dnf install -y $RPMPKGS
+   sudo dnf install -y $RPMPKGS
 elif [ -x "/usr/bin/yum" ]
 then
-   yum install -y $RPMPKGS
+   sudo yum install -y $RPMPKGS
 fi
 
 # Add missing directory layout
@@ -21,6 +21,7 @@ then
 fi
 
 mkdir -p ~/.local/bin
+mkdir -p ~/.local/lib/python2.7/site-packages/
 
 # Personal dotfiles
 git clone https://github.com/gbraad/dotfiles.git ~/.dotfiles
