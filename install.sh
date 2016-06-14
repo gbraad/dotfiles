@@ -1,22 +1,26 @@
 #!/bin/sh
+APTPKGS="tmux zsh mc stow python-psutil"
+RPMPKGS="tmux zsh mc stow python-psutil"
 
 # Crude multi-os installation option
 if [ -x "/usr/bin/apt-get" ]
 then
-   apt-get install -y tmux zsh mc stow python-psutil
+   apt-get install -y $APTPKGS
 elif [ -x "/usr/bin/dnf" ]
 then
-   dnf install -y tmux zsh mc stow python-psutil
+   dnf install -y $RPMPKGS
+elif [ -x "/usr/bin/yum" ]
+then
+   yum install -y $RPMPKGS
 fi
 
 # Add missing directory layout
-cd ~
 if [ ! -d "~/.config" ]
 then
-  mkdir .config
+  mkdir ~/.config
 fi
 
-mkdir -p .local/bin
+mkdir -p ~/.local/bin
 
 # Personal dotfiles
 git clone https://github.com/gbraad/dotfiles.git ~/.dotfiles
