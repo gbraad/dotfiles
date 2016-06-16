@@ -1,5 +1,8 @@
-dotfiles
-========
+Gerard Braad's dotfiles
+=======================
+
+  `using Git, GNU stow and Ansible`
+
 
 Do not use this directly, but take parts and learn from it. I share it because
 I got frustrated about moving a tarball around (and being scared of loosing
@@ -14,12 +17,12 @@ Requirements
 
 CentOS/Fedora
 ```
-$ yum install tmux zsh mc stow #dnf
+$ yum install git tmux zsh mc stow #dnf
 ```
 
 Debian/Ubuntu
 ```
-$ apt-get install tmux zsh mc stow
+$ apt-get install git tmux zsh mc stow
 ```
 
 After this you can use GNU `stow` to install the dotfiles per application
