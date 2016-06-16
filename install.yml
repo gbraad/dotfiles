@@ -1,0 +1,37 @@
+#!/usr/bin/env ansible-playbook
+---
+- hosts: localhost
+  #remote_user: root
+  #become: yes
+  #become_method: sudo
+
+  tasks:
+  - name: Install list of required packages
+    package: name={{ item }} state=installed
+    become: yes
+    become_method: sudo
+    with_items:
+    - git
+    - tmux
+    - zsh
+    - stow
+    - python-psutil
+    - mc
+
+  - name: Create directory structure
+    file: path="{{ item }}" state=directory mode=750
+    with_items:
+    - "{{ ansible_env.HOME }}/.config"
+    - "{{ ansible_env.HOME }}/.local/bin"
+    - "{{ ansible_env.HOME }}/.local/python2.7/site-packages"
+  
+  - name: Clone dotfiles
+    git: repo=https://github.com/gbraad/dotfiles.git dest={{ ansible_env.HOME }}/.dotfiles
+
+  - name: Stow configurations
+    command: chdir={{ ansible_env.HOME }}/.dotfiles stow {{ item }}
+    with_items:
+    - powerline
+    - zsh
+    - tmux
+    - vim

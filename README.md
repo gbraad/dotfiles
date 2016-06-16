@@ -32,11 +32,32 @@ $ git submodule update
 $ stow zsh
 ```
 
-Install script
---------------
+Installation
+------------
+
+### Shell script
 
 ```
 $ curl -sSL https://raw.githubusercontent.com/gbraad/dotfiles/master/install.sh | sh
+```
+
+### Ansible
+
+This has been tested with Ansible 2.0+.
+
+```
+$ curl -sSL https://raw.githubusercontent.com/gbraad/dotfiles/master/install.yml
+```
+
+```
+$ chmod u+x install.yml
+$ ./install.yml
+```
+
+or
+
+```
+$ ansible-playbook install.yml
 ```
 
 
