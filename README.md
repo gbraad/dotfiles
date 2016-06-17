@@ -1,10 +1,9 @@
 Gerard Braad's dotfiles
 =======================
 
+[!["Prompt"](https://raw.githubusercontent.com/gbraad/assets/gh-pages/icons/prompt-icon-64.png)](http://github.com/gbraadnl)
+
   `using Git, GNU stow and Ansible`
-
-
-!["Prompt"](https://raw.githubusercontent.com/gbraad/assets/gh-pages/icons/prompt-icon-64.png)
 
 
 Do not use this directly, but take parts and learn from it. I share it because
@@ -52,7 +51,7 @@ $ curl -sSL https://raw.githubusercontent.com/gbraad/dotfiles/master/install.sh 
 This has been tested with Ansible 2.0+.
 
 ```
-$ curl -sSL https://raw.githubusercontent.com/gbraad/dotfiles/master/install.yml
+$ curl -sSL https://raw.githubusercontent.com/gbraad/dotfiles/master/install.yml -o install.yml
 ```
 
 ```
@@ -65,6 +64,14 @@ or
 ```
 $ ansible-playbook install.yml
 ```
+
+
+Usage
+-----
+
+  * Used in my [C9](http://c9.io) workspaces
+  * Docker [developer environment](https://hub.docker.com/r/gbraad/dev) image
+  * ...
 
 
 Authors
