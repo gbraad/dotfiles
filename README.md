@@ -4,6 +4,9 @@ Gerard Braad's dotfiles
   `using Git, GNU stow and Ansible`
 
 
+!["Prompt"](https://raw.githubusercontent.com/gbraad/assets/gh-pages/icons/prompt-icon-64.png)
+
+
 Do not use this directly, but take parts and learn from it. I share it because
 I got frustrated about moving a tarball around (and being scared of loosing
 it). Which eventually happened when my notebook got stolen... so, this is not
