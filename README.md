@@ -70,7 +70,8 @@ Usage
 -----
 
   * Used in my [C9](http://c9.io) workspaces
-  * Docker [developer environment](https://hub.docker.com/r/gbraad/dev) image
+  * [Developer environment](https://github.com/gbraad/devenv/) settup
+  * Docker [developer environment](https://hub.docker.com/r/gbraad/devenv) image
   * ...
 
 
