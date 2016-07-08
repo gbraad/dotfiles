@@ -72,6 +72,7 @@ Usage
   * Used in my [C9](http://c9.io) workspaces
   * [Developer environment](https://github.com/gbraad/devenv/) settup
   * Docker [developer environment](https://hub.docker.com/r/gbraad/devenv) image
+  * Google Cloud Platform [cloud shell](https://console.cloud.google.com)
   * ...
 
 
