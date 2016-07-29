@@ -12,3 +12,6 @@ alias pandoc='docker run -it --rm registry.gitlab.com/gbraad/docugen pandoc'
 
 # others
 alias youtube-dl='docker run --rm -u $(id -u):$(id -g) -v $PWD:/data vimagick/youtube-dl'
+
+# nginx
+alias nginx-root='docker run --name nginx-root -p 80:80 -v /var/srv:/usr/share/nginx/html:ro -d nginx'
