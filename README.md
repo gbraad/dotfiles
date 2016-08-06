@@ -73,6 +73,7 @@ Usage
   * [Developer environment](https://github.com/gbraad/devenv/) setup
   * Docker [developer environment](https://hub.docker.com/r/gbraad/devenv) image
   * Google Cloud Platform [cloud shell](https://console.cloud.google.com)
+  * Windows Subsystem for Linux; Bash on Ubuntu on Windows
   * Tested on: CentOS7+, Fedora 21+, and Ubuntu 14.04+
   * ...
 
