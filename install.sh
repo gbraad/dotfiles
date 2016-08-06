@@ -1,6 +1,6 @@
 #!/bin/sh
-APTPKGS="tmux zsh mc stow python-psutil"
-RPMPKGS="tmux zsh mc stow python-psutil"
+APTPKGS="git tmux zsh mc stow python-psutil"
+RPMPKGS="git tmux zsh mc stow python-psutil"
 
 # Crude multi-os installation option
 if [ -x "/usr/bin/apt-get" ]
