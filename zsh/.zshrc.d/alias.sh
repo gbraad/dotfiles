@@ -4,6 +4,9 @@
 alias stack='docker run -it --rm -v ~/.stack:/root/.stack registry.gitlab.com/gbraad/openstack-client:centos stack'
 alias openstack='docker run -it --rm -v ~/.config/openstack:/root/.config/openstack registry.gitlab.com/gbraad/openstack-client:centos openstack'
 
+# Kubernetes
+alias kubectl='docker run -it --rm -v $PWD:/workspace registry.gitlab.com/gbraad/kubernetes-client:fedora kubectl'
+
 # devenv: https://gitlab.com/gbraad/devenv
 alias devenv='docker run -it --rm -v `pwd`:/workspace registry.gitlab.com/gbraad/devenv:f24'
 
