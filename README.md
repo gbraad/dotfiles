@@ -30,10 +30,8 @@ $ apt-get install git tmux zsh mc stow
 After this you can use GNU `stow` to install the dotfiles per application
 
 ```
-$ git clone https://github.com/gbraad/dotfiles.git .dotfiles
+$ git clone https://github.com/gbraad/dotfiles.git .dotfiles --recursive
 $ cd .dotfiles
-$ git submodule init
-$ git submodule update
 $ stow zsh
 ```
 
