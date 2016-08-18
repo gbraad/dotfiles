@@ -18,3 +18,6 @@ alias youtube-dl='docker run --rm -u $(id -u):$(id -g) -v $PWD:/data vimagick/yo
 
 # nginx
 alias nginx-pwd='docker run --name nginx-pwd -p 80:80 -v $PWD:/usr/share/nginx/html:ro -d nginx'
+
+# Mono / PowerShell
+alias posh='docker run -it --rm -v $PWD:/workspace registry.gitlab.com/gbraad/mono:c7'
