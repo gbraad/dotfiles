@@ -8,10 +8,10 @@ alias openstack='docker run -it --rm -v $PWD:/workspace -v ~/.config/openstack:/
 alias kubectl='docker run -it --rm -v $PWD:/workspace registry.gitlab.com/gbraad/kubernetes-client:fedora kubectl'
 
 # devenv: https://gitlab.com/gbraad/devenv
-alias devenv='docker run -it --rm -v `pwd`:/workspace registry.gitlab.com/gbraad/devenv:f24'
+alias devenv='docker run -it --rm -v $PWD:/workspace registry.gitlab.com/gbraad/devenv:f24'
 
 # pandoc: https://gitlab.com/gbraad/docugen
-alias pandoc='docker run -it --rm registry.gitlab.com/gbraad/docugen pandoc'
+alias pandoc='docker run -it --rm -v $PWD:/workspace registry.gitlab.com/gbraad/docugen pandoc'
 
 # others
 alias youtube-dl='docker run --rm -u $(id -u):$(id -g) -v $PWD:/data vimagick/youtube-dl'
