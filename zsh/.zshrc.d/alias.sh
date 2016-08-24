@@ -20,6 +20,10 @@ alias posh='docker run -it --rm -v $PWD:/workspace registry.gitlab.com/gbraad/mo
 # jupyter: https://gitlab.com/gbraad/jupyter
 alias jupyter='docker run -it --rm -v $PWD:/workspace -p 8888:8888 registry.gitlab.com/gbraad/jupyter:f24 jupyter'
 
+# Flatpak
+alias flatpak-builder-gnome='docker run -it --rm -v $PWD:/workspace registry.gitlab.com/gbraad/flatpak-builder-gnome bash'
+alias flatpak-builder-freedesktop='docker run -it --rm -v $PWD:/workspace registry.gitlab.com/gbraad/flatpak-builder-desktop bash'
+
 # others
 alias youtube-dl='docker run --rm -u $(id -u):$(id -g) -v $PWD:/data vimagick/youtube-dl'
 alias nginx-pwd='docker run --name nginx-pwd -p 80:80 -v $PWD:/usr/share/nginx/html:ro -d nginx'
