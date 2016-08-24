@@ -1,2 +1,3 @@
-# just start zsh if no chsh is available
-zsh && return
+# if not running interactively, don't do anything else
+[ -z "$PS1" ] && return
+zsh
