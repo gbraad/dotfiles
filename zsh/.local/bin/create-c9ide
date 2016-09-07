@@ -1,0 +1,26 @@
+#!/bin/sh
+set -e
+
+if [ $# -eq 0 ]; then
+    echo "create-c9ide [name:test] [hostname:.local] [email:nobody@local] [password:secrete] [flavor:{u1604}/c7/f24] [workspace:/workspaces/c9ide-{name}]"
+    exit 1
+fi
+
+NAME=${1:-"test"}
+HOST=${2:-${NAME}".local"}
+USER=${3:-"nobody@local"}
+PASS=${4:-"secrete"}
+FLAVOR=${5:-"u1604"}
+VOLUME=${6:-"/workspaces/c9ide-"${NAME}}
+
+mkdir -p ${VOLUME}
+docker run -d \
+   --name ${NAME} \
+   -v ${VOLUME}:/workspace:rw \
+   -e "VIRTUAL_HOST=${HOST}" \
+   -e "LETSENCRYPT_HOST=${HOST}" \
+   -e "LETSENCRYPT_EMAIL=${USER}" \
+   -e "USERNAME=${USER}" \
+   -e "PASSWORD=${PASS}" \
+   gbraad/c9ide:${FLAVOR}
+
