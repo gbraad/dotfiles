@@ -27,6 +27,11 @@ alias jupyter='docker run -it --rm -v $PWD:/workspace -p 8888:8888 registry.gitl
 alias flatpak-builder-gnome='docker run -it --rm -v $PWD:/workspace registry.gitlab.com/gbraad/flatpak-builder-gnome bash'
 alias flatpak-builder-freedesktop='docker run -it --rm -v $PWD:/workspace registry.gitlab.com/gbraad/flatpak-builder-desktop bash'
 
+# LibreOffice (convert: --headless --convert-to odt *.docx)
+#alias libreoffice='docker run --rm -v $PWD:/workspace registry.gitlab.com/gbraad/libreoffice:latest libreoffice'
+alias libreoffice='flatpak run org.libreoffice.LibreOffice'
+#alias=libreoffice='docker run -v $PWD:/workspace registry.gitlab.com/gbraad/libreoffice:latest flatpak run org.libreoffice.LibreOffice'
+
 # others
 alias youtube-dl='docker run --rm -u $(id -u):$(id -g) -v $PWD:/data vimagick/youtube-dl'
 alias nginx-pwd='docker run --name nginx-pwd -p 80:80 -v $PWD:/usr/share/nginx/html:ro -d nginx'
