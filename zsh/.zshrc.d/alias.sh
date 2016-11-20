@@ -5,7 +5,10 @@ alias stack='docker run -it --rm -v $PWD:/workspace -v ~/.stack:/root/.stack reg
 alias openstack='docker run -it --rm -v $PWD:/workspace -v ~/.config/openstack:/root/.config/openstack registry.gitlab.com/gbraad/openstack-client:centos openstack'
 
 # Kubernetes: https://gitlab.com/gbraad/kubernetes-client
-alias kubectl='docker run -it --rm -v $PWD:/workspace registry.gitlab.com/gbraad/kubernetes-client:fedora kubectl'
+#alias kubectl='docker run -it --rm -v $PWD:/workspace registry.gitlab.com/gbraad/kubernetes-client:fedora kubectl'
+
+# OpenShift: https://gitlab.com/gbraad/flatpak-openshift-client
+alias oc='flatpak run nl.gbraad.OpenShiftClient'
 
 # devenv: https://gitlab.com/gbraad/devenv
 alias devenv='docker run -it --rm -v $PWD:/workspace registry.gitlab.com/gbraad/devenv:f24'
