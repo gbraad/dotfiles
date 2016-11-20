@@ -6,6 +6,8 @@ alias openstack='docker run -it --rm -v $PWD:/workspace -v ~/.config/openstack:/
 
 # Kubernetes: https://gitlab.com/gbraad/kubernetes-client
 #alias kubectl='docker run -it --rm -v $PWD:/workspace registry.gitlab.com/gbraad/kubernetes-client:fedora kubectl'
+# https://gitlab.com/gbraad/flatpak-kubernetes-client
+alias kubectl='flatpak run nl.gbraad.KubernetestClient'
 
 # OpenShift: https://gitlab.com/gbraad/flatpak-openshift-client
 alias oc='flatpak run nl.gbraad.OpenShiftClient'
