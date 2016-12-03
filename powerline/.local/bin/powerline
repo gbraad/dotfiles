@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!env python
 # vim:fileencoding=utf-8:noet
 '''Powerline prompt and statusline script.'''
 import sys
