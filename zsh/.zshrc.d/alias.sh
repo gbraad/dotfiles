@@ -16,7 +16,7 @@ alias oc='flatpak run nl.gbraad.OpenShiftClient'
 alias devenv='docker run -it --rm -v $PWD:/workspace registry.gitlab.com/gbraad/devenv:f24'
 
 # c9ide: https://gitlab.com/gbraad/c9ide
-alias c9ide='docker run -it --rm -v `pwd`:/workspace registry.gitlab.com/gbraad/c9ide:f24'
+alias c9ide='docker run -it --rm -v `pwd`:/workspace registry.gitlab.com/gbraad/c9ide:f25'
 
 # pandoc: https://gitlab.com/gbraad/docugen
 alias pandoc='docker run -it --rm -v $PWD:/workspace registry.gitlab.com/gbraad/docugen pandoc'
