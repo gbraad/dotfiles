@@ -1,6 +1,6 @@
 [user]
-    name = Gerard Braad
-    email = me@gbraad.nl
+	name = Gerard Braad
+	email = me@gbraad.nl
 [core]
     editor = vim
     whitespace = off

@@ -40,3 +40,6 @@ alias libreoffice='flatpak run org.libreoffice.LibreOffice'
 # others
 alias youtube-dl='docker run --rm -u $(id -u):$(id -g) -v $PWD:/data vimagick/youtube-dl'
 alias nginx-pwd='docker run --name nginx-pwd -p 80:80 -v $PWD:/usr/share/nginx/html:ro -d nginx'
+
+# Sublime Text
+alias st='/opt/sublime_text/sublime_text $PWD'

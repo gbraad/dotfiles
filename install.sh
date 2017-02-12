@@ -17,7 +17,7 @@ fi
 # Add missing directory layout
 if [ ! -d "~/.config" ]
 then
-  mkdir ~/.config
+  mkdir -p ~/.config
 fi
 
 mkdir -p ~/.local/bin
