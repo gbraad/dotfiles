@@ -43,3 +43,6 @@ alias nginx-pwd='docker run --name nginx-pwd -p 80:80 -v $PWD:/usr/share/nginx/h
 
 # Sublime Text
 alias st='/opt/sublime_text/sublime_text $PWD'
+
+# Steam powered
+alias steamcmd='docker run -it -v $HOME/Steam:/home/user/Steam registry.gitlab.com/gbraad/steamcmd:latest'
