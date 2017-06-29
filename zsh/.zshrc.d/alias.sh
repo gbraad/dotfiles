@@ -48,5 +48,6 @@ alias st='/opt/sublime_text/sublime_text $PWD'
 alias steamcmd='docker run -it -v $HOME/Steam:/home/user/Steam registry.gitlab.com/gbraad/steamcmd:latest'
 
 # Minishift
-alias minidocker="docker -H tcp://`minishift ip`:2376 --tls --tlscacert=$PWD/.minishift/certs/ca.pem --tlscert=$PWD/.minishift/certs/cert.pem --tlskey=$PWD/.minishift/certs/key.pem"
-
+minidocker() {
+   docker -H tcp://`minishift ip`:2376 --tls --tlscacert=$PWD/.minishift/certs/ca.pem --tlscert=$PWD/.minishift/certs/cert.pem --tlskey=$PWD/.minishift/certs/key.pem"
+}
