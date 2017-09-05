@@ -10,13 +10,13 @@ alias openstack='docker run -it --rm -v $PWD:/workspace -v ~/.config/openstack:/
 alias kubectl='flatpak run nl.gbraad.KubernetestClient'
 
 # OpenShift: https://gitlab.com/gbraad/flatpak-openshift-client
-alias oc='flatpak run nl.gbraad.OpenShiftClient'
+#alias oc='flatpak run nl.gbraad.OpenShiftClient'
 
 # devenv: https://gitlab.com/gbraad/devenv
-alias devenv='docker run -it --rm -v $PWD:/workspace registry.gitlab.com/gbraad/devenv:f24'
+alias devenv='docker run -it --rm -v $PWD:/workspace registry.gitlab.com/gbraad/devenv:f26'
 
 # c9ide: https://gitlab.com/gbraad/c9ide
-alias c9ide='docker run -it --rm -v `pwd`:/workspace registry.gitlab.com/gbraad/c9ide:f25'
+alias c9ide='docker run -it --rm -v `pwd`:/workspace registry.gitlab.com/gbraad/c9ide:f26'
 
 # pandoc: https://gitlab.com/gbraad/docugen
 alias pandoc='docker run -it --rm -v $PWD:/workspace registry.gitlab.com/gbraad/docugen pandoc'
@@ -51,3 +51,6 @@ alias steamcmd='docker run -it -v $HOME/Steam:/home/user/Steam registry.gitlab.c
 minidocker() {
    docker -H tcp://`minishift ip`:2376 --tls --tlscacert=$PWD/.minishift/certs/ca.pem --tlscert=$PWD/.minishift/certs/cert.pem --tlskey=$PWD/.minishift/certs/key.pem
 }
+
+# hostenter
+alias hostenter='docker run --rm -it --privileged --pid=host gbraad/hostenter /bin/bash'
