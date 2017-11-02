@@ -1,10 +1,11 @@
 # vim:fileencoding=utf-8:noet
-
-from __future__ import absolute_import
-
-from powerline.lib.monotonic import monotonic
+from __future__ import (unicode_literals, division, absolute_import, print_function)
 
 from threading import Thread, Lock, Event
+from types import MethodType
+
+from powerline.lib.monotonic import monotonic
+from powerline.segments import Segment
 
 
 class MultiRunnedThread(object):
@@ -28,11 +29,13 @@ class MultiRunnedThread(object):
 		return None
 
 
-class ThreadedSegment(MultiRunnedThread):
+class ThreadedSegment(Segment, MultiRunnedThread):
 	min_sleep_time = 0.1
 	update_first = True
 	interval = 1
 	daemon = False
+
+	argmethods = ('render', 'set_state')
 
 	def __init__(self):
 		super(ThreadedSegment, self).__init__()
@@ -99,7 +102,7 @@ class ThreadedSegment(MultiRunnedThread):
 	def shutdown(self):
 		self.shutdown_event.set()
 		if self.daemon and self.is_alive():
-			# Give the worker thread a chance to shutdown, but don't block for 
+			# Give the worker thread a chance to shutdown, but don’t block for 
 			# too long
 			self.join(0.01)
 
@@ -145,9 +148,32 @@ class ThreadedSegment(MultiRunnedThread):
 	def debug(self, *args, **kwargs):
 		self.pl.debug(prefix=self.__class__.__name__, *args, **kwargs)
 
+	def argspecobjs(self):
+		for name in self.argmethods:
+			try:
+				yield name, getattr(self, name)
+			except AttributeError:
+				pass
+
+	def additional_args(self):
+		return (('interval', self.interval),)
+
+	_omitted_args = {
+		'render': (0,),
+		'set_state': ('shutdown_event',),
+	}
+
+	def omitted_args(self, name, method):
+		ret = self._omitted_args.get(name, ())
+		if isinstance(getattr(self, name, None), MethodType):
+			ret = tuple((i + 1 if isinstance(i, int) else i for i in ret))
+		return ret
+
 
 class KwThreadedSegment(ThreadedSegment):
 	update_first = True
+
+	argmethods = ('render', 'set_state', 'key', 'render_one')
 
 	def __init__(self):
 		super(KwThreadedSegment, self).__init__()
@@ -229,7 +255,8 @@ class KwThreadedSegment(ThreadedSegment):
 	def render_one(update_state, **kwargs):
 		return update_state
 
-
-def with_docstring(instance, doc):
-	instance.__doc__ = doc
-	return instance
+	_omitted_args = {
+		'render': ('update_value', 'key', 'after_update'),
+		'set_state': ('shutdown_event',),
+		'render_one': (0,),
+	}

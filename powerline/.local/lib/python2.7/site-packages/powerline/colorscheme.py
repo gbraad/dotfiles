@@ -1,6 +1,9 @@
 # vim:fileencoding=utf-8:noet
+from __future__ import (unicode_literals, division, absolute_import, print_function)
 
 from copy import copy
+
+from powerline.lib.unicode import unicode
 
 
 DEFAULT_MODE_KEY = None
@@ -9,16 +12,16 @@ ATTR_ITALIC = 2
 ATTR_UNDERLINE = 4
 
 
-def get_attr_flag(attributes):
+def get_attrs_flag(attrs):
 	'''Convert an attribute array to a renderer flag.'''
-	attr_flag = 0
-	if 'bold' in attributes:
-		attr_flag |= ATTR_BOLD
-	if 'italic' in attributes:
-		attr_flag |= ATTR_ITALIC
-	if 'underline' in attributes:
-		attr_flag |= ATTR_UNDERLINE
-	return attr_flag
+	attrs_flag = 0
+	if 'bold' in attrs:
+		attrs_flag |= ATTR_BOLD
+	if 'italic' in attrs:
+		attrs_flag |= ATTR_ITALIC
+	if 'underline' in attrs:
+		attrs_flag |= ATTR_UNDERLINE
+	return attrs_flag
 
 
 def pick_gradient_value(grad_list, gradient_level):
@@ -27,14 +30,6 @@ def pick_gradient_value(grad_list, gradient_level):
 	Note: gradient level is not checked for being inside [0, 100] interval.
 	'''
 	return grad_list[int(round(gradient_level * (len(grad_list) - 1) / 100))]
-
-
-def hl_iter(value):
-	if type(value) is list:
-		for v in value:
-			yield v
-	else:
-		yield value
 
 
 class Colorscheme(object):
@@ -70,35 +65,44 @@ class Colorscheme(object):
 		else:
 			return self.colors[gradient]
 
-	def get_highlighting(self, groups, mode, gradient_level=None):
-		trans = self.translations.get(mode, {})
-		for group in hl_iter(groups):
-			if 'groups' in trans and group in trans['groups']:
+	def get_group_props(self, mode, trans, group, translate_colors=True):
+		if isinstance(group, (str, unicode)):
+			try:
+				group_props = trans['groups'][group]
+			except KeyError:
 				try:
-					group_props = trans['groups'][group]
+					group_props = self.groups[group]
 				except KeyError:
-					continue
-				break
-
+					return None
+				else:
+					return self.get_group_props(mode, trans, group_props, True)
 			else:
-				try:
-					group_props = copy(self.groups[group])
-				except KeyError:
-					continue
-
+				return self.get_group_props(mode, trans, group_props, False)
+		else:
+			if translate_colors:
+				group_props = copy(group)
 				try:
 					ctrans = trans['colors']
+				except KeyError:
+					pass
+				else:
 					for key in ('fg', 'bg'):
 						try:
 							group_props[key] = ctrans[group_props[key]]
 						except KeyError:
 							pass
-				except KeyError:
-					pass
+				return group_props
+			else:
+				return group
 
+	def get_highlighting(self, groups, mode, gradient_level=None):
+		trans = self.translations.get(mode, {})
+		for group in groups:
+			group_props = self.get_group_props(mode, trans, group)
+			if group_props:
 				break
 		else:
-			raise KeyError('Highlighting groups not found in colorscheme: ' + ', '.join(hl_iter(groups)))
+			raise KeyError('Highlighting groups not found in colorscheme: ' + ', '.join(groups))
 
 		if gradient_level is None:
 			pick_color = self.colors.__getitem__
@@ -108,7 +112,7 @@ class Colorscheme(object):
 		return {
 			'fg': pick_color(group_props['fg']),
 			'bg': pick_color(group_props['bg']),
-			'attr': get_attr_flag(group_props.get('attr', [])),
+			'attrs': get_attrs_flag(group_props.get('attrs', [])),
 		}
 
 

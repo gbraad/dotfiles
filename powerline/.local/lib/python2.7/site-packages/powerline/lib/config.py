@@ -1,14 +1,15 @@
 # vim:fileencoding=utf-8:noet
-
-from powerline.lib.threaded import MultiRunnedThread
-from powerline.lib.file_watcher import create_file_watcher
-from copy import deepcopy
-
-from threading import Event, Lock
-from collections import defaultdict
+from __future__ import (unicode_literals, division, absolute_import, print_function)
 
 import json
 import codecs
+
+from copy import deepcopy
+from threading import Event, Lock
+from collections import defaultdict
+
+from powerline.lib.threaded import MultiRunnedThread
+from powerline.lib.watcher import create_file_watcher
 
 
 def open_file(path):
@@ -28,14 +29,41 @@ class DummyWatcher(object):
 		pass
 
 
+class DeferredWatcher(object):
+	def __init__(self, *args, **kwargs):
+		self.args = args
+		self.kwargs = kwargs
+		self.calls = []
+
+	def __call__(self, *args, **kwargs):
+		self.calls.append(('__call__', args, kwargs))
+
+	def watch(self, *args, **kwargs):
+		self.calls.append(('watch', args, kwargs))
+
+	def unwatch(self, *args, **kwargs):
+		self.calls.append(('unwatch', args, kwargs))
+
+	def transfer_calls(self, watcher):
+		for attr, args, kwargs in self.calls:
+			getattr(watcher, attr)(*args, **kwargs)
+
+
 class ConfigLoader(MultiRunnedThread):
-	def __init__(self, shutdown_event=None, watcher=None, load=load_json_config, run_once=False):
+	def __init__(self, shutdown_event=None, watcher=None, watcher_type=None, load=load_json_config, run_once=False):
 		super(ConfigLoader, self).__init__()
 		self.shutdown_event = shutdown_event or Event()
 		if run_once:
 			self.watcher = DummyWatcher()
+			self.watcher_type = 'dummy'
 		else:
-			self.watcher = watcher or create_file_watcher()
+			self.watcher = watcher or DeferredWatcher()
+			if watcher:
+				if not watcher_type:
+					raise ValueError('When specifying watcher you must also specify watcher type')
+				self.watcher_type = watcher_type
+			else:
+				self.watcher_type = 'deferred'
 		self._load = load
 
 		self.pl = None
@@ -46,6 +74,16 @@ class ConfigLoader(MultiRunnedThread):
 		self.watched = defaultdict(set)
 		self.missing = defaultdict(set)
 		self.loaded = {}
+
+	def set_watcher(self, watcher_type, force=False):
+		if watcher_type == self.watcher_type:
+			return
+		watcher = create_file_watcher(self.pl, watcher_type)
+		with self.lock:
+			if self.watcher_type == 'deferred':
+				self.watcher.transfer_calls(watcher)
+			self.watcher = watcher
+			self.watcher_type = watcher_type
 
 	def set_pl(self, pl):
 		self.pl = pl
@@ -72,7 +110,8 @@ class ConfigLoader(MultiRunnedThread):
 
 		:param function condition_function:
 			Function which will be called each ``interval`` seconds. All 
-			exceptions from it will be ignored.
+			exceptions from it will be logged and ignored. IOError exception 
+			will be ignored without logging.
 		:param function function:
 			Function which will be called if condition_function returns 
 			something that is true. Accepts result of condition_function as an 
@@ -142,6 +181,8 @@ class ConfigLoader(MultiRunnedThread):
 				for condition_function, function in list(functions):
 					try:
 						path = condition_function(key)
+					except IOError:
+						pass
 					except Exception as e:
 						self.exception('Error while running condition function for key {0}: {1}', key, str(e))
 					else:
@@ -155,11 +196,15 @@ class ConfigLoader(MultiRunnedThread):
 			try:
 				self.loaded[path] = deepcopy(self._load(path))
 			except Exception as e:
+				self.exception('Error while loading {0}: {1}', path, str(e))
 				try:
 					self.loaded.pop(path)
 				except KeyError:
 					pass
-				self.exception('Error while loading {0}: {1}', path, str(e))
+				try:
+					self.loaded.pop(path)
+				except KeyError:
+					pass
 
 	def run(self):
 		while self.interval is not None and not self.shutdown_event.is_set():

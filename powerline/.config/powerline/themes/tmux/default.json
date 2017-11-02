@@ -1,45 +1,27 @@
 {
-	"default_module": "powerline.segments.common",
-	"segment_data": {
-		"uptime": {
-			"before": "⇑  "
-		},
-		"external_ip": {
-			"before": "ⓦ  "
-		},
-		"date": {
-			"before": "⌚ "
-		},
-		"email_imap_alert": {
-			"before": "✉ ",
-			"args": {
-				"username": "",
-				"password": ""
-			}
-		}
-	},
 	"segments": {
 		"right": [
 			{
-				"name": "uptime",
+				"function": "powerline.segments.common.sys.uptime",
 				"priority": 50
 			},
 			{
-				"name": "system_load",
+				"function": "powerline.segments.common.sys.system_load",
 				"priority": 50
 			},
 			{
-				"name": "date"
+				"function": "powerline.segments.common.time.date"
 			},
 			{
-				"name": "date",
+				"function": "powerline.segments.common.time.date",
+				"name": "time",
 				"args": {
 					"format": "%H:%M",
 					"istime": true
 				}
 			},
 			{
-				"name": "hostname"
+				"function": "powerline.segments.common.net.hostname"
 			}
 		]
 	}

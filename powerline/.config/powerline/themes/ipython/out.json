@@ -1,5 +1,5 @@
 {
-	"default_module": "powerline.segments.common",
+	"default_module": "powerline.segments.ipython",
 	"segments": {
 		"left": [
 			{
@@ -8,17 +8,16 @@
 				"draw_soft_divider": false,
 				"width": "auto",
 				"align": "r",
-				"highlight_group": ["prompt"]
+				"highlight_groups": ["prompt"]
 			},
 			{
-				"name": "prompt_count",
-				"module": "powerline.segments.ipython",
+				"function": "prompt_count",
 				"draw_soft_divider": false
 			},
 			{
 				"type": "string",
 				"contents": "]",
-				"highlight_group": ["prompt"]
+				"highlight_groups": ["prompt"]
 			}
 		]
 	}

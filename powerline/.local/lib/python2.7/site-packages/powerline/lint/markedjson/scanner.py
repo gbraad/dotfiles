@@ -1,3 +1,16 @@
+# vim:fileencoding=utf-8:noet
+from __future__ import (unicode_literals, division, absolute_import, print_function)
+
+from string import hexdigits
+
+from powerline.lint.markedjson.error import MarkedError
+from powerline.lint.markedjson import tokens
+from powerline.lib.unicode import unicode, unichr, surrogate_pair_to_character
+
+
+hexdigits_set = set(hexdigits)
+
+
 # Scanner produces tokens of the following types:
 # STREAM-START
 # STREAM-END
@@ -14,20 +27,9 @@
 #
 # Read comments in the Scanner code for more details.
 
-__all__ = ['Scanner', 'ScannerError']
-
-from .error import MarkedError
-from .tokens import *  # NOQA
-
 
 class ScannerError(MarkedError):
 	pass
-
-
-try:
-	from __builtin__ import unicode
-except ImportError:
-	unicode = str  # NOQA
 
 
 class SimpleKey:
@@ -42,15 +44,15 @@ class SimpleKey:
 
 class Scanner:
 	def __init__(self):
-		"""Initialize the scanner."""
+		'''Initialize the scanner.'''
 		# It is assumed that Scanner and Reader will have a common descendant.
 		# Reader do the dirty work of checking for BOM and converting the
 		# input data to Unicode. It also adds NUL to the end.
 		#
 		# Reader supports the following methods
-		#	self.peek(i=0)		 # peek the next i-th character
-		#	self.prefix(l=1)	 # peek the next l characters
-		#	self.forward(l=1)	 # read the next l characters and move the pointer.
+		# 	self.peek(i=0)		 # peek the next i-th character
+		# 	self.prefix(l=1)	 # peek the next l characters
+		# 	self.forward(l=1)	 # read the next l characters and move the pointer.
 
 		# Had we reached the end of the stream?
 		self.done = False
@@ -83,7 +85,7 @@ class Scanner:
 		# Keep track of possible simple keys. This is a dictionary. The key
 		# is `flow_level`; there can be no more that one possible simple key
 		# for each level. The value is a SimpleKey record:
-		#	(token_number, index, line, column, mark)
+		# 	(token_number, index, line, column, mark)
 		# A simple key may start with SCALAR(flow), '[', or '{' tokens.
 		self.possible_simple_keys = {}
 
@@ -171,28 +173,30 @@ class Scanner:
 			return self.fetch_value()
 
 		# Is it a double quoted scalar?
-		if ch == '\"':
+		if ch == '"':
 			return self.fetch_double()
 
 		# It must be a plain scalar then.
 		if self.check_plain():
 			return self.fetch_plain()
 
-		# No? It's an error. Let's produce a nice error message.
-		raise ScannerError("while scanning for the next token", None,
-				"found character %r that cannot start any token" % ch,
-				self.get_mark())
+		# No? It’s an error. Let’s produce a nice error message.
+		raise ScannerError(
+			'while scanning for the next token', None,
+			'found character %r that cannot start any token' % ch,
+			self.get_mark()
+		)
 
 	# Simple keys treatment.
 
 	def next_possible_simple_key(self):
 		# Return the number of the nearest possible simple key. Actually we
-		# don't need to loop through the whole dictionary. We may replace it
+		# don’t need to loop through the whole dictionary. We may replace it
 		# with the following code:
-		#	if not self.possible_simple_keys:
-		#		return None
-		#	return self.possible_simple_keys[
-		#			min(self.possible_simple_keys.keys())].token_number
+		# 	if not self.possible_simple_keys:
+		# 		return None
+		# 	return self.possible_simple_keys[
+		# 			min(self.possible_simple_keys.keys())].token_number
 		min_token_number = None
 		for level in self.possible_simple_keys:
 			key = self.possible_simple_keys[level]
@@ -212,17 +216,16 @@ class Scanner:
 				del self.possible_simple_keys[level]
 
 	def save_possible_simple_key(self):
-		# The next token may start a simple key. We check if it's possible
+		# The next token may start a simple key. We check if it’s possible
 		# and save its position. This function is called for
-		#	SCALAR(flow), '[', and '{'.
+		# 	SCALAR(flow), '[', and '{'.
 
-		# The next token might be a simple key. Let's save it's number and
+		# The next token might be a simple key. Let’s save it’s number and
 		# position.
 		if self.allow_simple_key:
 			self.remove_possible_simple_key()
 			token_number = self.tokens_taken + len(self.tokens)
-			key = SimpleKey(token_number,
-					self.index, self.line, self.column, self.get_mark())
+			key = SimpleKey(token_number, self.index, self.line, self.column, self.get_mark())
 			self.possible_simple_keys[self.flow_level] = key
 
 	def remove_possible_simple_key(self):
@@ -240,8 +243,7 @@ class Scanner:
 		mark = self.get_mark()
 
 		# Add STREAM-START.
-		self.tokens.append(StreamStartToken(mark, mark,
-			encoding=self.encoding))
+		self.tokens.append(tokens.StreamStartToken(mark, mark, encoding=self.encoding))
 
 	def fetch_stream_end(self):
 		# Reset simple keys.
@@ -253,19 +255,18 @@ class Scanner:
 		mark = self.get_mark()
 
 		# Add STREAM-END.
-		self.tokens.append(StreamEndToken(mark, mark))
+		self.tokens.append(tokens.StreamEndToken(mark, mark))
 
 		# The steam is finished.
 		self.done = True
 
 	def fetch_flow_sequence_start(self):
-		self.fetch_flow_collection_start(FlowSequenceStartToken)
+		self.fetch_flow_collection_start(tokens.FlowSequenceStartToken)
 
 	def fetch_flow_mapping_start(self):
-		self.fetch_flow_collection_start(FlowMappingStartToken)
+		self.fetch_flow_collection_start(tokens.FlowMappingStartToken)
 
 	def fetch_flow_collection_start(self, TokenClass):
-
 		# '[' and '{' may start a simple key.
 		self.save_possible_simple_key()
 
@@ -282,13 +283,12 @@ class Scanner:
 		self.tokens.append(TokenClass(start_mark, end_mark))
 
 	def fetch_flow_sequence_end(self):
-		self.fetch_flow_collection_end(FlowSequenceEndToken)
+		self.fetch_flow_collection_end(tokens.FlowSequenceEndToken)
 
 	def fetch_flow_mapping_end(self):
-		self.fetch_flow_collection_end(FlowMappingEndToken)
+		self.fetch_flow_collection_end(tokens.FlowMappingEndToken)
 
 	def fetch_flow_collection_end(self, TokenClass):
-
 		# Reset possible simple key on the current level.
 		self.remove_possible_simple_key()
 
@@ -311,8 +311,7 @@ class Scanner:
 			# Add KEY.
 			key = self.possible_simple_keys[self.flow_level]
 			del self.possible_simple_keys[self.flow_level]
-			self.tokens.insert(key.token_number - self.tokens_taken,
-					KeyToken(key.mark, key.mark))
+			self.tokens.insert(key.token_number - self.tokens_taken, tokens.KeyToken(key.mark, key.mark))
 
 			# There cannot be two simple keys one after another.
 			self.allow_simple_key = False
@@ -321,10 +320,9 @@ class Scanner:
 		start_mark = self.get_mark()
 		self.forward()
 		end_mark = self.get_mark()
-		self.tokens.append(ValueToken(start_mark, end_mark))
+		self.tokens.append(tokens.ValueToken(start_mark, end_mark))
 
 	def fetch_flow_entry(self):
-
 		# Simple keys are allowed after ','.
 		self.allow_simple_key = True
 
@@ -335,7 +333,7 @@ class Scanner:
 		start_mark = self.get_mark()
 		self.forward()
 		end_mark = self.get_mark()
-		self.tokens.append(FlowEntryToken(start_mark, end_mark))
+		self.tokens.append(tokens.FlowEntryToken(start_mark, end_mark))
 
 	def fetch_double(self):
 		# A flow scalar could be a simple key.
@@ -371,7 +369,7 @@ class Scanner:
 	def scan_flow_scalar(self):
 		# See the specification for details.
 		# Note that we loose indentation rules for quoted scalars. Quoted
-		# scalars don't need to adhere indentation because " and ' clearly
+		# scalars don’t need to adhere indentation because " and ' clearly
 		# mark the beginning and the end of them. Therefore we are less
 		# restrictive then the specification requires. We only need to check
 		# that document separators are not included in scalars.
@@ -385,7 +383,7 @@ class Scanner:
 			chunks.extend(self.scan_flow_scalar_non_spaces(start_mark))
 		self.forward()
 		end_mark = self.get_mark()
-		return ScalarToken(unicode().join(chunks), False, start_mark, end_mark, '"')
+		return tokens.ScalarToken(unicode().join(chunks), False, start_mark, end_mark, '"')
 
 	ESCAPE_REPLACEMENTS = {
 		'b': '\x08',
@@ -393,7 +391,7 @@ class Scanner:
 		'n': '\x0A',
 		'f': '\x0C',
 		'r': '\x0D',
-		'\"': '\"',
+		'"': '\"',
 		'\\': '\\',
 	}
 
@@ -422,16 +420,39 @@ class Scanner:
 					length = self.ESCAPE_CODES[ch]
 					self.forward()
 					for k in range(length):
-						if self.peek(k) not in '0123456789ABCDEFabcdef':
-							raise ScannerError("while scanning a double-quoted scalar", start_mark,
-									"expected escape sequence of %d hexdecimal numbers, but found %r" %
-										(length, self.peek(k)), self.get_mark())
+						if self.peek(k) not in hexdigits:
+							raise ScannerError(
+								'while scanning a double-quoted scalar', start_mark,
+								'expected escape sequence of %d hexdecimal numbers, but found %r' % (
+									length, self.peek(k)),
+								self.get_mark()
+							)
 					code = int(self.prefix(length), 16)
-					chunks.append(chr(code))
 					self.forward(length)
+					if 0xD800 <= code <= 0xDC00:
+						# Start of the surrogate pair
+						next_char = self.prefix(6)
+						if (
+							next_char[0] != '\\'
+							or next_char[1] != 'u'
+							or not (set(next_char[2:]) < hexdigits_set)
+							or not (0xDC00 <= int(next_char[2:], 16) <= 0xDFFF)
+						):
+							raise ScannerError(
+								'while scanning a double-quoted scalar', start_mark,
+								'expected escape sequence with the next character in surrogate pair, but found %r' % (
+									next_char
+								),
+								self.get_mark()
+							)
+						code = surrogate_pair_to_character(code, int(next_char[2:], 16))
+						self.forward(6)
+					chunks.append(unichr(code))
 				else:
-					raise ScannerError("while scanning a double-quoted scalar", start_mark,
-							"found unknown escape character %r" % ch, self.get_mark())
+					raise ScannerError(
+						'while scanning a double-quoted scalar', start_mark,
+						('found unknown escape character %r' % ch), self.get_mark()
+					)
 			else:
 				return chunks
 
@@ -445,11 +466,15 @@ class Scanner:
 		self.forward(length)
 		ch = self.peek()
 		if ch == '\0':
-			raise ScannerError("while scanning a quoted scalar", start_mark,
-					"found unexpected end of stream", self.get_mark())
+			raise ScannerError(
+				'while scanning a quoted scalar', start_mark,
+				'found unexpected end of stream', self.get_mark()
+			)
 		elif ch == '\n':
-			raise ScannerError("while scanning a quoted scalar", start_mark,
-					"found unexpected line end", self.get_mark())
+			raise ScannerError(
+				'while scanning a quoted scalar', start_mark,
+				'found unexpected line end', self.get_mark()
+			)
 		else:
 			chunks.append(whitespaces)
 		return chunks
@@ -471,4 +496,4 @@ class Scanner:
 			chunks.append(self.prefix(length))
 			self.forward(length)
 		end_mark = self.get_mark()
-		return ScalarToken(''.join(chunks), True, start_mark, end_mark)
+		return tokens.ScalarToken(''.join(chunks), True, start_mark, end_mark)
