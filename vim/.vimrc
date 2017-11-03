@@ -1,10 +1,7 @@
 set laststatus=2
 set noshowmode
 
-"python from powerline.vim import setup as powerline_setup
-"python powerline_setup()
-"python del powerline_setup
-"set rtp+=/home/ubuntu/.local/lib/python2.7/site-packages/powerline/bindings/vim
+set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim
 
 "colorscheme Tomorrow-Night-Bright
 
