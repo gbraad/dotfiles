@@ -1,13 +1,19 @@
 [user]
 	name = Gerard Braad
 	email = me@gbraad.nl
+	signingkey = D4B4003D16997C1D
 [core]
-    editor = vim
-    whitespace = off
-    excludesfile = ~/.gitignore
+	editor = vim
+	whitespace = off
+	excludesfile = ~/.gitignore
 [advice]
-    statusuoption = false
+	statusuoption = false
 [color]
-    ui = true
+	ui = true
 [push]
-    default = current
+	default = current
+[commit]
+	gpgsign = true
+[alias]
+	amend = commit -s --amend
+	commit = commit -s
