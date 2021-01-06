@@ -22,6 +22,11 @@ CentOS/Fedora
 $ yum install git tmux zsh mc stow #dnf
 ```
 
+CentOS 8
+```
+$ dnf install epel-release python2
+```
+
 Debian/Ubuntu
 ```
 $ apt-get install git tmux zsh mc stow
