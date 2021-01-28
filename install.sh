@@ -26,8 +26,7 @@ mkdir -p ~/.local/lib/python2.7/site-packages/
 # Personal dotfiles
 git clone https://github.com/gbraad/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-git submodule init
-git submodule update
+git submodule update --init --progress
 
 # stow the configurations
 stow powerline

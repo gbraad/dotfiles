@@ -19,7 +19,7 @@ Requirements
 
 CentOS/Fedora
 ```
-$ yum install git tmux zsh mc stow #dnf
+$ dnf install git tmux zsh mc stow python2
 ```
 
 CentOS 8
