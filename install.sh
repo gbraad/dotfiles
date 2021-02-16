@@ -1,6 +1,6 @@
 #!/bin/sh
-APTPKGS="git-core zsh stow"
-RPMPKGS="git zsh stow"
+APTPKGS="git zsh stow"
+RPMPKGS="git-core zsh stow"
 
 # Crude multi-os installation option
 if [ -x "/usr/bin/apt-get" ]
