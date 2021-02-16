@@ -17,3 +17,5 @@
 [alias]
 	amend = commit -s --amend
 	commit = commit -s
+[pull]
+        ff = only
