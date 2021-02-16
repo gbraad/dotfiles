@@ -9,6 +9,9 @@ then
 elif [ -x "/usr/bin/dnf" ]
 then
    sudo dnf install -y $RPMPKGS
+   
+   # allow first-time system install
+   set SYSTEM_INSTALL=1
 elif [ -x "/usr/bin/yum" ]
 then
    sudo yum install -y $RPMPKGS
