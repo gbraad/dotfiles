@@ -26,4 +26,4 @@ alias steamcmd='docker run -it -v $HOME/Steam:/home/user/Steam registry.gitlab.c
 alias hostenter='docker run --rm -it --privileged --pid=host gbraad/hostenter /bin/bash'
 
 # colorized cat
-alias ccat='pygmentize -g -O style=colorful,linenos=1'
+alias ccat='pygmentize -g -O style=tomorrownightbright,linenos=1'
