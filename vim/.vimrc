@@ -1,6 +1,7 @@
 set laststatus=2
 set noshowmode
 
+set rtp^=$HOME/.vim
 set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim
 
 colorscheme Tomorrow-Night-Bright
