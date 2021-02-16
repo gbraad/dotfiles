@@ -3,7 +3,7 @@ set noshowmode
 
 set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim
 
-"colorscheme Tomorrow-Night-Bright
+colorscheme Tomorrow-Night-Bright
 
 "set guifont=Source\ Code\ Pro\ for\ Powerline
 "set cursorline 
