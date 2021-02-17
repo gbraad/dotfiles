@@ -38,3 +38,8 @@ stow tmux
 stow vim
 stow git
 stow i3
+
+# stow wsl specific stuff
+if grep -qi Microsoft /proc/version; then
+  stow wsl
+fi

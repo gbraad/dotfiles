@@ -1,0 +1,2 @@
+#!/bin/sh
+pygmentize -g -O style=tomorrownightbright,linenos=1 $1
