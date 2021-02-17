@@ -52,12 +52,13 @@ $ curl -sSL https://raw.githubusercontent.com/gbraad/dotfiles/master/install.sh 
 Usage
 -----
 
-  * Used in my [C9](http://c9.io) workspaces
-  * [Developer environment](https://github.com/gbraad/devenv/) setup
+  * ~~Used in my [C9](http://c9.io) workspaces~~
+  * ~~[Developer environment](https://github.com/gbraad/devenv/) setup~~
   * Docker [developer environment](https://hub.docker.com/r/gbraad/devenv) image
   * Google Cloud Platform [cloud shell](https://console.cloud.google.com)
-  * Windows Subsystem for Linux; Bash on Ubuntu on Windows
+  * Windows Subsystem for Linux (WSL2); Bash on Ubuntu on Windows (WSL1)
   * Tested on: CentOS7+, Fedora 21+, and Ubuntu 14.04+
+  * Cygwin64
   * ...
 
 
