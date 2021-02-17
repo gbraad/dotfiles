@@ -1,0 +1,5 @@
+URxvt*background: black
+URxvt*foreground: white
+URxvt*font: xft:Source\ Code\ Pro\ Medium:pixelsize=13:antialias=true:hinting=true,xft:Source\ Code\ Pro\ Medium:pixelsize=13:antialias=true:hinting=true
+URxvt*scrollBar: false
+

@@ -37,3 +37,4 @@ stow zsh
 stow tmux
 stow vim
 stow git
+stow i3
