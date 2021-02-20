@@ -43,3 +43,9 @@ stow i3
 if grep -qi Microsoft /proc/version; then
   stow wsl
 fi
+
+# stow cygwin specific stuff
+if [ $OSTYPE = "cygwin" ]
+then
+   stow cygwin
+fi
