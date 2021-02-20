@@ -2,8 +2,10 @@ if [ ! -z ${SYSTEM_INSTALL+x} ]; then
 
    # essentials
    sudo dnf install -y \
-        mc tmux screen links lynx \
-        vim vim-nerdtree vim-airline \
+        mc vim tmux screen links lynx z
+
+   # powerline
+   sudo dnf install -y \
         powerline vim-powerline tmux-powerline
 
    # fonts
@@ -15,11 +17,32 @@ if [ ! -z ${SYSTEM_INSTALL+x} ]; then
         powerline-fonts
 
    # optiona
-   sudo dnf install -y python3-pygments
+   sudo dnf install -y \
+        python3-pygments
    pip install pygments-style-tomorrownightbright
 
+   # vim
+   sudo dnf install -y \
+        vim-syntastic-asciidoc \
+        vim-syntastic-html \
+        vim-syntastic-css \
+        vim-syntastic-vim \
+        vim-syntastic-yaml \
+        vim-syntastic-json \
+        vim-syntastic-go \
+        vim-syntastic-javascript \
+        vim-syntastic-zsh \
+        vim-airline \
+        vim-go \
+        vim-ctrlp \
+        vim-gitgutter \
+        vim-fugitive \
+        vim-nerdtree
+
    # graphical
-   sudo dnf install -y i3
+   sudo dnf install -y \
+        i3 \
+        feh
 
    unset SYSTSEM_INSTALL
 fi
