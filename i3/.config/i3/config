@@ -106,16 +106,16 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+Ctrl+1 workspace 1
+bindsym $mod+Ctrl+2 workspace 2
+bindsym $mod+Ctrl+3 workspace 3
+bindsym $mod+Ctrl+4 workspace 4
+bindsym $mod+Ctrl+5 workspace 5
+bindsym $mod+Ctrl+6 workspace 6
+bindsym $mod+Ctrl+7 workspace 7
+bindsym $mod+Ctrl+8 workspace 8
+bindsym $mod+Ctrl+9 workspace 9
+bindsym $mod+Ctrl+0 workspace 10
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
@@ -162,7 +162,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Set wallpaper with feh
-#exec --no-startup-id feh --bg-fill ~/Pictures/wallpapers/space1.jpg
+#exec --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/red-corner.png
 
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+w reload
