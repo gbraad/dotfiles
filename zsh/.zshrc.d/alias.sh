@@ -17,7 +17,7 @@ alias youtube-dl='docker run --rm -u $(id -u):$(id -g) -v $PWD:/data vimagick/yo
 alias nginx-pwd='docker run --name nginx-pwd -p 80:80 -v $PWD:/usr/share/nginx/html:ro -d nginx'
 
 # Sublime Text
-alias st='/opt/sublime_text/sublime_text $PWD'
+alias st='/opt/sublime_text_3/sublime_text $PWD'
 
 # Steam powered
 alias steamcmd='docker run -it -v $HOME/Steam:/home/user/Steam registry.gitlab.com/gbraad/steamcmd:latest'
