@@ -130,10 +130,10 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 # Move focus between screens
-bindsym $mod+Alt+h focus output left
-bindsym $mod+Alt+Left focus output left
-bindsym $mod+Alt+l focus output right
-bindsym $mod+Alt+Right focus output right
+bindsym $mod+Ctrl+h focus output left
+bindsym $mod+Ctrl+l focus output right
+bindsym $mod+Ctrl+Left focus output left
+bindsym $mod+Ctrl+Right focus output right
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
