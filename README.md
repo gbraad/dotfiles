@@ -59,6 +59,7 @@ Usage
   * Windows Subsystem for Linux (WSL2); Bash on Ubuntu on Windows (WSL1)
   * Tested on: CentOS7+, Fedora 21+, and Ubuntu 14.04+
   * Cygwin64
+  * Termux
   * ...
 
 

@@ -26,6 +26,8 @@ hi! VertSplit guifg=bg guibg=bg gui=NONE
 "hi! VertSplit ctermfg=bg ctermbg=bg term=NONE
 hi! NonText guifg=bg
 "hi! NonText ctermfg=bg
+" Set background else termux will use orange
+hi Normal ctermbg=black
 
 " Nerdtree
 let g:NERDTreeWinPos = "right"
