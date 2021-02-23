@@ -1,9 +1,17 @@
 " For Windows
 set rtp^=$HOME/.vim
-set guifont=Source\ Code\ Pro\ for\ Powerline:h15:cANSI
 
 " Powerline
 "set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim
+
+" menus
+set langmenu=en_US
+let $LANG = 'en_US'
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+set guioptions-=T   " tool
+set guioptions-=m   " menu 
+set guioptions-=r   " scroll
 
 " Airline
 let g:airline_powerline_fonts=1 
@@ -11,6 +19,7 @@ let g:airline_theme='powerlineish'
 
 " Appearance
 colorscheme Tomorrow-Night-Bright
+set guifont=Source\ Code\ Pro
 "set guifont=Source\ Code\ Pro\ for\ Powerline
 "set cursorline 
 set laststatus=2
