@@ -51,7 +51,9 @@ if [ ! -z ${SYSTEM_INSTALL+x} ]; then
         feh
 
    sudo dnf install -y \
-        trash-cli
+        trash-cli \
+        fzf \
+        vgrep
 
    unset SYSTSEM_INSTALL
 fi
