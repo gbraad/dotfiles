@@ -79,10 +79,7 @@ fi
 
 # User specific aliases and functions
 if [ -d $HOME/.zshrc.d ]; then
-  for file in $HOME/.zshrc.d/*.zsh; do
-    source $file
-  done
-  for file in $HOME/.zshrc.d/*.sh; do
+  for file in $HOME/.zshrc.d/*.?sh; do
     source $file
   done
 fi
