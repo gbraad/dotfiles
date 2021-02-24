@@ -17,22 +17,36 @@ nothing... "what you see is what it is"...
 Requirements
 ------------
 
-CentOS/Fedora
+### CentOS/Fedora
+
 ```
-$ dnf install git tmux zsh mc stow python2
+$ dnf install git zsh stow
 ```
 
-CentOS 8
+### CentOS 8 (powerline-local)
+
 ```
 $ dnf install epel-release python2
 ```
 
-Debian/Ubuntu
+### Debian/Ubuntu
+
 ```
-$ apt-get install git tmux zsh mc stow
+$ apt-get install git zsh stow
 ```
 
-After this you can use GNU `stow` to install the dotfiles per application
+
+Installation
+------------
+
+### Automated
+
+```
+$ curl -sSL https://raw.githubusercontent.com/gbraad/dotfiles/master/install.sh | sh
+```
+
+### Manual 
+After setting up the requirements you can use GNU `stow` to install the dotfiles per application
 
 ```
 $ git clone https://github.com/gbraad/dotfiles.git .dotfiles --recursive
@@ -40,17 +54,9 @@ $ cd .dotfiles
 $ stow zsh
 ```
 
-Installation
+
+Compatiblity
 ------------
-
-
-```
-$ curl -sSL https://raw.githubusercontent.com/gbraad/dotfiles/master/install.sh | sh
-```
-
-
-Usage
------
 
   * ~~Used in my [C9](http://c9.io) workspaces~~
   * ~~[Developer environment](https://github.com/gbraad/devenv/) setup~~
