@@ -50,5 +50,8 @@ if [ ! -z ${SYSTEM_INSTALL+x} ]; then
         i3 \
         feh
 
+   sudo dnf install -y \
+        trash-cli
+
    unset SYSTSEM_INSTALL
 fi
