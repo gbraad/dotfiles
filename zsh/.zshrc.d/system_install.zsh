@@ -40,6 +40,11 @@ if [ ! -z ${SYSTEM_INSTALL+x} ]; then
         vim-fugitive \
         vim-nerdtree
 
+   # ranger
+   sudo dnf install -y \
+        ranger \
+        highlight
+
    # graphical
    sudo dnf install -y \
         i3 \
