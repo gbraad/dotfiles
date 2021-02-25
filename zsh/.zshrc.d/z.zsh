@@ -1,2 +1,4 @@
 #!/bin/zsh
-. /usr/libexec/z.sh
+if [[ -r /usr/lib/libexec/z.sh ]]; then
+    . /usr/libexec/z.sh
+fi
