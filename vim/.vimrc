@@ -1,3 +1,5 @@
+set nocompatible
+
 " For Windows
 set rtp^=$HOME/.vim
 
@@ -42,4 +44,19 @@ hi Normal ctermbg=black
 let g:NERDTreeWinPos = "right"
 "nmap <C-N><C-T> :NERDTree
 nnoremap <silent> <expr> <F6> g:NERDTree.IsOpen() ? "\:NERDTreeClose<CR>" : bufexists(expand('%')) ? "\:NERDTreeFind<CR>" : "\:NERDTree<CR>"
+
+syntax enable
+filetype plugin on
+
+" search subfolders and tabcomplete
+set path+=**
+set wildmenu
+
+" for browsing
+let g:netrw_banner=0
+let g:netrw_browse_split=4
+let g:netrw_altv=1
+let g:netrw_liststyle=3
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
