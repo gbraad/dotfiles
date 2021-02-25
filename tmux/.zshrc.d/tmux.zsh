@@ -6,6 +6,7 @@ if command -v tmux &> /dev/null && [ -n "$PS1" ] &&
 #  { tmux attach -t shared ||
 #    exec tmux new-session -s shared &&
 #    exit; }
-   { exec tmux new-session &&
+   { exec tmux new-session 'ranger' \; \
+               rename-window 'ranger' &&
      exit;}
 fi
