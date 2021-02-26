@@ -55,7 +55,7 @@ if [ ! -z ${SYSTEM_INSTALL+x} ]; then
         trash-cli \
         fzf \
         vgrep \
-        fd \
+        fd-find \
         ripgrep
 
    unset SYSTSEM_INSTALL
