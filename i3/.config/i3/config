@@ -13,7 +13,7 @@ set $mod Mod4
 
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
-default_border pixel 1
+default_border pixel 0
 default_floating_border normal
 # # Hide borders
 hide_edge_borders both
@@ -208,5 +208,6 @@ mode "$mode_gaps_outer" {
 }
 
 bar {
+	position top
 	status_command python3 ~gbraad/.local/lib/python3.9/site-packages/powerline/bindings/i3/powerline-i3.py
 }
