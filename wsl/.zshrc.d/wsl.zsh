@@ -10,4 +10,4 @@ export DISPLAY=${REMOTEHOST}:0.0
 export PULSE_SERVER=tcp:${REMOTEHOST}
 
 # force to home directory!
-cd ~
+#cd ~
