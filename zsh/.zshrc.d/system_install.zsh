@@ -48,6 +48,7 @@ if [ ! -z ${SYSTEM_INSTALL+x} ]; then
    # graphical
    sudo dnf install -y \
         i3 \
+        python3-i3ipc \
         feh
 
    sudo dnf install -y \

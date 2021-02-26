@@ -206,3 +206,7 @@ mode "$mode_gaps_outer" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
+
+bar {
+	status_command python3 ~gbraad/.local/lib/python3.9/site-packages/powerline/bindings/i3/powerline-i3.py
+}
