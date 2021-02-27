@@ -1,5 +1,7 @@
 set nocompatible
 
+set shortmess=AI
+
 " For Windows
 set rtp^=$HOME/.vim
 
