@@ -84,6 +84,7 @@ bindsym $mod+d exec --no-startup-id dmenu_run
 # There also is i3-dmenu-desktop which only displays applications shipping a
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+q exec "rofi -modi window,drun,run -show drun -sidebar-mode -terminal termite -color-window '#000000, #000000, #000000' -color-normal '#000000, #ffffff, #000000, #ffffff, #000000' -color-active '#000000, #ffffff, #000000, #ffffff, #000000' -color-urgent '#000000, #ffffff, #000000, #ffffff, #000000'"
 
 # change focus
 bindsym $mod+j focus left
@@ -186,7 +187,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+w reload
 bindsym $mod+Shift+e exit
 
-#exec python3 ~gbraad/.local/lib/python3.9/site-packages/powerline/bindings/lemonbar/powerline-lemonbar.py --i3 --height=18 -- -f "Source Code Pro:size=9"
+#exec python3 ~gbraad/.local/lib/python3.9/site-packages/powerline/bindings/lemonbar/powerline-lemonbar.py --i3 --height=18 -- -f "Source Code Pro:size=10"
 
 bar {
 	position top
