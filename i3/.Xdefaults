@@ -14,8 +14,8 @@
 #define t_purple       #c397d8
 
 
-*.foreground:   t_foreground
-*.background:   t_background
+*.foreground:   #ffffff
+*.background:   #000000
 *.cursorColor:  #aeafad
 
 ! Black / Grey
@@ -23,35 +23,35 @@
 *.color8:       #666666
 
 ! Red / Bright Red
-*.color1:       t_red
+*.color1:       #d54e53
 *.color9:       #FF3334
 
 ! Green + Bright Green
-*.color2:       t_green
+*.color2:       #b9ca4a
 *.color10:      #9ec400
 
 ! Yellow (Orange) + Bright Yellow (Yellow)
-*.color3:       t_orange
-*.color11:      t_yellow
+*.color3:       #e78c45
+*.color11:      #e7c547
 
 ! Blue + Bright Blue
-*.color4:       t_blue
-*.color12:      t_blue
+*.color4:       #7aa6da
+*.color12:      #7aa6da
 
 ! Magenta (Purple) + Bright Magenta
-*.color5:       t_purple
+*.color5:       #c397d8
 *.color13:      #b777e0
 
 ! Cyan (Aqua) + Bright Cyan
-*.color6:       t_aqua
+*.color6:       #70c0b1
 *.color14:      #54ced6
 
 ! Light Grey (Selection) + White (Current Line)
-*.color7:       t_selection
-*.color15:      t_currentline
+*.color7:       #424242
+*.color15:      #2a2a2a
 
-URxvt*background: t_background
-URxvt*foreground: t_foreground
+URxvt*background: #000000
+URxvt*foreground: #ffffff
 URxvt*font: xft:Source\ Code\ Pro:pixelsize=13:antialias=true:hinting=true,xft:Source\ Code\ Pro\ Medium:pixelsize=13:antialias=true:hinting=true
 URxvt*scrollBar: false
 
