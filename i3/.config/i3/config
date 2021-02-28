@@ -192,4 +192,10 @@ bindsym $mod+Shift+e exit
 bar {
 	position top
 	status_command python3 ~gbraad/.local/lib/python3.9/site-packages/powerline/bindings/i3/powerline-i3.py
+	colors {
+		inactive_workspace	#585858 #585858 #ffffff
+		focused_workspace	#0087af #0087af #ffffff
+		active_workspace	#303030 #303030 #ffffff
+		urgent_workspace	#d54e53 #d54e53 #ffffff
+	}
 }
