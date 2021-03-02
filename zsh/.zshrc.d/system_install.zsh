@@ -13,7 +13,7 @@ if [ ! -z ${SYSTEM_INSTALL+x} ]; then
    sudo dnf install -y \
         adobe-source-han-mono-fonts \
         adobe-source-code-pro-fonts \
-        adobe-source-sans-pro \
+        adobe-source-sans-pro-fonts \
         adobe-source-serif-pro-fonts \
         powerline-fonts
 
