@@ -188,15 +188,15 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+w reload
 bindsym $mod+Shift+e exit
 
-#exec python3 ~gbraad/.local/lib/python3.9/site-packages/powerline/bindings/lemonbar/powerline-lemonbar.py --i3 --height=18 -- -f "Source Code Pro:size=10"
+exec python3 ~gbraad/.local/lib/python3.9/site-packages/powerline/bindings/lemonbar/powerline-lemonbar.py --i3 --height=18 -- -f "Source Code Pro:size=10"
 
-bar {
-	position top
-	status_command python3 ~gbraad/.local/lib/python3.9/site-packages/powerline/bindings/i3/powerline-i3.py
-	colors {
-		inactive_workspace	#585858 #585858 #ffffff
-		focused_workspace	#0087af #0087af #ffffff
-		active_workspace	#303030 #303030 #ffffff
-		urgent_workspace	#d54e53 #d54e53 #ffffff
-	}
-}
+#bar {
+#	position top
+#	status_command python3 ~gbraad/.local/lib/python3.9/site-packages/powerline/bindings/i3/powerline-i3.py
+#	colors {
+#		inactive_workspace	#585858 #585858 #ffffff
+#		focused_workspace	#0087af #0087af #ffffff
+#		active_workspace	#303030 #303030 #ffffff
+#		urgent_workspace	#d54e53 #d54e53 #ffffff
+#	}
+#}

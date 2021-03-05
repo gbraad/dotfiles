@@ -1,5 +1,13 @@
 {
 	"segments": {
+		"left": [
+			{
+				"function": "powerline.segments.i3wm.workspaces"
+			},
+			{
+				"function": "powerline.segments.i3wm.active_window"
+			}
+		],
 		"right": [
 			{
 				"function": "powerline.segments.common.sys.cpu_load_percent",
