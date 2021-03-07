@@ -2,7 +2,9 @@
 	"segments": {
 		"left": [
 			{
-				"function": "powerline.segments.i3wm.workspaces"
+				"function": "powerline.segments.i3wm.workspaces",
+                		"draw_inner_divider":   true,
+                		"draw_soft_divider":    true
 			},
 			{
 				"function": "powerline.segments.i3wm.active_window"

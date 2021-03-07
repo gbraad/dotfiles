@@ -1,9 +1,8 @@
 {
     "name": "Default",
     "groups": {
-        "workspace":                 { "fg": "white",            "bg": "gray4" },
-        "workspace:focused":         { "fg": "white",            "bg": "gray4" },
-        "workspace:visible":         { "fg": "white",            "bg": "gray9" },
-        "workspace:urgent":          { "bg": "white",            "fg": "red" }
+        "workspace":         { "fg": "white",            "bg": "gray4" },
+        "w_focused":         { "fg": "white",            "bg": "darkblue" },
+        "w_visible":         { "fg": "white",            "bg": "gray9" }
     }
 }
