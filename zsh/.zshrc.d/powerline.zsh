@@ -7,6 +7,14 @@ elif [[ -f `which powerline-daemon` ]]; then
     powerline-daemon -q
     POWERLINE_ZSH_CONTINUATION=1
     POWERLINE_ZSH_SELECT=1
-    . /usr/share/powerline/zsh/powerline.zsh
+
+    # fedora
+    if [[ -f "/usr/share/powerline/zsh/powerline.zsh" ]]; then
+        . /usr/share/powerline/zsh/powerline.zsh
+    fi
+    # debian
+    if [[ -f "/usr/share/powerline/bindings/zsh/powerline.zsh" ]]; then
+        . /usr/share/powerline/bindings/zsh/powerline.zsh
+    fi
 fi
 
