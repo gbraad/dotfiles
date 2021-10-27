@@ -6,3 +6,4 @@ image:
 tasks:
   - init: >
       ./install.sh
+      && mv ~/.bashrc-nochsh ~/.bashrc
