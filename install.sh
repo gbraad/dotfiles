@@ -45,7 +45,7 @@ if grep -qi Microsoft /proc/version; then
 fi
 
 # stow cygwin specific stuff
-if [ $OSTYPE = "cygwin" ]
+if [ "$OSTYPE" = "cygwin" ]
 then
    stow cygwin
 fi
