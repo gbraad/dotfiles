@@ -36,7 +36,7 @@ stow powerline
 stow zsh
 stow tmux
 stow vim
-stow git
+#stow git
 stow i3
 
 # stow wsl specific stuff
