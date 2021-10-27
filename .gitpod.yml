@@ -1,0 +1,8 @@
+experimentalNetwork: true
+
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - init: >
+      ./install.sh
