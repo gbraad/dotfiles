@@ -4,10 +4,6 @@ CONTAINER_RUNTIME="${1:-podman}"
 # pandoc: https://gitlab.com/gbraad/docugen
 alias pandoc='${CONTAINER_RUNTIME} run -it --rm -v $PWD:/workspace registry.gitlab.com/gbraad/docugen pandoc'
 
-# Flatpak
-alias flatpak/-builder-gnome='${CONTAINER_RUNTIME} run -it --rm -v $PWD:/workspace registry.gitlab.com/gbraad/flatpak-builder-gnome bash'
-alias flatpak-builder-freedesktop='${CONTAINER_RUNTIME} run -it --rm -v $PWD:/workspace registry.gitlab.com/gbraad/flatpak-builder-desktop bash'
-
 # LibreOffice (convert: --headless --convert-to odt *.docx)
 #alias libreoffice='${CONTAINER_RUNTIME} run --rm -v $PWD:/workspace registry.gitlab.com/gbraad/libreoffice:latest libreoffice'
 alias libreoffice='flatpak run org.libreoffice.LibreOffice'
@@ -28,3 +24,6 @@ alias hostenter='${CONTAINER_RUNTIME} run --rm -it --privileged --pid=host gbraa
 
 # colorized cat
 alias ccat='pygmentize -g -O style=tomorrownightbright,linenos=1'
+
+# devenv
+alias devenv='podman run -it --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun --rm -v $HOME/Projects:/home/gbraad/Projects ghcr.io/gbraad/devenv/dotfiles:37 /bin/zsh'
