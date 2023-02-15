@@ -29,6 +29,6 @@ alias ccat='pygmentize -g -O style=tomorrownightbright,linenos=1'
 alias devenv='podman run -it --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun --rm -v $HOME/Projects:/home/gbraad/Projects ghcr.io/gbraad/devenv/dotfiles:37 /bin/zsh'
 
 # devenv systemd
-alias devsys='podman run -d --name=devsys --hostname $HOSTNAME-devsys --systemd=always --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun -v $HOME/Projects:/home/gbraad/Projects ghcr.io/gbraad/devenv/devsys:37'
+alias devsys='podman run -d --name=devsys --hostname $HOSTNAME-devsys --systemd=always --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun -v $HOME/Projects:/home/gbraad/Projects ghcr.io/gbraad/devenv/systemd:37'
 alias devroot='podman exec -it devsys /bin/zsh'
 alias devuser='podman exec -it devsys su - gbraad'
