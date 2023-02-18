@@ -1,4 +1,6 @@
 #!/bin/zsh
+alias dotup='cd ~/.dotfiles && git pull && cd -'
+
 CONTAINER_RUNTIME="${1:-podman}"
 
 # pandoc: https://gitlab.com/gbraad/docugen
@@ -26,9 +28,9 @@ alias hostenter='${CONTAINER_RUNTIME} run --rm -it --privileged --pid=host gbraa
 alias ccat='pygmentize -g -O style=tomorrownightbright,linenos=1'
 
 # devenv
-alias devenv='podman run -it --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun --rm -v $HOME/Projects:/home/gbraad/Projects ghcr.io/gbraad/devenv/dotfiles:37 /bin/zsh'
+alias devenv='${CONTAINER_RUNTIME} run -it --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun --rm -v $HOME/Projects:/home/gbraad/Projects ghcr.io/gbraad/devenv/dotfiles:37 /bin/zsh'
 
 # devenv systemd
-alias devsys='podman run -d --name=devsys --hostname $HOSTNAME-devsys --systemd=always --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun -v $HOME/Projects:/home/gbraad/Projects ghcr.io/gbraad/devenv/systemd:37'
-alias devroot='podman exec -it devsys /bin/zsh'
-alias devuser='podman exec -it devsys su - gbraad'
+alias devsys='${CONTAINER_RUNTIME} run -d --name=devsys --hostname $HOSTNAME-devsys --systemd=always --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun -v $HOME/Projects:/home/gbraad/Projects ghcr.io/gbraad/devenv/systemd:37'
+alias devroot='${CONTAINER_RUNTIME} exec -it devsys /bin/zsh'
+alias devuser='${CONTAINER_RUNTIME} exec -it devsys su - gbraad'
