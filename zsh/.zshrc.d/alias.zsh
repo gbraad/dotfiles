@@ -28,9 +28,10 @@ alias hostenter='${CONTAINER_RUNTIME} run --rm -it --privileged --pid=host gbraa
 alias ccat='pygmentize -g -O style=tomorrownightbright,linenos=1'
 
 # devenv
-alias devenv='${CONTAINER_RUNTIME} run -it --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun --rm -v $HOME/Projects:/home/gbraad/Projects ghcr.io/gbraad/devenv/dotfiles:37 /bin/zsh'
+alias devenv='${CONTAINER_RUNTIME} run -it --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun --rm -v $HOME/Projects:/home/${USER}/Projects ghcr.io/gbraad/devenv/dotfiles:37 /bin/zsh'
 
 # devenv systemd
-alias devsys='${CONTAINER_RUNTIME} run -d --name=devsys --hostname $HOSTNAME-devsys --systemd=always --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun -v $HOME/Projects:/home/gbraad/Projects ghcr.io/gbraad/devenv/systemd:37'
+alias devsys='podman run -d --name=devsys --hostname $HOSTNAME-devsys --systemd=always --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun -v $HOME/Projects:/home/${USER}/Projects ghcr.io/gbraad/devenv/systemd:37'
+alias devdock='docker run -d --name=devsys --hostname $HOSTNAME-devsys --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun -v $HOME/Projects:/home/${USER}/Projects --entrypoint="" ghcr.io/gbraad/devenv/dotfiles:37 sleep infinity'
 alias devroot='${CONTAINER_RUNTIME} exec -it devsys /bin/zsh'
 alias devuser='${CONTAINER_RUNTIME} exec -it devsys su - gbraad'
