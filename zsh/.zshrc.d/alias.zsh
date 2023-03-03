@@ -4,12 +4,12 @@ alias dotup='cd ~/.dotfiles && git pull && cd -'
 CONTAINER_RUNTIME="${1:-podman}"
 
 # pandoc: https://gitlab.com/gbraad/docugen
-alias pandoc='${CONTAINER_RUNTIME} run -it --rm -v $PWD:/workspace registry.gitlab.com/gbraad/docugen pandoc'
+alias pandoc='${CONTAINER_RUNTIME} run -it --rm -v $PWD:/workspace ghcr.io/gbraad/docugen pandoc'
 
 # LibreOffice (convert: --headless --convert-to odt *.docx)
 #alias libreoffice='${CONTAINER_RUNTIME} run --rm -v $PWD:/workspace registry.gitlab.com/gbraad/libreoffice:latest libreoffice'
-alias libreoffice='flatpak run org.libreoffice.LibreOffice'
 #alias=libreoffice='${CONTAINER_RUNTIME} run -v $PWD:/workspace registry.gitlab.com/gbraad/libreoffice:latest flatpak run org.libreoffice.LibreOffice'
+alias libreoffice='flatpak run org.libreoffice.LibreOffice'
 
 # others
 alias youtube-dl='${CONTAINER_RUNTIME} run --rm -u $(id -u):$(id -g) -v $PWD:/data vimagick/youtube-dl'
