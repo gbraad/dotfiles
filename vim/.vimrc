@@ -49,7 +49,7 @@ hi Normal ctermbg=black
 
 " Nerdtree
 let g:NERDTreeWinPos = "right"
-"nmap <C-N><C-T> :NERDTree
+nmap <C-N><C-T> :NERDTree
 nnoremap <silent> <expr> <F6> g:NERDTree.IsOpen() ? "\:NERDTreeClose<CR>" : bufexists(expand('%')) ? "\:NERDTreeFind<CR>" : "\:NERDTree<CR>"
 
 syntax enable

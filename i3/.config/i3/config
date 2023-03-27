@@ -193,6 +193,7 @@ exec python3 ~gbraad/.local/lib/python3.9/site-packages/powerline/bindings/lemon
 #bar {
 #	position top
 #	status_command python3 ~gbraad/.local/lib/python3.9/site-packages/powerline/bindings/i3/powerline-i3.py
+#	workspace_buttons no
 #	colors {
 #		inactive_workspace	#585858 #585858 #ffffff
 #		focused_workspace	#0087af #0087af #ffffff
