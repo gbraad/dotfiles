@@ -1,4 +1,0 @@
-#!/bin/sh
-sudo tailscaled --tun=userspace-networking --socks5-server=localhost:3215 --state=/tmp/tailscaled/tailscaled.state --socket=/var/run/tailscale/tailscaled-userspace.sock --port 41642 &
-sudo tailscale -socket /var/run/tailscale/tailscaled-userspace.sock up --hostname=$(cat /etc/hostname)-proxy --exit-node=ncognito
-

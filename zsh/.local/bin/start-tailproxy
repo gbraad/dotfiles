@@ -1,0 +1,16 @@
+#!/bin/sh
+STATEDIR=~/.local/state/tailscale
+mkdir -p $STATEDIR
+screen -d -m \
+    sudo tailscaled --tun=userspace-networking \
+        --socks5-server=localhost:3215 \
+        --state=$STATEDIR/userspace.state \
+        --socket=$STATEDIR/userspace.sock \
+        --port 41642
+
+alias tailproxy="sudo tailscale -socket $STATEDIR/userspace.sock"
+tailproxy up \
+    --hostname=$(cat /etc/hostname)-proxy \
+    --ssh
+
+export tailproxy
