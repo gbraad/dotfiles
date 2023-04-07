@@ -35,11 +35,3 @@ alias devsys='podman run -d --name=devsys --hostname $HOSTNAME-devsys --systemd=
 alias devdock='docker run -d --name=devsys --hostname $HOSTNAME-devsys --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun -v $HOME/Projects:/home/${USER}/Projects --entrypoint="" ghcr.io/gbraad/devenv/dotfiles:37 sleep infinity'
 alias devroot='${CONTAINER_RUNTIME} exec -it devsys /bin/zsh'
 alias devuser='${CONTAINER_RUNTIME} exec -it devsys su - gbraad'
-
-# tailscale
-alias ts='tailscale'
-alias tsh='tailscale ssh'
-if [[ $(uname) == "Darwin" ]]; then
-    alias tailscale='/Applications/Tailscale.app//Contents/MacOS/Tailscale'
-fi
-alias tailproxy=". ~/.local/bin/start-tailproxy"
