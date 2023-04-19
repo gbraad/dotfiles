@@ -4,6 +4,7 @@ mkdir -p $STATEDIR
 screen -d -m \
     tailscaled --tun=userspace-networking \
         --socks5-server=localhost:3215 \
+        --outbound-http-proxy-listen=localhost:3214 \
         --state=$STATEDIR/userspace.state \
         --socket=$STATEDIR/userspace.sock \
         --port 41642
