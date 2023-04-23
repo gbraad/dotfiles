@@ -3,6 +3,7 @@
 # tailscale
 alias ts='tailscale'
 alias tsh='tailscale ssh'
+alias tph='tailproxy ssh'
 
 if [[ $(uname) == "Darwin" ]]; then
     alias tailscale='/Applications/Tailscale.app//Contents/MacOS/Tailscale'
