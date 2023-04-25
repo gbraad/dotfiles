@@ -3,8 +3,10 @@
 # tailscale
 alias ts='tailscale'
 alias tsh='ts ssh'
+alias tsip='ts ip -4'
 alias tp='tailproxy'
 alias tph='tp ssh'
+alias tpip='tp ip -4'
 
 if [[ $(uname) == "Darwin" ]]; then
     alias tailscale='/Applications/Tailscale.app//Contents/MacOS/Tailscale'
