@@ -16,3 +16,7 @@ alias pshexit='ssh -S ~/.ssh/ssh-proxy -O exit'
 
 # mosh
 alias cmosh='LC_ALL="C.UTF-8" mosh'
+
+# curl
+alias tpcurl='curl --proxy socks5h://localhost:3215'
+alias sscurl='curl --proxy socks5h://localhost:3222'
