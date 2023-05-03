@@ -13,3 +13,6 @@ alias ccat='pygmentize -g -O style=tomorrownightbright,linenos=1'
 # ssh
 alias psh='ssh -M -S ~/.ssh/ssh-proxy -fNT -D 3222'
 alias pshexit='ssh -S ~/.ssh/ssh-proxy -O exit'
+
+# mosh
+alias cmosh='LC_ALL="C.UTF-8" mosh'
