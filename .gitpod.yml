@@ -1,7 +1,6 @@
 image:
-  file: /gitpod/Dockerfile
+  file: /.gitpod/Dockerfile
 
 tasks:
-  - init: >
-      ./install.sh
-      && mv ~/.bashrc-nochsh ~/.bashrc
+  - init: |
+      ./.gitpod/instal.sh
