@@ -3,4 +3,4 @@ image:
 
 tasks:
   - init: |
-      ./.gitpod/instal.sh
+      ./.gitpod/install.sh
