@@ -1,17 +1,17 @@
 Gerard Braad's dotfiles
 =======================
 
-[!["Prompt"](https://raw.githubusercontent.com/gbraad/assets/gh-pages/icons/prompt-icon-64.png)](http://github.com/gbraadnl)
+[!["Prompt"](https://raw.githubusercontent.com/gbraad/assets/gh-pages/icons/prompt-icon-64.png)](http://github.com/gbraad)
 
   `using Git and Stow`
 
 
 Do not use this directly, but take parts and learn from it. I share it because
-I got frustrated about moving a tarball around (and being scared of loosing
-it). Which eventually happened when my notebook got stolen... so, this is not
-an ideal solution yet. It only contains the basic from an old tarball, and still
-needs all the customization for vim, emacs, etc. For now, No support, no comments,
-nothing... "what you see is what it is"...
+I got frustrated about moving a tarball around (and being scared of losing
+it). This eventually happened when my notebook got stolen... so, this is not
+an ideal solution for you. Treat it as, "what you see is what it is"...
+
+This forms the basis of my [development environment](https://github.com/gbraad-devenv/) images.
 
 
 Requirements
@@ -51,21 +51,21 @@ After setting up the requirements you can use GNU `stow` to install the dotfiles
 ```
 $ git clone https://github.com/gbraad/dotfiles.git .dotfiles --recursive
 $ cd .dotfiles
+$ ./install.sh  # optional
 $ stow zsh
 ```
 
 
-Compatiblity
-------------
+Compatibility
+-------------
 
-  * [Developer environment](https://hub.docker.com/r/gbraad/devenv) image
+  * [Developer environment](https://github.com/gbraad-devenv) image
   * Google Cloud Platform [cloud shell](https://console.cloud.google.com)
   * Windows Subsystem for Linux (WSL2); Bash on Ubuntu on Windows (WSL1)
   * Tested on: CentOS7+, Fedora 21+, and Ubuntu 14.04+
   * GitPod
   * Cygwin64
   * Termux
-
   * ...
 
 
