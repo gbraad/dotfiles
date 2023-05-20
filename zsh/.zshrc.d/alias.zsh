@@ -9,6 +9,7 @@ alias st='/opt/sublime_text_3/sublime_text $PWD'
 
 # colorized cat
 alias ccat='pygmentize -g -O style=tomorrownightbright,linenos=1'
+alias jcat="jq '.'"
 
 # ssh
 alias psh='ssh -M -S ~/.ssh/ssh-proxy -fNT -D 3222'
