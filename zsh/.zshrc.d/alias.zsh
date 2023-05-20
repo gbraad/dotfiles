@@ -23,3 +23,5 @@ alias sscurl='curl --proxy socks5h://localhost:3222'
 
 alias tpsh='ssh -o "ProxyCommand=netcat -X 5 -x localhost:3215 %h %p"'
 alias pssh='ssh -o "ProxyCommand=netcat -X 5 -x localhost:3222 %h %p"'
+
+alias country="curl -s ifconfig.co/json | jq '.country'"
