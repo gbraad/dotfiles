@@ -76,7 +76,7 @@ alias almuser='${CONTAINER_RUNTIME} exec -it almsys su - gbraad'
 
 
 # --- OpenSUSE devenv --- https://github.com/gbraad-devenv/opensuse/
-OPENSUSE_VERSION="15.2"
+OPENSUSE_VERSION="15.5"
 
 # dotfiles
 alias susenv='${CONTAINER_RUNTIME} run -it --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun --rm -v $HOME/Projects:/home/${USER}/Projects --entrypoint="" ghcr.io/gbraad-devenv/opensuse/dotfiles:${OPENSUSE_VERSION} /bin/zsh'
