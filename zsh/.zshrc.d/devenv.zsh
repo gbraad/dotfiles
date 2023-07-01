@@ -99,6 +99,18 @@ alias susroot='${CONTAINER_RUNTIME} exec -it sussys /bin/zsh'
 alias sususer='${CONTAINER_RUNTIME} exec -it sussys su - gbraad'
 
 
+# --- Tumbleweed devenv --- https://github.com/gbraad-devenv/tumbleweed/
+TUMBLEWEED_VERSION="latest"
+
+# dotfiles
+alias tumenv='${CONTAINER_RUNTIME} run -it --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun --rm -v $HOME/Projects:/home/${USER}/Projects --entrypoint="" ghcr.io/gbraad-devenv/tumbleweed/dotfiles:${TUMBLEWEED_VERSION} /bin/zsh'
+
+# systemd
+alias tumsys='podman run -d --name=tumsys --hostname $HOSTNAME-tumsys --systemd=always --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun -v $HOME/Projects:/home/${USER}/Projects ghcr.io/gbraad-devenv/tumbleweed/systemd:${TUMBLEWEED_VERSION}'
+alias tumroot='${CONTAINER_RUNTIME} exec -it tumsys /bin/zsh'
+alias tumuser='${CONTAINER_RUNTIME} exec -it tumsys su - gbraad'
+
+
 # --- base on host distro
 source /etc/os-release
 
