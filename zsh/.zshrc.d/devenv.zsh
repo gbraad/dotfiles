@@ -51,6 +51,18 @@ alias cenroot='${CONTAINER_RUNTIME} exec -it censys /bin/zsh'
 alias cenuser='${CONTAINER_RUNTIME} exec -it censys su - gbraad'
 
 
+# --- UBI devenv --- https://github.com/gbraad-devenv/ubi/
+UBI_VERSION="9"
+
+# dotfiles
+alias ubienv='${CONTAINER_RUNTIME} run -it --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun --rm -v $HOME/Projects:/home/${USER}/Projects --entrypoint="" ghcr.io/gbraad-devenv/ubi/base:${UBI_VERSION} /bin/zsh'
+
+# systemd
+alias ubisys='podman run -d --name=ubisys --hostname $HOSTNAME-ubisys --systemd=always --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun -v $HOME/Projects:/home/${USER}/Projects ghcr.io/gbraad-devenv/ubi/systemd:${UBI_VERSION}'
+alias ubiroot='${CONTAINER_RUNTIME} exec -it ubisys /bin/zsh'
+alias ubiuser='${CONTAINER_RUNTIME} exec -it ubisys su - gbraad'
+
+
 # --- Ubuntu devenv --- https://github.com/gbraad-devenv/ubuntu/
 UBUNTU_VERSION="jammy"
 
