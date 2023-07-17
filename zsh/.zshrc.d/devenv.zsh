@@ -11,8 +11,9 @@ alias defenv='${CONTAINER_RUNTIME} run -it --cap-add=NET_ADMIN --cap-add=NET_RAW
 # systemd
 alias defsys='podman run -d --name=devsys --hostname $HOSTNAME-devsys --systemd=always --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun -v $HOME/Projects:/home/${USER}/Projects ghcr.io/gbraad-devenv/fedora/systemd:${FEDORA_VERSION}'
 alias defdock='docker run -d --name=devsys --hostname $HOSTNAME-devsys --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun -v $HOME/Projects:/home/${USER}/Projects --entrypoint="" ghcr.io/gbraad-devenv/fedora/dotfiles:${FEDORA_VERSION}  sleep infinity'
-alias defroot='${CONTAINER_RUNTIME} exec -it devsys /bin/zsh'
-alias defuser='${CONTAINER_RUNTIME} exec -it devsys su - gbraad'
+alias defexec='${CONTAINER_RUNTIME} exec -it devsys'
+alias defroot='defexec /bin/zsh'
+alias defuser='defexec su - gbraad'
 
 
 # --- Debian devenv --- https://github.com/gbraad-devenv/debian/
@@ -23,8 +24,9 @@ alias debenv='${CONTAINER_RUNTIME} run -it --cap-add=NET_ADMIN --cap-add=NET_RAW
 
 # systemd
 alias debsys='podman run -d --name=debsys --hostname $HOSTNAME-debsys --systemd=always --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun -v $HOME/Projects:/home/${USER}/Projects ghcr.io/gbraad-devenv/debian/systemd:${DEBIAN_VERSION}'
-alias debroot='${CONTAINER_RUNTIME} exec -it debsys /bin/zsh'
-alias debuser='${CONTAINER_RUNTIME} exec -it debsys su - gbraad'
+alias debexec='${CONTAINER_RUNTIME} exec -it debsys'
+alias debroot='devexec /bin/zsh'
+alias debuser='debexec su - gbraad'
 
 
 # --- Alpine devenv --- https://github.com/gbraad-devenv/alpine/
@@ -117,12 +119,14 @@ source /etc/os-release
 if [ "$ID" = "fedora" ]
 then
     alias devenv=defenv
+    alias devexec=defexec
     alias devsys=defsys
     alias devroot=defroot
     alias devuser=defuser
 elif [ "$ID" = "debian" ]
 then
     alias devenv=debenv
+    alias devexec=debexec
     alias devsys=debsys
     alias devroot=debroot
     alias devuser=debuser
