@@ -9,11 +9,17 @@ FEDORA_VERSION="38"
 alias defenv='${CONTAINER_RUNTIME} run -it --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun --rm -v $HOME/Projects:/home/${USER}/Projects --entrypoint="" ghcr.io/gbraad-devenv/fedora/dotfiles:${FEDORA_VERSION} /bin/zsh'
 
 # systemd
-alias defsys='podman run -d --name=devsys --hostname $HOSTNAME-devsys --systemd=always --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun -v $HOME/Projects:/home/${USER}/Projects ghcr.io/gbraad-devenv/fedora/systemd:${FEDORA_VERSION}'
-alias defdock='docker run -d --name=devsys --hostname $HOSTNAME-devsys --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun -v $HOME/Projects:/home/${USER}/Projects --entrypoint="" ghcr.io/gbraad-devenv/fedora/dotfiles:${FEDORA_VERSION}  sleep infinity'
+alias defsys='podman run -d --name=devsys --hostname $HOSTNAME-devsys --systemd=always --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun -v $HOME/Projects:/home/${USER}/Projects ghcr.io/gbraad-devenv/fedora/systemd:${FEDORA_VERSION} && (mkdir -p $HOME/.config/systemd/user && cd $HOME/.config/systemd/user && podman generate systemd --name --files devsys)'
+alias defstart='systemctl --user start container-devsys'
+alias defstop='systemctl --user stop container-devsys'
 alias defexec='${CONTAINER_RUNTIME} exec -it devsys'
+alias defsysctl='defexec systemctl'
+alias defstatus='defsysctl status'
 alias defroot='defexec /bin/zsh'
 alias defuser='defexec su - gbraad'
+alias deftmux='defuser -c "tmux -2"'
+
+alias defdock='docker run -d --name=devsys --hostname $HOSTNAME-devsys --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun -v $HOME/Projects:/home/${USER}/Projects --entrypoint="" ghcr.io/gbraad-devenv/fedora/dotfiles:${FEDORA_VERSION}  sleep infinity'
 
 
 # --- Debian devenv --- https://github.com/gbraad-devenv/debian/
@@ -23,10 +29,15 @@ DEBIAN_VERSION="bookworm"
 alias debenv='${CONTAINER_RUNTIME} run -it --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun --rm -v $HOME/Projects:/home/${USER}/Projects --entrypoint="" ghcr.io/gbraad-devenv/debian/dotfiles:${DEBIAN_VERSION} /bin/zsh'
 
 # systemd
-alias debsys='podman run -d --name=debsys --hostname $HOSTNAME-debsys --systemd=always --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun -v $HOME/Projects:/home/${USER}/Projects ghcr.io/gbraad-devenv/debian/systemd:${DEBIAN_VERSION}'
+alias debsys='podman run -d --name=debsys --hostname $HOSTNAME-debsys --systemd=always --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun -v $HOME/Projects:/home/${USER}/Projects ghcr.io/gbraad-devenv/debian/systemd:${DEBIAN_VERSION} && (mkdir -p $HOME/.config/systemd/user && cd $HOME/.config/systemd/user && podman generate systemd --name --files debsys)'
+alias debstart='systemctl --user start container-debsys'
+alias debstop='systemctl --user stop container-debsys'
 alias debexec='${CONTAINER_RUNTIME} exec -it debsys'
+alias debsysctl='debexec systemctl'
+alias debstatus='debsysctl status'
 alias debroot='devexec /bin/zsh'
 alias debuser='debexec su - gbraad'
+alias debtmux='debuser -c "tmux -2"'
 
 
 # --- Alpine devenv --- https://github.com/gbraad-devenv/alpine/
@@ -119,15 +130,25 @@ source /etc/os-release
 if [ "$ID" = "fedora" ]
 then
     alias devenv=defenv
+    alias devsysctl=defsysctl
+    alias devstatus=defstatus
+    alias devstart=defstart
+    alias devstop=defstop
     alias devexec=defexec
     alias devsys=defsys
     alias devroot=defroot
     alias devuser=defuser
+    alias devtmux=deftmux
 elif [ "$ID" = "debian" ]
 then
     alias devenv=debenv
+    alias devsysctl=debsysctl
+    alias devstatus=debstatus
+    alias devstart=debstart
+    alias devstop=debstop
     alias devexec=debexec
     alias devsys=debsys
     alias devroot=debroot
     alias devuser=debuser
+    alias devtmux=debtmux
 fi
