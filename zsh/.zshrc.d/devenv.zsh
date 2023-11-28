@@ -64,6 +64,13 @@ alias cenroot='${CONTAINER_RUNTIME} exec -it censys /bin/zsh'
 alias cenuser='${CONTAINER_RUNTIME} exec -it censys su - gbraad'
 
 
+# --- UBI8 Go toolset devenv --- https://github.com/gbraad-devenv/ubi8-gotoolset/
+GO_VERSION="1.20"
+
+# dotfiles
+alias goenv='${CONTAINER_RUNTIME} run -it --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun --rm -v $HOME/Projects:/home/${USER}/Projects --entrypoint="" ghcr.io/gbraad-devenv/ubi8-gotoolset/base:${GO_VERSION} /bin/zsh'
+
+
 # --- UBI devenv --- https://github.com/gbraad-devenv/ubi/
 UBI_VERSION="9"
 
