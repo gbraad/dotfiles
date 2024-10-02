@@ -21,3 +21,8 @@ alias start-tailscale="screen -d -m tailscaled --tun='userspace-networking' --so
 # container
 alias taildock='podman run -d --name=tailscaled -v /var/lib:/var/lib -v /dev/net/tun:/dev/net/tun --network=host --cap-add=NET_ADMIN --cap-add=NET_RAW --env TS_AUTHKEY=$TAILSCALE_AUTHKEY tailscale/tailscale'
 alias tailwings='podman run -d --name=tailwings --env TAILSCALE_AUTH_KEY=$TAILSCALE_AUTHKEY --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun ghcr.io/spotsnel/tailscale-tailwings:latest'
+
+# ssh/scp over tailproxy
+PROXYCMD="ProxyCommand /usr/bin/nc -x localhost:3215 %h %p"
+alias tpssh='ssh -o "${PROXYCMD}"'
+alias tpscp='scp -o ""${PROXYCMD}"'
