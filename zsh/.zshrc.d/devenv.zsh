@@ -35,7 +35,7 @@ alias debstop='systemctl --user stop container-debsys'
 alias debexec='${CONTAINER_RUNTIME} exec -it debsys'
 alias debsysctl='debexec systemctl'
 alias debstatus='debsysctl status'
-alias debroot='devexec /bin/zsh'
+alias debroot='debexec /bin/zsh'
 alias debuser='debexec su - gbraad'
 alias debtmux='debuser -c "tmux -2"'
 
