@@ -3,7 +3,7 @@ CONTAINER_RUNTIME="${1:-podman}"
 
 
 # --- Fedora devenv --- https://github.com/gbraad-devenv/fedora
-FEDORA_VERSION="39"
+FEDORA_VERSION="40"
 
 # dotfiles
 alias defenv='${CONTAINER_RUNTIME} run -it --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun --rm -v $HOME/Projects:/home/${USER}/Projects --entrypoint="" ghcr.io/gbraad-devenv/fedora/dotfiles:${FEDORA_VERSION} /bin/zsh'
