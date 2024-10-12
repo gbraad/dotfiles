@@ -23,6 +23,8 @@ alias taildock='podman run -d --name=tailscaled -v /var/lib:/var/lib -v /dev/net
 alias tailwings='podman run -d --name=tailwings --env TAILSCALE_AUTH_KEY=$TAILSCALE_AUTHKEY --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun ghcr.io/spotsnel/tailscale-tailwings:latest'
 
 # ssh/scp over tailproxy
-PROXYCMD="ProxyCommand /usr/bin/nc -x localhost:3215 %h %p"
+PROXYHOST="localhost:3215"
+PROXYCMD="ProxyCommand /usr/bin/nc -x ${PROXYHOST} %h %p"
 alias tpssh='ssh -o "${PROXYCMD}"'
 alias tpscp='scp -o ""${PROXYCMD}"'
+alias tpcurl='curl -x socks5h://${PROXYHOST}'
