@@ -1,0 +1,1 @@
+/home/gbraad/.zshrc.d/alias.zsh
