@@ -1,16 +1,21 @@
 #!/bin/zsh
 
+# general helpers
+alias offline_filter='grep -vh "offline"'
+
 # tailscale helpers
 alias ts='tailscale'
+alias tss='ts status'
 alias tsh='ts ssh'
 alias tsip='ts ip -4'
-alias tson=`ts status | grep -vh "offline"`
+alias tson='tss | offline_filter'
 
 # tailproxy helpers
 alias tp='tailproxy'
+alias tps='tp status'
 alias tph='tp ssh'
 alias tpip='tp ip -4'
-alias tpon=`tp status | grep -vh "offline"`
+alias tpon='tps | offline_filter'
 
 if [[ $(uname) == "Darwin" ]]; then
     alias tailscale='/Applications/Tailscale.app//Contents/MacOS/Tailscale'
