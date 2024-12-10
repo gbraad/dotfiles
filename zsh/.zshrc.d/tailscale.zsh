@@ -2,6 +2,7 @@
 
 # general helpers
 alias offline_filter='grep -v "offline"'
+alias direct_filter='grep "direct"'
 alias exitnode_filter='grep "offers exit node"'
 
 # tailscale helpers
@@ -10,6 +11,7 @@ alias tss='ts status'
 alias tsh='ts ssh'
 alias tsip='ts ip -4'
 alias tson='tss | offline_filter'
+alias tsdir='tss | direct_filter'
 alias tsexit='tss | exitnode_filter'
 
 # tailproxy helpers
@@ -18,7 +20,8 @@ alias tps='tp status'
 alias tph='tp ssh'
 alias tpip='tp ip -4'
 alias tpon='tps | offline_filter'
-alias tpexit='tss | exitnode_filter'
+alias tpdir='tps | direct_filter'
+alias tpexit='tps | exitnode_filter'
 
 if [[ $(uname) == "Darwin" ]]; then
     alias tailscale='/Applications/Tailscale.app//Contents/MacOS/Tailscale'
