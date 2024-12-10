@@ -33,13 +33,14 @@ alias tailproxy=". ~/.local/bin/start-tailproxy"
 # tailscale (user mode)
 alias start-tailscale="screen -d -m tailscaled --tun='userspace-networking' --socket=/var/run/tailscale/tailscaled.sock"
 
-# container
-alias tailpod='podman run -d --name=tailscaled -v /var/lib:/var/lib -v /dev/net/tun:/dev/net/tun --network=host --cap-add=NET_ADMIN --cap-add=NET_RAW --env TS_AUTHKEY=$TAILSCALE_AUTHKEY tailscale/tailscale'
-alias tailwings='podman run -d --name=tailwings --env TAILSCALE_AUTH_KEY=$TAILSCALE_AUTHKEY --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun ghcr.io/spotsnel/tailscale-tailwings:latest'
+# containers
+alias tailpod='podman run -d   --name=tailscaled --env TS_AUTHKEY=$TAILSCALE_AUTHKEY -v /var/lib:/var/lib --network=host --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun tailscale/tailscale'
+alias tailwings='podman run -d --name=tailwings  --env TAILSCALE_AUTH_KEY=$TAILSCALE_AUTHKEY --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun ghcr.io/spotsnel/tailscale-tailwings:latest'
+alias tailsys='podman run -d   --name=tailsys    --env TAILSCALE_AUTH_KEY=$TAILSCALE_AUTHKEY --network=host --systemd=always --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun ghcr.io/spotsnel/tailscale-systemd/fedora:latest'
 
 # ssh/scp over tailproxy
 PROXYHOST="localhost:3215"
 PROXYCMD="ProxyCommand /usr/bin/nc -x ${PROXYHOST} %h %p"
 alias tpssh='ssh -o "${PROXYCMD}"'
-alias tpscp='scp -o ""${PROXYCMD}"'
+alias tpscp='scp -o "${PROXYCMD}"'
 alias tpcurl='curl -x socks5h://${PROXYHOST}'
