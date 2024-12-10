@@ -27,4 +27,8 @@ alias cssh='ssh -o "ProxyCommand=netcat -X 5 -x localhost:3211 %h %p"'
 alias tpsh='ssh -o "ProxyCommand=netcat -X 5 -x localhost:3215 %h %p"'
 alias pssh='ssh -o "ProxyCommand=netcat -X 5 -x localhost:3222 %h %p"'
 
+# Tailscale
+alias install-tailscale="curl -fsSL https://tailscale.com/install.sh | bash"
+
+# Misc
 alias country="curl -s ifconfig.co/json | jq '.country'"
