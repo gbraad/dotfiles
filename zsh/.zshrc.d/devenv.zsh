@@ -8,6 +8,9 @@ FEDORA_VERSION="41"
 # dotfiles
 alias defenv='${CONTAINER_RUNTIME} run -it --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun --rm -v $HOME/Projects:/home/${USER}/Projects --entrypoint="" ghcr.io/gbraad-devenv/fedora/dotfiles:${FEDORA_VERSION} /bin/zsh'
 
+# rdesktop (testing)
+alias defdesk='${CONTAINER_RUNTIME} run -d --name defdesk -v $HOME/Projects:/home/${USER}/Projects ghcr.io/gbraad-devenv/fedora/rdesktop:${FEDORA_VERSION}'
+
 # systemd
 alias defsys='podman run -d --name=devsys --hostname $HOSTNAME-devsys --systemd=always --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun -v $HOME/Projects:/home/${USER}/Projects ghcr.io/gbraad-devenv/fedora/systemd:${FEDORA_VERSION} && (mkdir -p $HOME/.config/systemd/user && cd $HOME/.config/systemd/user && podman generate systemd --name --files devsys)'
 alias defstart='systemctl --user start container-devsys'
@@ -151,6 +154,7 @@ then
     alias devroot=defroot
     alias devuser=defuser
     alias devtmux=deftmux
+    alias devdesk=defdesk
 elif [ "$ID" = "debian" ]
 then
     alias devenv=debenv
