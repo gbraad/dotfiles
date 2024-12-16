@@ -67,14 +67,14 @@ alias cenroot='${CONTAINER_RUNTIME} exec -it censys /bin/zsh'
 alias cenuser='${CONTAINER_RUNTIME} exec -it censys su - gbraad'
 
 
-# --- UBI8 Go toolset devenv --- https://github.com/gbraad-devenv/ubi8-gotoolset/
-GO_VERSION="1.20"
+# --- UBI9 Go toolset devenv --- https://github.com/gbraad-devenv/ubi9-gotoolset/
+GO_VERSION="1.22.7"
 
 # dotfiles
-alias goenv='${CONTAINER_RUNTIME} run -it --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun --rm -v $HOME/Projects:/home/${USER}/Projects --userns=keep-id:uid=$UID,gid=$GID --entrypoint="" ghcr.io/gbraad-devenv/ubi8-gotoolset/dotfiles:${GO_VERSION} /bin/zsh'
+alias goenv='${CONTAINER_RUNTIME} run -it --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun --rm -v $HOME/Projects:/home/${USER}/Projects --userns=keep-id:uid=$UID,gid=$GID --entrypoint="" ghcr.io/gbraad-devenv/ubi9-gotoolset/dotfiles:${GO_VERSION} /bin/zsh'
 
 # systemd
-alias gosys='podman run -d --name=gosys --hostname $HOSTNAME-gosys --systemd=always --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun -v $HOME/Projects:/home/${USER}/Projects --userns=keep-id:uid=$UID,gid=$GID ghcr.io/gbraad-devenv/ubi8-gotoolset/systemd:${GO_VERSION}'
+alias gosys='podman run -d --name=gosys --hostname $HOSTNAME-gosys --systemd=always --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun -v $HOME/Projects:/home/${USER}/Projects --userns=keep-id:uid=$UID,gid=$GID ghcr.io/gbraad-devenv/ubi9-gotoolset/systemd:${GO_VERSION}'
 alias goroot='${CONTAINER_RUNTIME} exec -it gosys /bin/zsh'
 alias gouser='${CONTAINER_RUNTIME} exec -it gosys su - gbraad'
 
