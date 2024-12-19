@@ -12,7 +12,7 @@ alias defenv='${CONTAINER_RUNTIME} run -it --cap-add=NET_ADMIN --cap-add=NET_RAW
 alias defdesk='${CONTAINER_RUNTIME} run -d --name defdesk -v $HOME/Projects:/home/${USER}/Projects ghcr.io/gbraad-devenv/fedora/rdesktop:${FEDORA_VERSION}'
 
 # systemd
-alias defsys='podman run -d --name=devsys --hostname $HOSTNAME-devsys --systemd=always --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun -v $HOME/Projects:/home/${USER}/Projects ghcr.io/gbraad-devenv/fedora/systemd:${FEDORA_VERSION} && (mkdir -p $HOME/.config/systemd/user && cd $HOME/.config/systemd/user && podman generate systemd --name --files devsys)'
+alias defsys='podman run -d --name=devsys --hostname $HOSTNAME-devsys --systemd=always --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun --cap-add=SYS_ADMIN --device=/dev/fuse -v $HOME/Projects:/home/${USER}/Projects ghcr.io/gbraad-devenv/fedora/systemd:${FEDORA_VERSION} && (mkdir -p $HOME/.config/systemd/user && cd $HOME/.config/systemd/user && podman generate systemd --name --files devsys)'
 alias defstart='systemctl --user start container-devsys'
 alias defstop='systemctl --user stop container-devsys'
 alias defexec='${CONTAINER_RUNTIME} exec -it devsys'
