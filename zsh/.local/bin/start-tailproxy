@@ -17,7 +17,9 @@ if [ $? != 0 ]; then
     tmux send -t $SESSION "$startcmd" ENTER
 fi
 
+alias killtailproxy="tmux kill-session -t $SESSION"
 alias tailproxy="tailscale -socket $STATEDIR/userspace.sock"
+
 
 tailproxy status
 RESULT=$?
@@ -28,3 +30,4 @@ if [ $RESULT -eq 1 ]; then
 fi
 
 export tailproxy
+export killtailproxy

@@ -17,12 +17,14 @@ alias tsexit='tss | exitnode_filter'
 
 # tailproxy helpers
 alias tp='tailproxy'
+alias tpkill='killtailproxy'
 alias tps='tp status | comment_filter'
 alias tph='tp ssh'
 alias tpip='tp ip -4'
 alias tpon='tps | offline_filter'
 alias tpdir='tps | direct_filter'
 alias tpexit='tps | exitnode_filter'
+
 
 if [[ $(uname) == "Darwin" ]]; then
     alias tailscale='/Applications/Tailscale.app//Contents/MacOS/Tailscale'
