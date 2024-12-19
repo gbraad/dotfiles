@@ -4,10 +4,11 @@
 alias offline_filter='grep -v "offline"'
 alias direct_filter='grep "direct"'
 alias exitnode_filter='grep "offers exit node"'
+alias comment_filter='grep -Ev "^\s*($|#)"'
 
 # tailscale helpers
 alias ts='tailscale'
-alias tss='ts status'
+alias tss='ts status | comment_filter'
 alias tsh='ts ssh'
 alias tsip='ts ip -4'
 alias tson='tss | offline_filter'
@@ -16,7 +17,7 @@ alias tsexit='tss | exitnode_filter'
 
 # tailproxy helpers
 alias tp='tailproxy'
-alias tps='tp status'
+alias tps='tp status | comment_filter'
 alias tph='tp ssh'
 alias tpip='tp ip -4'
 alias tpon='tps | offline_filter'
