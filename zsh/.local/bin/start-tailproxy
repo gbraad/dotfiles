@@ -1,15 +1,21 @@
 #!/bin/sh
 STATEDIR=~/.local/state/tailscale
-mkdir -p $STATEDIR
-tailstart="
-    tailscaled --tun=userspace-networking \
-        --socks5-server=localhost:3215 \
-        --outbound-http-proxy-listen=localhost:3214 \
-        --state=$STATEDIR/userspace.state \
-        --socket=$STATEDIR/userspace.sock \
-        --port 41642"
-tmux new-session -s tailproxy -d
-tmux send -t tailproxy "$tailstart" ENTER
+SESSION="tailproxy"
+
+tmux has-session -t $SESSION 2>/dev/null
+
+if [ $? != 0 ]; then
+    mkdir -p $STATEDIR
+    startcmd="
+        tailscaled --tun=userspace-networking \
+            --socks5-server=localhost:3215 \
+            --outbound-http-proxy-listen=localhost:3214 \
+            --state=$STATEDIR/userspace.state \
+            --socket=$STATEDIR/userspace.sock \
+            --port 41642"
+    tmux new-session -s $SESSION -d
+    tmux send -t $SESSION "$startcmd" ENTER
+fi
 
 alias tailproxy="tailscale -socket $STATEDIR/userspace.sock"
 
