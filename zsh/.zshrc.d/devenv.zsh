@@ -170,6 +170,6 @@ case "$ID" in
         ;;
     *)
         alias devsys=defsys
-        alias devenv='echo "Unknown host distro"'
+        alias devenv='echo "Unknown host distro; try \`defenv`\ or \`defdock\`"'
         ;;
 esac
