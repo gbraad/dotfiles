@@ -142,29 +142,34 @@ alias tumuser='${CONTAINER_RUNTIME} exec -it tumsys su - gbraad'
 # --- base on host distro
 source /etc/os-release
 
-if [ "$ID" = "fedora" ]
-then
-    alias devenv=defenv
-    alias devsysctl=defsysctl
-    alias devstatus=defstatus
-    alias devstart=defstart
-    alias devstop=defstop
-    alias devexec=defexec
-    alias devsys=defsys
-    alias devroot=defroot
-    alias devuser=defuser
-    alias devtmux=deftmux
-    alias devdesk=defdesk
-elif [ "$ID" = "debian" ]
-then
-    alias devenv=debenv
-    alias devsysctl=debsysctl
-    alias devstatus=debstatus
-    alias devstart=debstart
-    alias devstop=debstop
-    alias devexec=debexec
-    alias devsys=debsys
-    alias devroot=debroot
-    alias devuser=debuser
-    alias devtmux=debtmux
-fi
+case "$ID" in
+    "fedora" | "bazzite")
+        alias devenv=defenv
+        alias devsysctl=defsysctl
+        alias devstatus=defstatus
+        alias devstart=defstart
+        alias devstop=defstop
+        alias devexec=defexec
+        alias devsys=defsys
+        alias devroot=defroot
+        alias devuser=defuser
+        alias devtmux=deftmux
+        alias devdesk=defdesk
+        ;;
+    "debian" | "ubuntu")
+        alias devenv=debenv
+        alias devsysctl=debsysctl
+        alias devstatus=debstatus
+        alias devstart=debstart
+        alias devstop=debstop
+        alias devexec=debexec
+        alias devsys=debsys
+        alias devroot=debroot
+        alias devuser=debuser
+        alias devtmux=debtmux
+        ;;
+    *)
+        alias devsys=defsys
+        alias devenv='echo "Unknown host distro"'
+        ;;
+esac
