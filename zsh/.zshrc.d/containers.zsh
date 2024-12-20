@@ -22,3 +22,7 @@ alias hostenter='${CONTAINER_RUNTIME} run --rm -it --privileged --pid=host gbraa
 alias fcos='podman run -d --name=fcos --hostname $HOSTNAME-fcos --systemd=always --cap-add=NET_ADMIN --cap-add=NET_RAW --device=/dev/net/tun quay.io/fedora/fedora-coreos:stable /sbin/init'
 alias fcosroot='${CONTAINER_RUNTIME} exec -it fcos /bin/bash'
 
+# cloudflared / tailscale(d)
+alias flaresys='podman run -d --name=flaresys --hostname $HOSTNAME-flaresys --network=host --systemd=always ghcr.io/spotsnel/cloudflared-systemd/fedora:latest'
+#alias scalesys='podman run -d --name=scalesys --hostname $HOSTNAME-scalesys --network=host --systemd=always ghcr.io/spotsnel/tailscale-systemd/fedora:latest'
+alias scalesys=tailsys
