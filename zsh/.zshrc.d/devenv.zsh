@@ -17,12 +17,13 @@ generate_aliases() {
     --cap-add=SYS_ADMIN \
     --device=/dev/fuse \
   "
-  #--userns=keep-id:uid=$UID,gid=$GID \
-
 
   alias ${PREFIX}env="${CONTAINER_RUNTIME} run -it ${START_ARGS} --rm -v ${HOME}/Projects:/home/${USER}/Projects --entrypoint='' ghcr.io/gbraad-devenv/${NAME}/dotfiles:${VERSION} ${EXTRA_ARGS} zsh"
   alias ${PREFIX}sys="${CONTAINER_RUNTIME} run -d --name=${PREFIX}sys --hostname ${HOSTNAME}-${PREFIX}sys ${START_ARGS} -v ${HOME}/Projects:/home/${USER}/Projects ghcr.io/gbraad-devenv/${NAME}/systemd:${VERSION} \
-     && (mkdir -p ${HOME}/.config/systemd/user && cd ${HOME}/.config/systemd/user && ${CONTAINER_RUNTIME} generate systemd --name --files ${PREFIX}sys) && systemctl --user start container-${PREFIX}sys"
+     && (mkdir -p ${HOME}/.config/systemd/user && cd ${HOME}/.config/systemd/user \
+     && ${CONTAINER_RUNTIME} generate systemd --name --files ${PREFIX}sys) \
+     && systemctl --user daemon-reload \
+     && systemctl --user start container-${PREFIX}sys"
   alias ${PREFIX}root="${CONTAINER_RUNTIME} exec -it ${PREFIX}sys /bin/zsh"
   alias ${PREFIX}user="${CONTAINER_RUNTIME} exec -it ${PREFIX}sys su - gbraad"
 
