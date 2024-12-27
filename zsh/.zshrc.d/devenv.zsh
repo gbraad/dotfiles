@@ -4,7 +4,6 @@ generate_aliases() {
   local PREFIX=$1
   local NAME=$2
   local VERSION=$3
-  local EXTRA_ARGS=$4
 
   local START_ARGS="\
     --systemd=always \
@@ -15,7 +14,7 @@ generate_aliases() {
     --device=/dev/fuse \
   "
 
-  alias ${PREFIX}env="podman run -it ${START_ARGS} --rm -v ${HOME}/Projects:/home/${USER}/Projects --entrypoint='' ghcr.io/gbraad-devenv/${NAME}/dotfiles:${VERSION} ${EXTRA_ARGS} zsh"
+  alias ${PREFIX}env="podman run -it ${START_ARGS} --rm -v ${HOME}/Projects:/home/${USER}/Projects --entrypoint='' ghcr.io/gbraad-devenv/${NAME}/dotfiles:${VERSION} zsh"
   alias ${PREFIX}sys="podman run -d --name=${PREFIX}sys --hostname ${HOSTNAME}-${PREFIX}sys ${START_ARGS} -v ${HOME}/Projects:/home/${USER}/Projects ghcr.io/gbraad-devenv/${NAME}/systemd:${VERSION} \
      && (mkdir -p ${HOME}/.config/systemd/user && cd ${HOME}/.config/systemd/user \
      && podman generate systemd --name --files ${PREFIX}sys) \
@@ -34,17 +33,17 @@ generate_aliases() {
 }
 
 FEDORA_VERSION="41"
-generate_aliases "fed" "fedora" ${FEDORA_VERSION} ""
-#generate_aliases "def" "fedora" ${FEDORA_VERSION} ""
-generate_aliases "deb" "debian" "bookworm" ""
-generate_aliases "alp" "alpine" "3.18" ""
-generate_aliases "cen" "centos" "stream9" ""
-generate_aliases "go" "ubi9-gotoolset" "1.22.7" ""
-generate_aliases "ubi" "ubi" "9" ""
-generate_aliases "ubu" "ubuntu" "jammy" ""
-generate_aliases "alm" "almalinux" "9" ""
-generate_aliases "sus" "opensuse" "15.5" ""
-generate_aliases "tum" "tumbleweed" "latest" ""
+generate_aliases "fed" "fedora" ${FEDORA_VERSION}
+#generate_aliases "def" "fedora" ${FEDORA_VERSION}
+generate_aliases "deb" "debian" "bookworm"
+generate_aliases "alp" "alpine" "3.18"
+generate_aliases "cen" "centos" "stream9"
+generate_aliases "go" "ubi9-gotoolset" "1.22.7"
+generate_aliases "ubi" "ubi" "9"
+generate_aliases "ubu" "ubuntu" "jammy"
+generate_aliases "alm" "almalinux" "9"
+generate_aliases "sus" "opensuse" "15.5"
+generate_aliases "tum" "tumbleweed" "latest"
 
 # Base on host distro
 source /etc/os-release
