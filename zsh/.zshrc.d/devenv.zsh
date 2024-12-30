@@ -60,7 +60,12 @@ dev() {
       dev ${PREFIX} exec systemctl $@
       ;;
     "status")
-      dev ${PREFIX} sysctl status
+      if podman ps --filter "name=${PREFIX}sys" --filter "status=running" | grep -q ${PREFIX}sys; then
+	dev ${PREFIX} sysctl status
+      else
+        echo "Podman container ${PREFIX}sys is not running."
+      fi      
+
       ;;
     "tmux")
       dev ${PREFIX} user -c 'tmux -2'
