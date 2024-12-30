@@ -10,28 +10,58 @@ dev() {
   local COMMAND=$2
   shift 2
 
+  local START_SHELL="/bin/zsh"
+  local START_ARGS="\
+    --systemd=always \
+    --cap-add=NET_RAW \
+    --cap-add=NET_ADMIN \
+    --cap-add=SYS_ADMIN \
+    --device=/dev/net/tun \
+    --device=/dev/fuse \
+  "
+  local START_PATHS="\
+    -v ${HOME}/Projects:/home/${USER}/Projects \
+  "
+
   case "$COMMAND" in
     "env" )
-      echo $(generate_image_name $PREFIX "dotfiles")
+      podman run --rm -it --hostname ${HOSTNAME}-${PREFIX}env --entrypoint='' \
+      ${START_ARGS} ${START_PATHS} $(generate_image_name $PREFIX "dotfiles") ${START_SHELL}
       ;;
     "sys")
-      echo $(generate_image_name $PREFIX "systemd")
+      podman run -d --name=${PREFIX}sys --hostname ${HOSTNAME}-${PREFIX}sys \
+        ${START_ARGS} ${START_PATHS} $(generate_image_name $PREFIX "systemd")
+        # TODO: systemd only when able to check for running state
+        #&& (mkdir -p ${HOME}/.config/systemd/user && cd ${HOME}/.config/systemd/user \
+        #&& podman generate systemd --name --files ${PREFIX}sys) \
+        #&& systemctl --user daemon-reload \
+        #&& systemctl --user start container-${PREFIX}sys
       ;;
     "root")
+      podman exec -it ${PREFIX}sys ${START_SHELL}
       ;;
     "user")
+      podman exec -it ${PREFIX}sys su - gbraad
       ;;
     "start")
+      #systemctl --user start container-${PREFIX}sys
+      podman start ${PREFIX}sys
       ;;
     "stop")
+      #systemctl --user stop container-${PREFIX}sys
+      podman stop ${PREFIX}sys
       ;;
     "exec")
+      podman exec -it ${PREFIX}sys
       ;;
     "sysctl")
+      dev ${PREFIX} exec systemctl
       ;;
     "status")
+      dev ${PREFIX} sysctl status
       ;;
     "tmux")
+      dev ${PREFIX} user -c 'tmux -2'
       ;;
     *)
       echo "Unknown command: dev $PREFIX $COMMAND"
@@ -96,39 +126,15 @@ generate_image_name() {
   echo "ghcr.io/gbraad-devenv/${NAME}/${TYPE}:${VERSION}"
 }
 
+# legacy aliases
+
 generate_aliases() {
   local PREFIX=$1
-  local START_SHELL="/bin/zsh"
-
-  local START_ARGS="\
-    --systemd=always \
-    --cap-add=NET_RAW \
-    --cap-add=NET_ADMIN \
-    --cap-add=SYS_ADMIN \
-    --device=/dev/net/tun \
-    --device=/dev/fuse \
-  "
-  local START_PATHS="\
-    -v ${HOME}/Projects:/home/${USER}/Projects \
-  "
-
-  alias ${PREFIX}env="podman run --rm -it --hostname ${HOSTNAME}-${PREFIX}env ${START_ARGS} --entrypoint='' ${START_PATHS} $(generate_image_name $PREFIX "dotfiles") ${START_SHELL}"
-  alias ${PREFIX}sys="podman run -d --name=${PREFIX}sys --hostname ${HOSTNAME}-${PREFIX}sys ${START_ARGS} ${START_PATHS} $(generate_image_name $PREFIX "systemd") \
-     && (mkdir -p ${HOME}/.config/systemd/user && cd ${HOME}/.config/systemd/user \
-     && podman generate systemd --name --files ${PREFIX}sys) \
-     && systemctl --user daemon-reload \
-     && systemctl --user start container-${PREFIX}sys"
-
-  alias ${PREFIX}start="systemctl --user start container-${PREFIX}sys"
-  alias ${PREFIX}stop="systemctl --user stop container-${PREFIX}sys"
-    # && ${CONTAINER_RUNTIME} stop ${PREFIX}sys"
-
-  alias ${PREFIX}root="podman exec -it ${PREFIX}sys ${START_SHELL}"
-  alias ${PREFIX}user="podman exec -it ${PREFIX}sys su - gbraad"
-  alias ${PREFIX}exec="podman exec -it ${PREFIX}sys"
-  alias ${PREFIX}sysctl="${PREFIX}exec systemctl"
-  alias ${PREFIX}status="${PREFIX}sysctl status"
-  alias ${PREFIX}tmux="${PREFIX}user -c 'tmux -2'"
+  alias ${PREFIX}env="dev ${PREFIX} env"
+  alias ${PREFIX}sys="dev ${PREFIX} sys"
+  alias ${PREFIX}root="dev ${PREFIX} root"
+  alias ${PREFIX}user="dev ${PREFIX} user"
+  alias ${PREFIX}tmux="dev ${PREFIX} tmux"
 }
 
 generate_aliases "fed"
@@ -148,23 +154,13 @@ case "$ID" in
     "fedora" | "bazzite")
         #alias devenv="fedenv"
         alias devsysctl="fedsysctl"
-        alias devstatus="fedstatus"
-        alias devstart="fedstart"
-        alias devstop="fedstop"
-        alias devexec="fedexec"
         alias devsys="fedsys"
         alias devroot="fedroot"
         alias devuser="feduser"
         alias devtmux="fedtmux"
-        alias devdesk="feddesk"
         ;;
     "debian" | "ubuntu")
         alias devenv="debenv"
-        alias devsysctl="debsysctl"
-        alias devstatus="debstatus"
-        alias devstart="debstart"
-        alias devstop="debstop"
-        alias devexec="debexec"
         alias devsys="debsys"
         alias devroot="debroot"
         alias devuser="debuser"
