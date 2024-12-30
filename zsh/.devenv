@@ -1,6 +1,6 @@
 [devenv]
 systemd=true
-aliases=false
+aliases=true
 workdir=/home/gbraad
 
 [images]

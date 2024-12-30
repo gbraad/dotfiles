@@ -106,6 +106,7 @@ generate_aliases() {
   alias ${PREFIX}root="dev ${PREFIX} root"
   alias ${PREFIX}user="dev ${PREFIX} user"
   alias ${PREFIX}tmux="dev ${PREFIX} tmux"
+  alias ${PREFIX}build="dev ${PREFIX} tmux attach-session -t build || dev ${PREFIX} tmux new-session -s build"
 }
 
 if [[ $(devini --get "devenv.aliases") == true ]]; then
