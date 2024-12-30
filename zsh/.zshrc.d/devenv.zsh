@@ -63,6 +63,7 @@ dev() {
     "exec" | "execute")
       if (! podman ps -a --format "{{.Names}}" | grep -q ${PREFIX}sys); then
         dev ${PREFIX} sys
+        sleep 1
       fi
       if (podman ps --filter "name=${PREFIX}sys" --filter "status=stopped" | grep -q ${PREFIX}sys); then
         dev ${PREFIX} start
@@ -77,6 +78,15 @@ dev() {
       dev ${PREFIX} exec su - gbraad $@
       ;;
     "sysctl" | "systemctl" | "systemd")
+      if (podman ps --filter "name=${PREFIX}sys" --filter "status=stopped" | grep -q ${PREFIX}sys); then
+        echo "${PREFIX}sys not running"
+        return
+      fi
+      if (! podman ps -a --format "{{.Names}}" | grep -q ${PREFIX}sys); then
+        echo "${PREFIX}sys not created"
+        return
+      fi
+
       dev ${PREFIX} exec systemctl $@
       ;;
     "status")
