@@ -79,55 +79,16 @@ dev() {
 generate_image_name() {
   local PREFIX=$1
   local TYPE=$2
-  local NAME=""
-  local VERSION=""
 
-  case "$PREFIX" in
-    "fed" )
-      NAME="fedora"
-      VERSION="41"
-      ;;
-    "deb" )
-      NAME="debian"
-      VERSION="bookworm"
-      ;;
-    "alp" )
-      NAME="alpine"
-      VERSION="3.18"
-      ;;
-    "cen" )
-      NAME="centos"
-      VERSION="stream9"
-      ;;
-    "go" )
-      NAME="ubi9-gotoolset"
-      VERSION="1.22.7"
-      ;;
-    "ubi" )
-      NAME="ubi"
-      VERSION="9"
-      ;;
-    "ubu" )
-      NAME="ubuntu"
-      VERSION="jammy"
-      ;;
-    "alm" )
-      NAME="almalinux"
-      VERSION="9"
-      ;;
-    "sus" )
-      NAME="opensuse"
-      VERSION="15.5"
-      ;;
-    "tum" )
-      NAME="tumbleweed"
-      VERSION="latest"
-      ;;
-    *)
-      echo "Unknown distro: $PREFIX"
-      exit 1
-      ;;
-  esac
+  local CONFIG_FILE="${HOME}/.devenv-images"
+  local LINE=$(grep "^${PREFIX}," "${CONFIG_FILE}")
+
+  if [ -z "${LINE}" ]; then
+    echo "Unknown distro: $PREFIX"
+    exit 1
+  fi
+
+  IFS=',' read -r PREFIX NAME VERSION <<< "${LINE}"
 
   echo "ghcr.io/gbraad-devenv/${NAME}/${TYPE}:${VERSION}"
 }
