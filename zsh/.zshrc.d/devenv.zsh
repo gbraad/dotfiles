@@ -90,7 +90,7 @@ dev() {
       dev ${PREFIX} exec systemctl $@
       ;;
     "status")
-      dev ${PREFIX} sysctl status
+      dev ${PREFIX} sysctl status $@
       ;;
     "tmux")
       command="-c tmux -2 $@"
