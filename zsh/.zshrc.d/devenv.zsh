@@ -4,6 +4,9 @@ generate_aliases() {
   local PREFIX=$1
   local NAME=$2
   local VERSION=$3
+  local START_SHELL="/bin/zsh"
+  local START_IMAGE_DOTFILES="ghcr.io/gbraad-devenv/${NAME}/dotfiles:${VERSION}"
+  local START_IMAGE_SYSTEMD="ghcr.io/gbraad-devenv/${NAME}/systemd:${VERSION}"
 
   local START_ARGS="\
     --systemd=always \
@@ -13,19 +16,23 @@ generate_aliases() {
     --device=/dev/net/tun \
     --device=/dev/fuse \
   "
+  local START_PATHS="\
+    -v ${HOME}/Projects:/home/${USER}/Projects \
+  "
 
-  alias ${PREFIX}env="podman run -it ${START_ARGS} --rm -v ${HOME}/Projects:/home/${USER}/Projects --entrypoint='' ghcr.io/gbraad-devenv/${NAME}/dotfiles:${VERSION} zsh"
-  alias ${PREFIX}sys="podman run -d --name=${PREFIX}sys --hostname ${HOSTNAME}-${PREFIX}sys ${START_ARGS} -v ${HOME}/Projects:/home/${USER}/Projects ghcr.io/gbraad-devenv/${NAME}/systemd:${VERSION} \
+  alias ${PREFIX}env="podman run --rm -it --hostname ${HOSTNAME}-${PREFIX}env ${START_ARGS} --entrypoint='' ${START_PATHS} ${START_IMAGE_DOTFILES} ${START_SHELL}"
+  alias ${PREFIX}sys="podman run -d --name=${PREFIX}sys --hostname ${HOSTNAME}-${PREFIX}sys ${START_ARGS} ${START_PATHS} ${START_IMAGE_SYSTEMD} \
      && (mkdir -p ${HOME}/.config/systemd/user && cd ${HOME}/.config/systemd/user \
      && podman generate systemd --name --files ${PREFIX}sys) \
      && systemctl --user daemon-reload \
      && systemctl --user start container-${PREFIX}sys"
-  alias ${PREFIX}root="podman exec -it ${PREFIX}sys /bin/zsh"
-  alias ${PREFIX}user="podman exec -it ${PREFIX}sys su - gbraad"
 
   alias ${PREFIX}start="systemctl --user start container-${PREFIX}sys"
   alias ${PREFIX}stop="systemctl --user stop container-${PREFIX}sys"
     # && ${CONTAINER_RUNTIME} stop ${PREFIX}sys"
+
+  alias ${PREFIX}root="podman exec -it ${PREFIX}sys ${START_SHELL}"
+  alias ${PREFIX}user="podman exec -it ${PREFIX}sys su - gbraad"
   alias ${PREFIX}exec="podman exec -it ${PREFIX}sys"
   alias ${PREFIX}sysctl="${PREFIX}exec systemctl"
   alias ${PREFIX}status="${PREFIX}sysctl status"
