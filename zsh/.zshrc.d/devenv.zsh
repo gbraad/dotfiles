@@ -39,12 +39,6 @@ dev() {
         #&& systemctl --user daemon-reload \
         #&& systemctl --user start container-${PREFIX}sys
       ;;
-    "root")
-      podman exec -it ${PREFIX}sys ${START_SHELL}
-      ;;
-    "user")
-      podman exec -it ${PREFIX}sys su - gbraad $@
-      ;;
     "start")
       #systemctl --user start container-${PREFIX}sys
       podman start ${PREFIX}sys
@@ -54,18 +48,23 @@ dev() {
       podman stop ${PREFIX}sys
       ;;
     "exec")
+      if podman ps --filter "name=${PREFIX}sys" --filter "status=stopped" | grep -q ${PREFIX}sys; then
+        dev go start
+        sleep 2
+      fi
       podman exec -it ${PREFIX}sys $@
+      ;;
+    "root")
+      dev ${PREFIX} exec ${START_SHELL}
+      ;;
+    "user")
+      dev ${PREFIX} exec su - gbraad $@
       ;;
     "sysctl")
       dev ${PREFIX} exec systemctl $@
       ;;
     "status")
-      if podman ps --filter "name=${PREFIX}sys" --filter "status=running" | grep -q ${PREFIX}sys; then
-	dev ${PREFIX} sysctl status
-      else
-        echo "Podman container ${PREFIX}sys is not running."
-      fi      
-
+      dev ${PREFIX} sysctl status
       ;;
     "tmux")
       dev ${PREFIX} user -c 'tmux -2'
