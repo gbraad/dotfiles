@@ -32,12 +32,12 @@ dev() {
     "env" | "run")
       podman run --rm -it --hostname ${HOSTNAME}-${PREFIX}env --entrypoint='' \
         "${START_ARGS[@]}" "${START_PATHS[@]}" \
-        $(generate_image_name $PREFIX "dotfiles") ${START_SHELL}
+        $(generate_image_name $PREFIX) ${START_SHELL}
       ;;
     "sys" | "system" | "create")
       podman run -d --name=${PREFIX}sys --hostname ${HOSTNAME}-${PREFIX}sys \
         "${START_ARGS[@]}" "${START_PATHS[@]}" \
-        $(generate_image_name $PREFIX "systemd")
+        $(generate_image_name $PREFIX)
         # TODO: systemd only when able to check for running state
         #&& (mkdir -p ${HOME}/.config/systemd/user && cd ${HOME}/.config/systemd/user \
         #&& podman generate systemd --name --files ${PREFIX}sys) \
@@ -89,6 +89,9 @@ dev() {
 
       dev ${PREFIX} exec systemctl $@
       ;;
+    "ps")
+      dev ${PREFIX} exec ps -ax $@
+      ;;
     "status")
       dev ${PREFIX} sysctl status $@
       ;;
@@ -105,7 +108,6 @@ dev() {
 
 generate_image_name() {
   local PREFIX=$1
-  local TYPE=$2
   local IMAGE=$(devini --get "images.${PREFIX}")
 
   if [ -z "${IMAGE}" ]; then
@@ -113,9 +115,7 @@ generate_image_name() {
     exit 1
   fi
 
-  IFS=',' read -r NAME VERSION <<< "${IMAGE}"
-
-  echo "ghcr.io/gbraad-devenv/${NAME}/${TYPE}:${VERSION}"
+  echo ${IMAGE}
 }
 
 # legacy aliases
