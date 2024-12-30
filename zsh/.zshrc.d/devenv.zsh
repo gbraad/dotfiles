@@ -43,7 +43,7 @@ dev() {
       podman exec -it ${PREFIX}sys ${START_SHELL}
       ;;
     "user")
-      podman exec -it ${PREFIX}sys su - gbraad
+      podman exec -it ${PREFIX}sys su - gbraad $@
       ;;
     "start")
       #systemctl --user start container-${PREFIX}sys
@@ -54,10 +54,10 @@ dev() {
       podman stop ${PREFIX}sys
       ;;
     "exec")
-      podman exec -it ${PREFIX}sys
+      podman exec -it ${PREFIX}sys $@
       ;;
     "sysctl")
-      dev ${PREFIX} exec systemctl
+      dev ${PREFIX} exec systemctl $@
       ;;
     "status")
       dev ${PREFIX} sysctl status
