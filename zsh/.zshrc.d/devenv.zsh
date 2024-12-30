@@ -11,26 +11,29 @@ dev() {
   shift 2
 
   local START_SHELL="/bin/zsh"
-  local START_ARGS="\
-    --systemd=always \
-    --cap-add=NET_RAW \
-    --cap-add=NET_ADMIN \
-    --cap-add=SYS_ADMIN \
-    --device=/dev/net/tun \
-    --device=/dev/fuse \
+  local START_ARGS="
+    --systemd=always
+    --cap-add=NET_RAW
+    --cap-add=NET_ADMIN
+    --cap-add=SYS_ADMIN
+    --device=/dev/net/tun
+    --device=/dev/fuse
   "
-  local START_PATHS="\
-    -v ${HOME}/Projects:/home/${USER}/Projects \
+  local START_PATHS="
+    -v ${HOME}/Projects:/home/${USER}/Projects
   "
+  local CLEAN_START_ARGS=$(echo $START_ARGS | tr -d '\n')
+  local CLEAN_START_PATHS=$(echo $START_PATHS | tr -d '\n')
+
 
   case "$COMMAND" in
     "env" )
       podman run --rm -it --hostname ${HOSTNAME}-${PREFIX}env --entrypoint='' \
-      ${START_ARGS} ${START_PATHS} $(generate_image_name $PREFIX "dotfiles") ${START_SHELL}
+      ${CLEAN_START_ARGS} ${CLEAN_START_PATHS} $(generate_image_name $PREFIX "dotfiles") ${START_SHELL}
       ;;
     "sys")
       podman run -d --name=${PREFIX}sys --hostname ${HOSTNAME}-${PREFIX}sys \
-        ${START_ARGS} ${START_PATHS} $(generate_image_name $PREFIX "systemd")
+        ${CLEAN_START_ARGS} ${CLEAN_START_PATHS} $(generate_image_name $PREFIX "systemd")
         # TODO: systemd only when able to check for running state
         #&& (mkdir -p ${HOME}/.config/systemd/user && cd ${HOME}/.config/systemd/user \
         #&& podman generate systemd --name --files ${PREFIX}sys) \
