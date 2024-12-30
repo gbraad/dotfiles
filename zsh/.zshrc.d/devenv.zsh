@@ -29,12 +29,12 @@ dev() {
   )
 
   case "$COMMAND" in
-    "env")
+    "env" | "run")
       podman run --rm -it --hostname ${HOSTNAME}-${PREFIX}env --entrypoint='' \
         "${START_ARGS[@]}" "${START_PATHS[@]}" \
         $(generate_image_name $PREFIX "dotfiles") ${START_SHELL}
       ;;
-    "sys")
+    "sys" | "system" | "create")
       podman run -d --name=${PREFIX}sys --hostname ${HOSTNAME}-${PREFIX}sys \
         "${START_ARGS[@]}" "${START_PATHS[@]}" \
         $(generate_image_name $PREFIX "systemd")
@@ -56,7 +56,11 @@ dev() {
       #systemctl --user stop container-${PREFIX}sys
       podman stop ${PREFIX}sys
       ;;
-    "exec")
+    "kill" | "rm" | "remove")
+      #systemctl --user stop container-${PREFIX}sys
+      podman rm -f ${PREFIX}sys
+      ;;
+    "exec" | "execute")
       if (! podman ps -a --format "{{.Names}}" | grep -q ${PREFIX}sys); then
         dev ${PREFIX} sys
       fi
@@ -66,13 +70,13 @@ dev() {
       fi
       podman exec -it ${PREFIX}sys $@
       ;;
-    "root")
+    "root" | "su")
       dev ${PREFIX} exec ${START_SHELL}
       ;;
-    "user")
+    "user" | "sh" | "shell")
       dev ${PREFIX} exec su - gbraad $@
       ;;
-    "sysctl")
+    "sysctl" | "systemctl" | "systemd")
       dev ${PREFIX} exec systemctl $@
       ;;
     "status")
