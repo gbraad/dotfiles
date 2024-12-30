@@ -1,5 +1,8 @@
 #!/bin/zsh
 
+CONFIG="${HOME}/.devenv"
+alias devini="git config -f $CONFIG"
+
 dev() {
   if [ $# -lt 2 ]; then
     echo "Usage: dev <prefix> <command> [args...]"
@@ -79,16 +82,14 @@ dev() {
 generate_image_name() {
   local PREFIX=$1
   local TYPE=$2
+  local IMAGE=$(devini --get "images.${PREFIX}")
 
-  local CONFIG_FILE="${HOME}/.devenv-images"
-  local LINE=$(grep "^${PREFIX}," "${CONFIG_FILE}")
-
-  if [ -z "${LINE}" ]; then
+  if [ -z "${IMAGE}" ]; then
     echo "Unknown distro: $PREFIX"
     exit 1
   fi
 
-  IFS=',' read -r PREFIX NAME VERSION <<< "${LINE}"
+  IFS=',' read -r NAME VERSION <<< "${IMAGE}"
 
   echo "ghcr.io/gbraad-devenv/${NAME}/${TYPE}:${VERSION}"
 }

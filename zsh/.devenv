@@ -1,0 +1,14 @@
+[devenv]
+systemd=1
+
+[images]
+fed=fedora,41
+deb=debian,bookworm
+alp=alpine,3.18
+cen=centos,stream9
+go=ubi9-gotoolset,1.22.7
+ubi=ubi,9
+ubu=ubuntu,jammy
+alm=almalinux,9
+sus=opensuse,15.5
+tum=tumbleweed,latest
