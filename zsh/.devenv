@@ -1,5 +1,6 @@
 [devenv]
-systemd=1
+systemd=true
+aliases=true
 
 [images]
 fed=fedora,41

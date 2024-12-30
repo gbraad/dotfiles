@@ -105,20 +105,21 @@ generate_aliases() {
   alias ${PREFIX}tmux="dev ${PREFIX} tmux"
 }
 
-generate_aliases "fed"
-generate_aliases "deb"
-generate_aliases "alp"
-generate_aliases "cen"
-generate_aliases "go"
-generate_aliases "ubi"
-generate_aliases "ubu"
-generate_aliases "alm"
-generate_aliases "sus"
-generate_aliases "tum"
+if [[ $(devini --get "devenv.aliases") == true ]]; then
+  generate_aliases "fed"
+  generate_aliases "deb"
+  generate_aliases "alp"
+  generate_aliases "cen"
+  generate_aliases "go"
+  generate_aliases "ubi"
+  generate_aliases "ubu"
+  generate_aliases "alm"
+  generate_aliases "sus"
+  generate_aliases "tum"
 
-# Base on host distro
-source /etc/os-release
-case "$ID" in
+  # Base on host distro
+  source /etc/os-release
+  case "$ID" in
     "fedora" | "bazzite")
         alias devsys="fedsys"
         alias devroot="fedroot"
@@ -131,4 +132,5 @@ case "$ID" in
         alias devuser="debuser"
         alias devtmux="debtmux"
         ;;
-esac
+  esac
+fi
