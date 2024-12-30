@@ -72,7 +72,8 @@ dev() {
       dev ${PREFIX} sysctl status
       ;;
     "tmux")
-      dev ${PREFIX} user -c 'tmux -2'
+      command="-c tmux -2 $@"
+      dev ${PREFIX} user $command
       ;;
     *)
       echo "Unknown command: dev $PREFIX $COMMAND"
