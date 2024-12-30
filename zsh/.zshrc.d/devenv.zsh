@@ -45,16 +45,23 @@ dev() {
         #&& systemctl --user start container-${PREFIX}sys
       ;;
     "start")
+      if (! podman ps -a --format "{{.Names}}" | grep -q ${PREFIX}sys); then
+        dev ${PREFIX} sys
+      else
+        podman start ${PREFIX}sys
+      fi
       #systemctl --user start container-${PREFIX}sys
-      podman start ${PREFIX}sys
       ;;
     "stop")
       #systemctl --user stop container-${PREFIX}sys
       podman stop ${PREFIX}sys
       ;;
     "exec")
-      if podman ps --filter "name=${PREFIX}sys" --filter "status=stopped" | grep -q ${PREFIX}sys; then
-        dev go start
+      if (! podman ps -a --format "{{.Names}}" | grep -q ${PREFIX}sys); then
+        dev ${PREFIX} sys
+      fi
+      if (podman ps --filter "name=${PREFIX}sys" --filter "status=stopped" | grep -q ${PREFIX}sys); then
+        dev ${PREFIX} start
         sleep 2
       fi
       podman exec -it ${PREFIX}sys $@

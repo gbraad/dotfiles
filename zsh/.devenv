@@ -5,9 +5,10 @@ workdir=/home/gbraad
 
 [images]
 fed=fedora,41
+fed40=fedora,40
 deb=debian,bookworm
 alp=alpine,3.18
-cen=centos,stream9
+cen=centos,stream10
 go=ubi9-gotoolset,1.22.7
 ubi=ubi,9
 ubu=ubuntu,jammy
