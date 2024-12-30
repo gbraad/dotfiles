@@ -21,6 +21,8 @@ dev() {
     "--cap-add=SYS_ADMIN"
     "--device=/dev/net/tun"
     "--device=/dev/fuse"
+    "--userns=keep-id"
+    "--workdir=$(devini --get devenv.workdir)"
   )
   local START_PATHS=(
     "-v" "${HOME}/Projects:/home/${USER}/Projects"

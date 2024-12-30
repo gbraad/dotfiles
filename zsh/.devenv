@@ -1,6 +1,7 @@
 [devenv]
 systemd=true
-aliases=true
+aliases=false
+workdir=/home/gbraad
 
 [images]
 fed=fedora,41
