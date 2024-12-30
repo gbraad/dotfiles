@@ -120,21 +120,15 @@ generate_aliases "tum"
 source /etc/os-release
 case "$ID" in
     "fedora" | "bazzite")
-        #alias devenv="fedenv"
-        alias devsysctl="fedsysctl"
         alias devsys="fedsys"
         alias devroot="fedroot"
         alias devuser="feduser"
         alias devtmux="fedtmux"
         ;;
     "debian" | "ubuntu")
-        alias devenv="debenv"
         alias devsys="debsys"
         alias devroot="debroot"
         alias devuser="debuser"
         alias devtmux="debtmux"
-        ;;
-    *)
-        alias devsys="defsys"
         ;;
 esac
