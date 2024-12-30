@@ -2,6 +2,7 @@
 systemd=true
 aliases=true
 workdir=/home/gbraad
+shell=/bin/zsh
 
 [images]
 fed=ghcr.io/gbraad-devenv/fedora/systemd:41

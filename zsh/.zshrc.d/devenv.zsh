@@ -13,7 +13,7 @@ dev() {
   local COMMAND=$2
   shift 2
 
-  local START_SHELL="/bin/zsh"
+  local START_SHELL=$(devini --get devenv.shell)
   local START_ARGS=(
     "--systemd=always"
     "--cap-add=NET_RAW"
