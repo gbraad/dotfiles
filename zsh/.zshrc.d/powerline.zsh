@@ -16,5 +16,10 @@ elif [[ -f `which powerline-daemon` ]]; then
     if [[ -f "/usr/share/powerline/bindings/zsh/powerline.zsh" ]]; then
         . /usr/share/powerline/bindings/zsh/powerline.zsh
     fi
+
+    # powerline-local
+    if [[ -f ".dotfiles/powerline-local/.local/share/powerline/zsh/powerline.zsh" ]]; then
+        . .dotfiles/powerline-local/.local/share/powerline/zsh/powerline.zsh
+    fi
 fi
 
