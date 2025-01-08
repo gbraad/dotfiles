@@ -6,7 +6,8 @@ shell=/bin/zsh
 
 [images]
 fed=ghcr.io/gbraad-devenv/fedora/systemd:41
-rdesktop=ghcr.io/gbraad-devenv/fedora/rdesktop:41
+code=ghcr.io/gbraad-devenv/fedora/code-cli:41
+desk=ghcr.io/gbraad-devenv/fedora/rdesktop:41
 fed40=ghcr.io/gbraad-devenv/fedora/systemd:40
 deb=ghcr.io/gbraad-devenv/debian/systemd:bookworm
 alp=ghcr.io/gbraad-devenv/alpine/systemd:3.18
