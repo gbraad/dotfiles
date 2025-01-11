@@ -15,8 +15,6 @@ jobs:
         os:
           - ubuntu-24.04
     steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
       - name: Run podman build
         run: podman build -t ghcr.io/gbraad/dotfiles/test:40 -f .devcontainer/Containerfile .
       - name: Push image to ghcr.io

@@ -3,9 +3,16 @@ ARG BASE_VERSION="41"
 
 FROM ${BASE_IMAGE}:${BASE_VERSION}
 
+USER root
+
 RUN dnf install -y \
         moby-engine \
         containerd \
     && dnf clean all \
     && rm -rf /var/cache/yum
 
+USER gbraad
+
+RUN git clone https://github.com/gbraad/dotfiles.git /home/gbraad/.dotfiles \
+    && cd ~/.dotfiles \
+    && ./install.sh
