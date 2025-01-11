@@ -4,13 +4,12 @@
         "dockerfile": "Containerfile"
     },
     "runArgs": [ "--cap-add=NET_ADMIN", "--cap-add=NET_RAW", "--device=/dev/net/tun" ],
-    "postStartCommand": "install.sh",
+    "postStartCommand": ".github/install.sh",
 
     "customizations": {
         "vscode": {
             "extensions": [
-                "ms-vscode.Theme-TomorrowKit",
-                "ritwickdey.LiveServer"
+                "ms-vscode.Theme-TomorrowKit"
             ]
         }
     }
