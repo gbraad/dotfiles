@@ -1,8 +1,5 @@
-ARG BASE_IMAGE="quay.io/fedora/fedora"
-ARG BASE_VERSION="40"
+ARG BASE_IMAGE="ghcr.io/gbraad-devenv/fedora/base"
+ARG BASE_VERSION="41"
 
-FROM ${BASE_IMAGE}:${BASE_VERSION} AS base
+FROM ${BASE_IMAGE}:${BASE_VERSION}
 
-RUN dnf install -y git-core \
-    && dnf clean all \
-    && rm -rf /var/cache/yum
