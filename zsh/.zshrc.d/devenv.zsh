@@ -75,7 +75,7 @@ dev() {
       dev ${PREFIX} exec ${START_SHELL}
       ;;
     "user" | "sh" | "shell")
-      dev ${PREFIX} exec su - gbraad $@
+      dev ${PREFIX} exec su - gbraad $*
       ;;
     "sysctl" | "systemctl" | "systemd")
       if (podman ps --filter "name=${PREFIX}sys" --filter "status=stopped" | grep -q ${PREFIX}sys); then

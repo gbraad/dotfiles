@@ -1,6 +1,4 @@
 #!/bin/zsh
-alias dotup='cd ~/.dotfiles && git pull && cd -'
-
 # LibreOffice (convert: --headless --convert-to odt *.docx)
 alias libreoffice='flatpak run org.libreoffice.LibreOffice'
 
