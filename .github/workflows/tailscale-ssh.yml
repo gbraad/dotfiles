@@ -1,0 +1,33 @@
+name: tailscale-ssh
+on:
+  workflow_dispatch:
+
+jobs:
+  dotfiles-test:
+    runs-on: ubuntu-24.04
+    
+    steps:
+      - name: Remove unwanted stuff
+        uses: gbraad-devenv/remove-unwanted@v1
+      - name: Run system container with `podman` and `-user root`
+        run: |
+          podman run -d --name dotfiles --hostname code-${HOSTNAME} --systemd=always --cap-add=NET_RAW --cap-add=NET_ADMIN --cap-add=SYS_ADMIN --device=/dev/net/tun --device=/dev/fuse -u root ghcr.io/gbraad/dotfiles:latest
+      - name: Tailscale setup (root)
+        run: |
+          podman exec dotfiles systemctl enable --now tailscaled
+          until podman exec dotfiles tailscale up --auth-key ${TAILSCALE_AUTHKEY} --ssh
+          do
+              sleep 0.1
+          done
+          podman exec dotfiles chmod 640 /etc/shadow
+        env:
+          TAILSCALE_AUTHKEY: ${{ secrets.TAILSCALE_AUTHKEY}}
+      - name: Hang around
+        run: |
+          until podman exec dotfiles systemctl is-active --quiet tailscaled
+          do
+               sleep 1
+          done
+          IP=`podman exec dotfiles tailscale ip -4`
+          echo "Use the following command to connect \`tailscale ssh gbraad@${IP}\`"
+          sleep infinity

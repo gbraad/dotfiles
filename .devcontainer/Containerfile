@@ -16,3 +16,5 @@ USER gbraad
 RUN git clone https://github.com/gbraad/dotfiles.git /home/gbraad/.dotfiles \
     && cd ~/.dotfiles \
     && ./install.sh
+
+ENTRYPOINT [ "/sbin/init" ]

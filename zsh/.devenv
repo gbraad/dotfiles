@@ -5,6 +5,7 @@ workdir=/home/gbraad
 shell=/bin/zsh
 
 [images]
+dot=ghcr.io/gbraad/dotfiles:latest
 fed=ghcr.io/gbraad-devenv/fedora/systemd:41
 code=ghcr.io/gbraad-devenv/fedora/code-cli:41
 desk=ghcr.io/gbraad-devenv/fedora/rdesktop:41
