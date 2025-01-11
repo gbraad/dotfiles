@@ -9,11 +9,12 @@ jobs:
     steps:
       - name: Remove unwanted stuff
         uses: gbraad-devenv/remove-unwanted@v1
-      - name: Run system container with `podman` and `-user root`
+      - name: Run system container with `podman` and `--user root`
         run: |
-          podman run -d --name dotfiles --hostname code-${HOSTNAME} --systemd=always --cap-add=NET_RAW --cap-add=NET_ADMIN --cap-add=SYS_ADMIN --device=/dev/net/tun --device=/dev/fuse -u root ghcr.io/gbraad/dotfiles:latest
+          podman run -d --name dotfiles --hostname code-${HOSTNAME} --systemd=always --cap-add=NET_RAW --cap-add=NET_ADMIN --cap-add=SYS_ADMIN --device=/dev/net/tun --device=/dev/fuse --user root --entrypoint /sbin/init ghcr.io/gbraad/dotfiles:latest
       - name: Tailscale setup (root)
         run: |
+          sleep 1
           podman exec dotfiles systemctl enable --now tailscaled
           until podman exec dotfiles tailscale up --auth-key ${TAILSCALE_AUTHKEY} --ssh
           do

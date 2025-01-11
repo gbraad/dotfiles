@@ -15,6 +15,7 @@ dev() {
 
   local START_SHELL=$(devini --get devenv.shell)
   local START_ARGS=(
+    "--user=root"
     "--systemd=always"
     "--cap-add=NET_RAW"
     "--cap-add=NET_ADMIN"
