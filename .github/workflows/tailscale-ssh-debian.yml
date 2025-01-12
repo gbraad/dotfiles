@@ -15,12 +15,10 @@ jobs:
       - name: Tailscale setup (root)
         run: |
           sleep 1
-          podman exec dotfiles systemctl enable --now tailscaled
           until podman exec dotfiles tailscale up --auth-key ${TAILSCALE_AUTHKEY} --ssh
           do
               sleep 0.1
           done
-          podman exec dotfiles chmod 640 /etc/shadow
         env:
           TAILSCALE_AUTHKEY: ${{ secrets.TAILSCALE_AUTHKEY}}
       - name: Hang around
