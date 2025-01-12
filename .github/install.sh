@@ -6,11 +6,7 @@ ln -s ~/.dotfiles /workspaces/dotfiles
 
 cd ~
 
-# install docker
-sudo dnf install -y \
-        moby-engine \
-        containerd \
-    && dnf clean all \
-    && rm -rf /var/cache/yum
+. /etc/os-release
+# we could do detection based on the lsb-release info to install more
 
 exit 0

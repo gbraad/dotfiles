@@ -1,0 +1,14 @@
+ARG BASE_IMAGE="ghcr.io/gbraad-devenv/debian/base"
+ARG BASE_VERSION="bookworm"
+
+FROM ${BASE_IMAGE}:${BASE_VERSION}
+
+USER gbraad
+
+RUN git clone https://github.com/gbraad/dotfiles.git /home/gbraad/.dotfiles \
+    && cd ~/.dotfiles \
+    && ./install.sh
+
+# Should be run as root to start systemd, but if we do Codespaces will run as root too
+# We do this instead with podman --entrypoint=/sbin/init and --user=root
+#ENTRYPOINT [ "/sbin/init" ]
