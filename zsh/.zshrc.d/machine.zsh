@@ -29,16 +29,22 @@ mcn() {
       download "$(mcnini --get disks.${PREFIX})" "${DISKFOLDER}/${PREFIX}.qcow2"
       ;;
     "system" | "create")
+      sudo virt-install "${START_ARGS[@]}" --name "mcn-${PREFIX}" --import --disk "${DISKFOLDER}/${PREFIX}.qcow2"
       ;;
     "start")
+      sudo virsh start "mcn-${PREFIX}"
       ;;
     "stop")
+      sudo virsh destroy "mcn-${PREFIX}"
       ;;
     "kill" | "rm" | "remove")
+      sudo virsh undefine "mcn-${PREFIX}"
       ;;
     "console" | "shell")
+      sudo virsh console "mcn-${PREFIX}"
       ;;
     "switch")
+      sudo bootc switch $(mcnini --get images.${PREFIX})
       ;;
     *)
       echo "Unknown command: dev $PREFIX $COMMAND"
@@ -83,7 +89,7 @@ download() {
         # Direct download
         url=$input
         echo "Downloading $url to $final_output_file..."
-        curl -L $url -o $final_output_file
+        curl -s -L $url -o $final_output_file
         if [[ $? -ne 0 ]]; then
             echo "Error downloading $url. Exiting."
             return 1
