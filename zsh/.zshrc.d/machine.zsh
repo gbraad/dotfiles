@@ -46,6 +46,10 @@ mcn() {
     "switch")
       sudo bootc switch $(mcnini --get images.${PREFIX})
       ;;
+    "copy")
+      value="$(mcnini --get disks.${PREFIX})"
+      $(mcnini --add disks.$1 $value)
+      ;;
     *)
       echo "Unknown command: dev $PREFIX $COMMAND"
       ;;

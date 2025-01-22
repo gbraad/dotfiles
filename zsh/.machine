@@ -29,4 +29,3 @@ forgejo=https://github.com/gbraad-homelab/personal-forgejo/releases/download/lat
 jellyfin=https://github.com/gbraad-homelab/personal-jellyfin/releases/download/latest/disk.qcow2
 homeassistant=https://github.com/gbraad-homelab/personal-homeassistant/releases/download/latest/disk.qcow2
 nextcloud=https://github.com/gbraad-homelab/personal-nextcloud/releases/download/latest/disk.qcow2
-
