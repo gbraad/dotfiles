@@ -51,20 +51,25 @@ download() {
     final_output_file=$2
 
     # Check if the input contains a range pattern
-    if [[ $input =~ \[([0-9]+)-([0-9]+)\] ]]; then
-        # Extract the base URL and the range
-        base_url="${input%%_part*}"
-        start_part=${BASH_REMATCH[1]}
-        end_part=${BASH_REMATCH[2]}
+    if [[ $input == *\[*\]* ]]; then
+        base_url="${input%\[*}"
+        range="${input##*\[}"
+        range="${range%\]*}"
+        start_part="${range%-*}"
+        end_part="${range#*-}"
+        
+        if [[ -z "$start_part" || -z "$end_part" ]]; then
+            echo "Invalid range start or end"
+            return 1
+        fi
         
         # Remove any existing final output file to avoid appending to old data
         rm -f "$final_output_file"
 
-        # Loop through the range and download each part, appending to the final file
         for i in $(seq $start_part $end_part); do
-            part_url="${base_url}_part${i}"
+            part_url="${base_url}${i}"
             echo "Downloading $part_url and appending to $final_output_file..."
-            curl -s -L "$part_url" -o - >> $final_output_file
+            curl -s -L "$part_url" -o - >> "$final_output_file"
             if [[ $? -ne 0 ]]; then
                 echo "Error downloading $part_url. Exiting."
                 return 1
@@ -72,6 +77,9 @@ download() {
         done
         echo "Download completed and concatenated into $final_output_file."
     else
+
+    echo "nope"
+
         # Direct download
         url=$input
         echo "Downloading $url to $final_output_file..."
