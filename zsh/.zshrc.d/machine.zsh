@@ -29,19 +29,19 @@ mcn() {
       download "$(mcnini --get disks.${PREFIX})" "${DISKFOLDER}/${PREFIX}.qcow2"
       ;;
     "system" | "create")
-      sudo virt-install "${START_ARGS[@]}" --name "mcn-${PREFIX}" --import --disk "${DISKFOLDER}/${PREFIX}.qcow2"
+      sudo virt-install "${START_ARGS[@]}" --name "machine-${PREFIX}" --import --disk "${DISKFOLDER}/${PREFIX}.qcow2"
       ;;
     "start")
-      sudo virsh start "mcn-${PREFIX}"
+      sudo virsh start "machine-${PREFIX}"
       ;;
     "stop")
-      sudo virsh destroy "mcn-${PREFIX}"
+      sudo virsh destroy "machine-${PREFIX}"
       ;;
     "kill" | "rm" | "remove")
-      sudo virsh undefine "mcn-${PREFIX}"
+      sudo virsh undefine "machine-${PREFIX}"
       ;;
-    "console" | "shell")
-      sudo virsh console "mcn-${PREFIX}"
+    "console" | "shell" | "serial")
+      sudo virsh console "machine-${PREFIX}"
       ;;
     "switch")
       sudo bootc switch $(mcnini --get images.${PREFIX})
