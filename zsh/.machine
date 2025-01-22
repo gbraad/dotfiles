@@ -29,4 +29,5 @@
 	jellyfin = https://github.com/gbraad-homelab/personal-jellyfin/releases/download/latest/disk.qcow2
 	homeassistant = https://github.com/gbraad-homelab/personal-homeassistant/releases/download/latest/disk.qcow2
 	nextcloud = https://github.com/gbraad-homelab/personal-nextcloud/releases/download/latest/disk.qcow2
-	fedora-jellyfin = https://github.com/gbraad-homelab/private-base/releases/download/latest/disk.qcow2
+	homelab-forgejo = https://github.com/gbraad-homelab/private-base/releases/download/latest/disk.qcow2
+	example = https://github.com/gbraad-redhat/fedora-bootc-example/releases/download/latest/disk.qcow2
