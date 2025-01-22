@@ -87,9 +87,6 @@ download() {
         done
         echo "Download completed and concatenated into $final_output_file."
     else
-
-    echo "nope"
-
         # Direct download
         url=$input
         echo "Downloading $url to $final_output_file..."
