@@ -1,6 +1,6 @@
 [dotfiles]
 aliases=true
-autoupdate=true
+autoupdate=false
 autostart=false
 
 [stow]
