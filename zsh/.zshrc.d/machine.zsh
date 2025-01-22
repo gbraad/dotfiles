@@ -46,7 +46,7 @@ mcn() {
     "switch")
       sudo bootc switch $(mcnini --get images.${PREFIX})
       ;;
-    "copy")
+    "copy-config" || "cc")
       value="$(mcnini --get disks.${PREFIX})"
       $(mcnini --add disks.$1 $value)
       ;;
