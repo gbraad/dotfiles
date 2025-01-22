@@ -1,17 +1,17 @@
 [dotfiles]
-aliases=true
-autoupdate=false
-autostart=false
+	aliases = true
+	autoupdate = false
+	autostart = false
 
 [stow]
-git=false
-powerline=true
-zsh=true
-tmux=true
-vim=true
-i3=true
+	git = false
+	powerline = true
+	zsh = true
+	tmux = true
+	vim = true
+	i3 = true
 
 [windows]
-wsl=true
-cygwin=true
+	wsl = true
+	cygwin = true
 
