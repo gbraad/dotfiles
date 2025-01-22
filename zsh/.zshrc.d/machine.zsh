@@ -51,7 +51,7 @@ mcn() {
       $(mcnini --add disks.$1 $value)
       ;;
     *)
-      echo "Unknown command: dev $PREFIX $COMMAND"
+      echo "Unknown command: mcn $PREFIX $COMMAND"
       ;;
   esac
 }

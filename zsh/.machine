@@ -1,32 +1,32 @@
 [machine]
-vcpus=2
-memory=2048
-diskfolder=~/DiskImages
+	vcpus = 2
+	memory = 2048
+	diskfolder = ~/DiskImages
 
 [images]
-dot=ghcr.io/gbraad/dotfiles-bootc:latest
-fed=ghcr.io/gbraad-devenv/fedora/systemd-bootc:41
-code=ghcr.io/gbraad-devenv/fedora/code-cli-bootc:41
-desk=ghcr.io/gbraad-devenv/fedora/rdesktop-bootc:41
-go=ghcr.io/gbraad-devenv/fedora-golang/systemd-bootc:41
-forgejo=ghcr.io/gbraad-homelab/forgejo-bootc:latest
-jellyfin=ghcr.io/gbraad-homelab/jellyfin-bootc:latest
-nextcloud=ghcr.io/gbraad-homelab/nextcloud-bootc:latest
-homeassistant=ghcr.io/gbraad-homelab/homeassistant-bootc:latest
+	dot = ghcr.io/gbraad/dotfiles-bootc:latest
+	fed = ghcr.io/gbraad-devenv/fedora/systemd-bootc:41
+	code = ghcr.io/gbraad-devenv/fedora/code-cli-bootc:41
+	desk = ghcr.io/gbraad-devenv/fedora/rdesktop-bootc:41
+	go = ghcr.io/gbraad-devenv/fedora-golang/systemd-bootc:41
+	forgejo = ghcr.io/gbraad-homelab/forgejo-bootc:latest
+	jellyfin = ghcr.io/gbraad-homelab/jellyfin-bootc:latest
+	nextcloud = ghcr.io/gbraad-homelab/nextcloud-bootc:latest
+	homeassistant = ghcr.io/gbraad-homelab/homeassistant-bootc:latest
 
 [disks]
-fedora=https://github.com/gbraad-devenv/fedora/releases/download/41/systemd-disk.qcow2
-code=https://github.com/gbraad-devenv/fedora/releases/download/41/code-cli-disk.qcow2
-rdesktop=https://github.com/gbraad-devenv/fedora/releases/download/41/rdesktop-disk.qcow2
-go=https://github.com/gbraad-devenv/fedora-golang/releases/download/latest/systemd-disk.qcow2
-gocode=https://github.com/gbraad-devenv/fedora-golang/releases/download/latest/code-cli-disk.qcow2
-obsidian=https://github.com/gbraad-apps/personal-obsidian/releases/download/latest/disk.qcow2
-libreoffice=https://github.com/gbraad-apps/personal-libreoffice/releases/download/latest/disk.qcow2_part[0-1]
-vscode=https://github.com/gbraad-apps/personal-code/releases/download/latest/disk.qcow2_part[0-1]
-cardforge=https://github.com/gbraad-gaming/personal-cardforge/releases/download/latest/disk.qcow2_part[0-1]
-homelab=https://github.com/gbraad-homelab/private-base/releases/download/latest/disk.qcow2
-forgejo=https://github.com/gbraad-homelab/personal-forgejo/releases/download/latest/disk.qcow2
-jellyfin=https://github.com/gbraad-homelab/personal-jellyfin/releases/download/latest/disk.qcow2
-homeassistant=https://github.com/gbraad-homelab/personal-homeassistant/releases/download/latest/disk.qcow2
-nextcloud=https://github.com/gbraad-homelab/personal-nextcloud/releases/download/latest/disk.qcow2
-	fedora-jellyfin = https://github.com/gbraad-devenv/fedora/releases/download/41/systemd-disk.qcow2
+	fedora = https://github.com/gbraad-devenv/fedora/releases/download/41/systemd-disk.qcow2
+	code = https://github.com/gbraad-devenv/fedora/releases/download/41/code-cli-disk.qcow2
+	rdesktop = https://github.com/gbraad-devenv/fedora/releases/download/41/rdesktop-disk.qcow2
+	go = https://github.com/gbraad-devenv/fedora-golang/releases/download/latest/systemd-disk.qcow2
+	gocode = https://github.com/gbraad-devenv/fedora-golang/releases/download/latest/code-cli-disk.qcow2
+	obsidian = https://github.com/gbraad-apps/personal-obsidian/releases/download/latest/disk.qcow2
+	libreoffice = https://github.com/gbraad-apps/personal-libreoffice/releases/download/latest/disk.qcow2_part[0-1]
+	vscode = https://github.com/gbraad-apps/personal-code/releases/download/latest/disk.qcow2_part[0-1]
+	cardforge = https://github.com/gbraad-gaming/personal-cardforge/releases/download/latest/disk.qcow2_part[0-1]
+	homelab = https://github.com/gbraad-homelab/private-base/releases/download/latest/disk.qcow2
+	forgejo = https://github.com/gbraad-homelab/personal-forgejo/releases/download/latest/disk.qcow2
+	jellyfin = https://github.com/gbraad-homelab/personal-jellyfin/releases/download/latest/disk.qcow2
+	homeassistant = https://github.com/gbraad-homelab/personal-homeassistant/releases/download/latest/disk.qcow2
+	nextcloud = https://github.com/gbraad-homelab/personal-nextcloud/releases/download/latest/disk.qcow2
+	fedora-jellyfin = https://github.com/gbraad-homelab/private-base/releases/download/latest/disk.qcow2
