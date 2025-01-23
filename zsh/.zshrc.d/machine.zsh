@@ -3,9 +3,9 @@
 CONFIG="${HOME}/.machine"
 alias mcnini="git config -f $CONFIG"
 
-mcn() {
+machine() {
   if [ $# -lt 2 ]; then
-    echo "Usage: mcn <prefix> <command> [args...]"
+    echo "Usage: $0 <prefix> <command> [args...]"
     return 1
   fi
 
@@ -51,7 +51,7 @@ mcn() {
       $(mcnini --add disks.$1 $value)
       ;;
     *)
-      echo "Unknown command: mcn $PREFIX $COMMAND"
+      echo "Unknown command: $0 $PREFIX $COMMAND"
       ;;
   esac
 }
@@ -98,3 +98,7 @@ download() {
         echo "Download completed: $final_output_file."
     fi
 }
+
+if [[ $(mcnini --get "machine.aliases") == true ]]; then
+  alias mcn="machine"
+fi

@@ -3,9 +3,9 @@
 CONFIG="${HOME}/.devenv"
 alias devini="git config -f $CONFIG"
 
-dev() {
+devenv() {
   if [ $# -lt 2 ]; then
-    echo "Usage: dev <prefix> <command> [args...]"
+    echo "Usage: $0 <prefix> <command> [args...]"
     return 1
   fi
 
@@ -107,7 +107,7 @@ dev() {
       dev ${PREFIX} user $command
       ;;
     *)
-      echo "Unknown command: dev $PREFIX $COMMAND"
+      echo "Unknown command: $0 $PREFIX $COMMAND"
       ;;
   esac
 }
@@ -129,15 +129,17 @@ generate_image_name() {
 
 generate_aliases() {
   local PREFIX=$1
-  alias ${PREFIX}env="dev ${PREFIX} env"
-  alias ${PREFIX}sys="dev ${PREFIX} sys"
-  alias ${PREFIX}root="dev ${PREFIX} root"
-  alias ${PREFIX}user="dev ${PREFIX} user"
-  alias ${PREFIX}tmux="dev ${PREFIX} tmux"
-  alias ${PREFIX}build="dev ${PREFIX} tmux attach-session -t build || dev ${PREFIX} tmux new-session -s build"
+  alias ${PREFIX}env="devenv ${PREFIX} env"
+  alias ${PREFIX}sys="devenv ${PREFIX} sys"
+  alias ${PREFIX}root="devenv ${PREFIX} root"
+  alias ${PREFIX}user="devenv ${PREFIX} user"
+  alias ${PREFIX}tmux="devenv ${PREFIX} tmux"
+  alias ${PREFIX}build="devenv ${PREFIX} tmux attach-session -t build || dev ${PREFIX} tmux new-session -s build"
 }
 
 if [[ $(devini --get "devenv.aliases") == true ]]; then
+  alias dev="devenv"
+
   generate_aliases "fed"
   generate_aliases "deb"
   generate_aliases "alp"

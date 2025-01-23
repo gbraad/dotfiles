@@ -2,6 +2,7 @@
 	vcpus = 2
 	memory = 2048
 	diskfolder = ~/DiskImages
+	aliases = true
 
 [images]
 	dot = ghcr.io/gbraad/dotfiles-bootc:latest
