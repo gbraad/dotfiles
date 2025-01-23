@@ -23,10 +23,12 @@ dev() {
     "--device=/dev/net/tun"
     "--device=/dev/fuse"
     "--userns=keep-id"
-    "--workdir=$(devini --get devenv.workdir)"
   )
+  # issue as some containers do not have this yet
+  #"--workdir=$(devini --get devenv.workdir)"
   local START_PATHS=(
-    "-v" "${HOME}/Projects:/home/${USER}/Projects"
+    "-v" "~/Projects:/home/${USER}/Projects"
+    "-v" "~/Projects:/var/home/${USER}/Projects"
   )
 
   case "$COMMAND" in
@@ -36,6 +38,10 @@ dev() {
         $(generate_image_name $PREFIX) ${START_SHELL}
       ;;
     "sys" | "system" | "create")
+
+      for i in {1..${#START_PATHS[@]}}; do
+        START_PATHS[i]="${START_PATHS[i]/#\~/$HOME}"
+      done
       podman run -d --name=${PREFIX}sys --hostname ${HOSTNAME}-${PREFIX}sys \
         "${START_ARGS[@]}" "${START_PATHS[@]}" \
         $(generate_image_name $PREFIX)

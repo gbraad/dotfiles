@@ -1,7 +1,7 @@
 [devenv]
 	systemd = true
 	aliases = true
-	workdir = /home/gbraad
+	workdir = /var/home/gbraad
 	shell = /bin/zsh
 
 [images]
