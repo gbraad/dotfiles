@@ -3,9 +3,12 @@ ARG BASE_VERSION="41"
 
 FROM ${BASE_IMAGE}:${BASE_VERSION}
 
+RUN useradd -l -u 1000 -G wheel -md /home/gbraad -s /bin/bash -p gbraad gbraad \
+    && sed -i.bkp -e 's/%wheel\s\+ALL=(ALL\(:ALL\)\?)\s\+ALL/%wheel ALL=NOPASSWD:ALL/g' /etc/sudoers 
+
 USER gbraad
 
-RUN git clone https://github.com/gbraad/dotfiles.git /home/gbraad/.dotfiles \
+RUN git clone https://github.com/gbraad/dotfiles.git ~/.dotfiles \
     && cd ~/.dotfiles \
     && ./install.sh
 
