@@ -64,9 +64,9 @@ fi
 CONFIG="${HOME}/.dot"
 alias dotini="git config -f $CONFIG"
 
-dot() {
+dotfiles() {
   if [ $# -lt 1 ]; then
-    echo "Usage: dev <prefix> <command> [args...]"
+    echo "Usage: $0 <prefix> <command> [args...]"
     return 1
   fi
 
@@ -79,15 +79,16 @@ dot() {
       cd -
       ;;
     *)
-      echo "Unknown command: dot $COMMAND"
+      echo "Unknown command: $0 $COMMAND"
       ;;
   esac
 }
 
 if [[ $(dotini --get "dotfiles.aliases") == true ]]; then
+  alias dot="dotfiles"
   alias dotup="dot up"
 fi
 
 if [[ $(dotini --get "dotfiles.autoupdate") == true ]]; then
-  dot up
+  dotfiles up
 fi
