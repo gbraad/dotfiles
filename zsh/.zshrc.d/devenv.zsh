@@ -23,6 +23,7 @@ devenv() {
     "--device=/dev/net/tun"
     "--device=/dev/fuse"
     "--userns=keep-id"
+    #"--pull=newer"
   )
   # issue as some containers do not have this yet
   #"--workdir=$(devini --get devenv.workdir)"
@@ -38,18 +39,17 @@ devenv() {
         $(generate_image_name $PREFIX) ${START_SHELL}
       ;;
     "sys" | "system" | "create")
-
-      for i in {1..${#START_PATHS[@]}}; do
-        START_PATHS[i]="${START_PATHS[i]/#\~/$HOME}"
+      for (( i=0; i < ${#START_PATHS[@]}; i++ )); do
+        START_PATHS[$i]="${START_PATHS[$i]/#\~/$HOME}"
       done
       podman run -d --name=${PREFIX}sys --hostname ${HOSTNAME}-${PREFIX}sys \
         "${START_ARGS[@]}" "${START_PATHS[@]}" \
         $(generate_image_name $PREFIX)
-        # TODO: systemd only when able to check for running state
-        #&& (mkdir -p ${HOME}/.config/systemd/user && cd ${HOME}/.config/systemd/user \
-        #&& podman generate systemd --name --files ${PREFIX}sys) \
-        #&& systemctl --user daemon-reload \
-        #&& systemctl --user start container-${PREFIX}sys
+      # TODO: systemd only when able to check for running state
+      #&& (mkdir -p ${HOME}/.config/systemd/user && cd ${HOME}/.config/systemd/user \
+      #&& podman generate systemd --name --files ${PREFIX}sys) \
+      #&& systemctl --user daemon-reload \
+      #&& systemctl --user start container-${PREFIX}sys
       ;;
     "start")
       if (! podman ps -a --format "{{.Names}}" | grep -q ${PREFIX}sys); then
