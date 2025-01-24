@@ -1,1 +1,1 @@
-/home/gbraad/.zshrc.d/alias.zsh
+../../zsh/.zshrc.d/alias.zsh

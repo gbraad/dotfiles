@@ -1,1 +1,1 @@
-/home/gbraad/.zshrc.d/containers.zsh
+../../zsh/.zshrc.d/containers.zsh

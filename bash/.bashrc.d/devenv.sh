@@ -1,1 +1,1 @@
-/home/gbraad/.zshrc.d/devenv.zsh
+../../zsh/.zshrc.d/devenv.zsh
