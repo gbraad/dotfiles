@@ -1,5 +1,31 @@
 #!/bin/zsh
 
+install() {
+  # Personal dotfiles
+  git clone https://github.com/gbraad/dotfiles.git ~/.dotfiles
+  cd ~/.dotfiles
+  git submodule update --init --progress
+
+  # stow the configurations
+  stow powerline
+  stow zsh
+  stow tmux
+  stow vim
+  #stow git
+  stow i3
+
+  # stow wsl specific stuff
+  if grep -qi Microsoft /proc/version; then
+    stow wsl
+  fi
+
+  # stow cygwin specific stuff
+  if [ "$OSTYPE" = "cygwin" ]
+  then
+    stow cygwin
+  fi
+}
+
 # Temporary including the old installation method
 oldinstall() {
   APTPKGS="git zsh stow"
@@ -29,29 +55,7 @@ oldinstall() {
   mkdir -p ~/.local/bin
   mkdir -p ~/.local/lib/python2.7/site-packages/
 
-  # Personal dotfiles
-  git clone https://github.com/gbraad/dotfiles.git ~/.dotfiles
-  cd ~/.dotfiles
-  git submodule update --init --progress
-
-  # stow the configurations
-  stow powerline
-  stow zsh
-  stow tmux
-  stow vim
-  #stow git
-  stow i3
-
-  # stow wsl specific stuff
-  if grep -qi Microsoft /proc/version; then
-    stow wsl
-  fi
-
-  # stow cygwin specific stuff
-  if [ "$OSTYPE" = "cygwin" ]
-  then
-    stow cygwin
-  fi
+  install
 }
 
 if [[ "$0" == *install.sh* ]]; then
@@ -60,23 +64,25 @@ if [[ "$0" == *install.sh* ]]; then
     exit 0
 fi
 
-
 CONFIG="${HOME}/.dot"
 alias dotini="git config -f $CONFIG"
 
 dotfiles() {
   if [ $# -lt 1 ]; then
-    echo "Usage: $0 <prefix> <command> [args...]"
+    echo "Usage: $0 <command> [args...]"
     return 1
   fi
 
   local COMMAND=$1
 
   case "$COMMAND" in
-    "up")
+    "up" | "update")
       cd ~/.dotfiles
       git pull
       cd -
+      ;;
+    "in" | "install")
+      install
       ;;
     *)
       echo "Unknown command: $0 $COMMAND"
