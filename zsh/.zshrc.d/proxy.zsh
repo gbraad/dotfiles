@@ -4,7 +4,7 @@ CONFIG="${HOME}/.proxy"
 alias proxyini="git config -f $CONFIG"
 
 proxyselect() {
-  echo $(proxyini --list | grep '^servers\.' | sed 's/^servers\.//g' | cut -d '=' -f 1 | fzf)
+  echo $(proxyini --list | grep '^servers\.' | sed 's/^servers\.//g' | cut -d '=' -f 1 | sort | fzf)
 }
 
 proxy() {
