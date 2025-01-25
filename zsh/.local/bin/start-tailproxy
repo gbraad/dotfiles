@@ -25,6 +25,11 @@ fi
 alias tailproxy-kill="tmux kill-session -t $SESSION"
 alias tailproxy="tailscale -socket $STATEDIR/userspace.sock"
 
+_tailproxymull() {
+  tailproxy set --exit-node $(tp exit-node list | grep mull | awk '{print $2}' | fzf)
+}
+alias tailproxy-mull="_tailproxymull"
+
 _tailproxyexit() {
   tailproxy set --exit-node $(tpfexit | awk '{print $2}' | fzf)
 }
