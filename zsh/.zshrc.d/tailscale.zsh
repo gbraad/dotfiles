@@ -34,6 +34,7 @@ if [[ $(tailscaleini --get "tailproxy.aliases") == true ]]; then
   alias tpfexit='tps | exitnode_filter'
   alias tpexit='tailproxy-exit'
   alias tpmull='tailproxy-mull'
+  alias tptp='tailproxy; tpexit; proxy tailproxy-resolve'
 
   # ssh/scp over tailproxy
   PROXYHOST="localhost:3215"
