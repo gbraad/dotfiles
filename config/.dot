@@ -4,6 +4,7 @@
 	autostart = false
 
 [stow]
+	config = always
 	git = false
 	powerline = true
 	zsh = true
