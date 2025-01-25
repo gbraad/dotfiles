@@ -11,3 +11,4 @@
 	ngage = http://10.0.21.44:3214
 	ngage-tailscale = http://100.64.21.44:3214
 	tailproxy = socks5://localhost:3215
+	tailproxy-resolve = socks5h://localhost:3215
