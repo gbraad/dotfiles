@@ -26,3 +26,8 @@ tailsysctl() {
 
 }
 
+sysctl() {
+
+   systemctl status $(systemctl list-units --type service --no-pager --no-legend | fzf)
+
+}
