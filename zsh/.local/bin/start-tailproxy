@@ -35,6 +35,15 @@ _tailproxyexit() {
 }
 alias tailproxy-exit="_tailproxyexit"
 
+_tailproxyping() {
+  NODE=$1
+  if [ -z "${NODE}" ]; then
+    NODE=$(tpfon | awk '{print $1, $2}' | fzf | awk '{print  $1}')
+  fi
+  tailproxy ping ${NODE}
+}
+alias tpping="_tailproxyping"
+
 tailproxy status
 RESULT=$?
 if [ $RESULT -eq 1 ]; then
