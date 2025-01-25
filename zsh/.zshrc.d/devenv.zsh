@@ -1,6 +1,10 @@
 #!/bin/zsh
 
 CONFIG="${HOME}/.devenv"
+if [[ ! -f $CONFIG ]]; then
+  echo "Configuration file missing: $CONFIG"
+  return
+fi
 alias devini="git config -f $CONFIG"
 
 devenv() {

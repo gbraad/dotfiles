@@ -22,9 +22,13 @@ if [ $? != 0 ]; then
     tmux send -t $SESSION "$startcmd" ENTER
 fi
 
-alias killtailproxy="tmux kill-session -t $SESSION"
+alias tailproxy-kill="tmux kill-session -t $SESSION"
 alias tailproxy="tailscale -socket $STATEDIR/userspace.sock"
 
+_tailproxyexit() {
+  tailproxy set --exit-node $(tpfexit | awk '{print $2}' | fzf)
+}
+alias tailproxy-exit="_tailproxyexit"
 
 tailproxy status
 RESULT=$?

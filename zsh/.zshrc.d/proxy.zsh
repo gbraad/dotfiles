@@ -14,6 +14,8 @@ proxy() {
 
   export http_proxy=${SERVER}
   export https_proxy=${SERVER}
+
+  set | grep -E "http_proxy|https_proxy"
 }
 
 if [[ $(proxyini --get "proxy.aliases") == true ]]; then
