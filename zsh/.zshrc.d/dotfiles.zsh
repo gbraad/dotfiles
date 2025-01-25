@@ -1,19 +1,16 @@
 #!/bin/zsh
 
-install() {
+dotinstall() {
   # Personal dotfiles
   git clone https://github.com/gbraad/dotfiles.git ~/.dotfiles
   cd ~/.dotfiles
   git submodule update --init --progress
 
-  # stow the configurations
-  stow config
-  stow powerline
-  stow zsh
-  stow tmux
-  stow vim
-  #stow git
-  stow i3
+  # stow
+  stowlist=$(dotini --list | grep '^stow\.' | awk -F '=' '$2 == "true" {print $1}' | sed 's/^stow\.//g')
+  for tostow in $stowlist; do
+    stow $( echo $tostow | xargs )
+  done
 
   # stow wsl specific stuff
   if grep -qi Microsoft /proc/version; then
@@ -60,13 +57,27 @@ oldinstall() {
 }
 
 if [[ "$0" == *install.sh* ]]; then
-    echo "Performing install"
-    oldinstall
-    exit 0
+  echo "Performing install"
+  oldinstall
+  return 0
 fi
 
 CONFIG="${HOME}/.dot"
 alias dotini="git config -f $CONFIG"
+
+dotupdate() {
+  cd ~/.dotfiles
+  git pull
+
+  # (re)stow
+  stowlist=$(dotini --list | grep '^stow\.' | awk -F '=' '$2 == "true" {print $1}' | sed 's/^stow\.//g')
+  for tostow in $stowlist; do
+    stow $(echo "$tostow" | xargs)
+  done
+
+  cd -
+}
+
 
 dotfiles() {
   if [ $# -lt 1 ]; then
@@ -78,12 +89,10 @@ dotfiles() {
 
   case "$COMMAND" in
     "up" | "update")
-      cd ~/.dotfiles
-      git pull
-      cd -
+      dotupdate
       ;;
     "in" | "install")
-      install
+      dotinstall
       ;;
     *)
       echo "Unknown command: $0 $COMMAND"
