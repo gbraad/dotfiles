@@ -4,9 +4,9 @@
 	autostart = false
 
 [stow]
-	config = always
-	git = false
+	config = true
 	powerline = true
+	git = false
 	zsh = true
 	tmux = true
 	vim = true
