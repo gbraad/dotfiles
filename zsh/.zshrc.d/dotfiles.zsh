@@ -7,6 +7,7 @@ install() {
   git submodule update --init --progress
 
   # stow the configurations
+  stow config
   stow powerline
   stow zsh
   stow tmux
