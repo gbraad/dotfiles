@@ -65,6 +65,15 @@ fi
 CONFIG="${HOME}/.dot"
 alias dotini="git config -f $CONFIG"
 
+resource() {
+  echo "Resourcing zsh"
+  if [ -d $HOME/.zshrc.d ]; then
+    for file in $HOME/.zshrc.d/*.?sh; do
+      source $file
+    done
+  fi
+}
+
 dotupdate() {
   cd ~/.dotfiles
   git pull
@@ -75,9 +84,12 @@ dotupdate() {
     stow $(echo "$tostow" | xargs)
   done
 
+  if [[ "${stowlist[@]}" =~ "zsh" ]]; then
+    resource
+  fi
+
   cd -
 }
-
 
 dotfiles() {
   if [ $# -lt 1 ]; then
