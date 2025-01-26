@@ -1,10 +1,16 @@
 #!/bin/zsh
 
+CONFIG="${HOME}/.dot"
+alias dotini="git config -f $CONFIG"
+
 dotinstall() {
   # Personal dotfiles
   git clone https://github.com/gbraad/dotfiles.git ~/.dotfiles
   cd ~/.dotfiles
   git submodule update --init --progress
+
+  # always
+  stow config
 
   # stow
   stowlist=$(dotini --list | grep '^stow\.' | awk -F '=' '$2 == "true" {print $1}' | sed 's/^stow\.//g')
@@ -53,7 +59,7 @@ oldinstall() {
   mkdir -p ~/.local/bin
   mkdir -p ~/.local/lib/python2.7/site-packages/
 
-  install
+  dotinstall
 }
 
 if [[ "$0" == *install.sh* ]]; then
@@ -61,9 +67,6 @@ if [[ "$0" == *install.sh* ]]; then
   oldinstall
   return 0
 fi
-
-CONFIG="${HOME}/.dot"
-alias dotini="git config -f $CONFIG"
 
 resource() {
   echo "Resourcing zsh"

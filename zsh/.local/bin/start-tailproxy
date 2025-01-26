@@ -44,7 +44,7 @@ _tailproxyping() {
 }
 alias tpping="_tailproxyping"
 
-tailproxy status 2>&1 > null
+tailproxy status 2>&1 > /dev/null
 RESULT=$?
 if [ $RESULT -eq 1 ]; then
     upcmd="
