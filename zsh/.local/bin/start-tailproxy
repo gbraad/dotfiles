@@ -44,12 +44,17 @@ _tailproxyping() {
 }
 alias tpping="_tailproxyping"
 
-tailproxy status
+tailproxy status 2>&1 > null
 RESULT=$?
 if [ $RESULT -eq 1 ]; then
-    tailproxy up \
-        --hostname=$(cat /etc/hostname)-proxy \
-        --ssh
+    upcmd="
+        tailproxy up \
+            --hostname=$(cat /etc/hostname)-proxy \
+            --ssh"
+    if [ -n "$TAILSCALE_AUTHKEY" ]; then
+      upcmd+=" --auth-key $TAILSCALE_AUTHKEY"
+    fi
+    eval $upcmd
 fi
 
 export tailproxy
