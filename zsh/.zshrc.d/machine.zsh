@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 CONFIG="${HOME}/.machine"
-alias mcnini="git config -f $CONFIG"
+alias machineini="git config -f $CONFIG"
 
 machine() {
   if [ $# -lt 2 ]; then
@@ -15,18 +15,18 @@ machine() {
 
   local START_ARGS=(
     "--cpu=host"
-    "--vcpus=$(mcnini --get machine.vcpus)"
-    "--memory=$(mcnini --get machine.memory)"
+    "--vcpus=$(machineini --get machine.vcpus)"
+    "--memory=$(machineini --get machine.memory)"
     "--graphics=none"
     "--noreboot"
     "--os-variant=fedora-eln"
   )
-  local DISKFOLDER=$(mcnini --get machine.diskfolder)
+  local DISKFOLDER=$(machineini --get machine.diskfolder)
   DISKFOLDER="${DISKFOLDER/#\~/$HOME}"
 
   case "$COMMAND" in
     "download")
-      download "$(mcnini --get disks.${PREFIX})" "${DISKFOLDER}/${PREFIX}.qcow2"
+      download "$(machineini --get disks.${PREFIX})" "${DISKFOLDER}/${PREFIX}.qcow2"
       ;;
     "system" | "create")
       sudo virt-install "${START_ARGS[@]}" --name "machine-${PREFIX}" --import --disk "${DISKFOLDER}/${PREFIX}.qcow2"
@@ -44,11 +44,11 @@ machine() {
       sudo virsh console "machine-${PREFIX}"
       ;;
     "switch")
-      sudo bootc switch $(mcnini --get images.${PREFIX})
+      sudo bootc switch $(machineini --get images.${PREFIX})
       ;;
     "copy-config" | "cc")
-      value="$(mcnini --get disks.${PREFIX})"
-      $(mcnini --add disks.$1 $value)
+      value="$(machineini --get disks.${PREFIX})"
+      $(machineini --add disks.$1 $value)
       ;;
     *)
       echo "Unknown command: $0 $PREFIX $COMMAND"
@@ -99,6 +99,7 @@ download() {
     fi
 }
 
-if [[ $(mcnini --get "machine.aliases") == true ]]; then
+if [[ $(machineini --get "machine.aliases") == true ]]; then
   alias mcn="machine"
+  alias mcnini="machineini"
 fi
