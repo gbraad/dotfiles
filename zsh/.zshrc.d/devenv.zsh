@@ -156,6 +156,10 @@ if [[ $(devini --get "devenv.aliases") == true ]]; then
   generate_aliases "tum"
 
   # Base on host distro
+  if [ ! -e /etc/os-release ]; then
+	return
+  fi
+
   source /etc/os-release
   case "$ID" in
     "fedora" | "bazzite")
