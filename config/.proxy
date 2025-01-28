@@ -13,3 +13,5 @@
 	tailproxy = socks5://localhost:3215
 	tailproxy-resolve = socks5h://localhost:3215
 	nvision-tailscale = http://100.64.21.33:3214
+	ssh-proxy = socks5://localhost:3222
+	ssh-proxy-resolve = socks5h://localhost:3222
