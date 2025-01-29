@@ -9,9 +9,16 @@
 	ncognito-tailscale = http://100.64.21.120:3214
 	ndisguise-tailscale = http://100.64.21.240:3214
 	ngage = http://10.0.21.44:3214
+	ngage-socks = socks5://10.0.21.44:3215
 	ngage-tailscale = http://100.64.21.44:3214
 	tailproxy = socks5://localhost:3215
 	tailproxy-resolve = socks5h://localhost:3215
+	nvision-socks = socks5://100.64.21.33:3215
 	nvision-tailscale = http://100.64.21.33:3214
 	ssh-proxy = socks5://localhost:3222
 	ssh-proxy-resolve = socks5h://localhost:3222
+	astrill = http://localhost:3213
+	cloudflare = http://localhost:3211
+	tor = socks5://localhost:9050
+	
+	
