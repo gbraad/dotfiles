@@ -16,6 +16,7 @@
 	homeassistant = ghcr.io/gbraad-homelab/homeassistant-bootc:latest
 	steam = ghcr.io/gbraad-gaming/steam-bootc:latest
 	steamcmd = ghcr.io/gbraad-gaming/steamcmd-bootc:latest
+	steamlink = ghcr.io/gbraad-gaming/steamlink-bootc:latest
 
 [disks]
 	fedora = https://github.com/gbraad-devenv/fedora/releases/download/41/systemd-disk.qcow2
@@ -35,5 +36,7 @@
 	homelab-forgejo = https://github.com/gbraad-homelab/private-base/releases/download/latest/disk.qcow2
 	fedora-bootc-example = https://github.com/gbraad-redhat/fedora-bootc-example/releases/download/latest/disk.qcow2
 	steam = https://github.com/gbraad-gaming/personal-steam/releases/download/latest/disk.qcow2
-	steamcmd = https://github.com/gbraad-gaming/personal-steam-cmd/releases/download/latest/disk.qcow2
+	steamcmd = https://github.com/gbraad-gaming/personal-steamcmd/releases/download/latest/disk.qcow2
+	steamlink = https://github.com/gbraad-gaming/personal-steamlink/releases/download/latest/disk.qcow2_part[0-1]
+	minecraft-server = https://github.com/gbraad-gaming/personal-minecraft-bedrock-server/releases/download/latest/disk.qcow2
 
