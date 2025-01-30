@@ -1,0 +1,5 @@
+[hosts]
+	tailscale = http://100.100.100.100:8080/spotsnel.org.github
+	cloud = https://cloud.gbraad.nl/remote.php/dav/files/gbraad
+	cloud-ncentre = https://cloud-ncentre.gbraad.nl/remote.php/dav/files/gbraad
+
