@@ -14,6 +14,8 @@
 	jellyfin = ghcr.io/gbraad-homelab/jellyfin-bootc:latest
 	nextcloud = ghcr.io/gbraad-homelab/nextcloud-bootc:latest
 	homeassistant = ghcr.io/gbraad-homelab/homeassistant-bootc:latest
+	steam = ghcr.io/gbraad-gaming/steam-bootc:latest
+	steamcmd = ghcr.io/gbraad-gaming/steamcmd-bootc:latest
 
 [disks]
 	fedora = https://github.com/gbraad-devenv/fedora/releases/download/41/systemd-disk.qcow2
@@ -32,3 +34,6 @@
 	nextcloud = https://github.com/gbraad-homelab/personal-nextcloud/releases/download/latest/disk.qcow2
 	homelab-forgejo = https://github.com/gbraad-homelab/private-base/releases/download/latest/disk.qcow2
 	fedora-bootc-example = https://github.com/gbraad-redhat/fedora-bootc-example/releases/download/latest/disk.qcow2
+	steam = https://github.com/gbraad-gaming/personal-steam/releases/download/latest/disk.qcow2
+	steamcmd = https://github.com/gbraad-gaming/personal-steam-cmd/releases/download/latest/disk.qcow2
+

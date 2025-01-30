@@ -25,4 +25,7 @@
 	nextcloud = ghcr.io/gbraad-homelab/nextcloud/hub9:latest
 	forgejo = ghcr.io/gbraad-homelab/private-forgejo:latest
 	jellyfin = ghcr.io/gbraad-homelab/jellyfin:latest
-	cardforge  =ghcr.io/gbraad-gaming/cardforge:latest
+	cardforge  = ghcr.io/gbraad-gaming/cardforge:latest
+	steam = ghcr.io/gbraad-gaming/steam:latest
+	steamcmd = ghcr.io/gbraad-gaming/steamcmd:latest
+
