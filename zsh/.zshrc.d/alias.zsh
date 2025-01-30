@@ -30,3 +30,6 @@ alias install-tailscale="curl -fsSL https://tailscale.com/install.sh | bash"
 
 # Misc
 alias country="curl -s ifconfig.co/json | jq '.country'"
+
+# ANSI
+alias remove-ansi="sed -r 's/\x1b\[[0-9;]*m//g'"
