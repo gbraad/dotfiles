@@ -201,3 +201,4 @@ exec python3 ~gbraad/.local/lib/python3.9/site-packages/powerline/bindings/lemon
 #		urgent_workspace	#d54e53 #d54e53 #ffffff
 #	}
 #}
+exec /usr/bin/rdesktopexec
