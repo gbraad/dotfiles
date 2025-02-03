@@ -3,7 +3,7 @@
 CONFIG="${HOME}/.code"
 alias codeini="git config -f $CONFIG"
 
-_codepath=$(codeini --get code.path) || _codepath="${HOME}/.local/bin"
+_codepath=$(codeini --get code.path || echo "${HOME}/.local/bin")
 eval _codepath=$(echo ${_codepath})
 
 _codeexists() {
@@ -43,8 +43,10 @@ _startcodeserveweb() {
     if ! _codeexists; then
         _installcode
     fi
+    local host=$(codeini --get code.host || echo "0.0.0.0")
+    local port=$(codeini --get code.port || echo "8000")
 
-    screen ${_codepath}/code serve-web --without-connection-token --host 0.0.0.0
+    screen ${_codepath}/code serve-web --without-connection-token --host ${host} --port ${port}
 }
 
 alias install-code="_installcode"
