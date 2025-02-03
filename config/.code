@@ -1,0 +1,4 @@
+[code]
+	path = $HOME/.local/bin
+	autoinstall = false
+
