@@ -57,7 +57,7 @@ devenv() {
       ;;
     "start")
       if (! podman ps -a --format "{{.Names}}" | grep -q ${PREFIX}sys); then
-        dev ${PREFIX} sys
+        devenv ${PREFIX} sys
       else
         podman start ${PREFIX}sys
       fi
@@ -73,20 +73,20 @@ devenv() {
       ;;
     "exec" | "execute")
       if (! podman ps -a --format "{{.Names}}" | grep -q ${PREFIX}sys); then
-        dev ${PREFIX} sys
+        devenv ${PREFIX} sys
         sleep 1
       fi
       if (podman ps --filter "name=${PREFIX}sys" --filter "status=stopped" | grep -q ${PREFIX}sys); then
-        dev ${PREFIX} start
+        devenv ${PREFIX} start
         sleep 2
       fi
       podman exec -it ${PREFIX}sys $@
       ;;
     "root" | "su")
-      dev ${PREFIX} exec ${START_SHELL}
+      devenv ${PREFIX} exec ${START_SHELL}
       ;;
     "user" | "sh" | "shell")
-      dev ${PREFIX} exec su - gbraad $*
+      devenv ${PREFIX} exec su - gbraad $*
       ;;
     "sysctl" | "systemctl" | "systemd")
       if (podman ps --filter "name=${PREFIX}sys" --filter "status=stopped" | grep -q ${PREFIX}sys); then
@@ -98,17 +98,17 @@ devenv() {
         return
       fi
 
-      dev ${PREFIX} exec systemctl $@
+      devenv ${PREFIX} exec systemctl $@
       ;;
     "ps")
-      dev ${PREFIX} exec ps -ax $@
+      devenv ${PREFIX} exec ps -ax $@
       ;;
     "status")
-      dev ${PREFIX} sysctl status $@
+      devenv ${PREFIX} sysctl status $@
       ;;
     "tmux")
       command="-c tmux -2 $@"
-      dev ${PREFIX} user $command
+      devenv ${PREFIX} user $command
       ;;
     *)
       echo "Unknown command: $0 $PREFIX $COMMAND"
