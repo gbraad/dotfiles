@@ -31,7 +31,7 @@ _startcodetunnel() {
         _installcode
     fi
 
-    screen "${_codepath}/code tunnel --accept-server-license-terms --name ${HOSTNAME}"
+    screen ${_codepath}/code tunnel --accept-server-license-terms --name ${HOSTNAME}
 }
 
 _startcodeserveweb() {
@@ -39,7 +39,7 @@ _startcodeserveweb() {
         _installcode
     fi
 
-    screen "${_codepath}/code serve-web --without-connection-token --host 0.0.0.0"
+    screen ${_codepath}/code serve-web --without-connection-token --host 0.0.0.0
 }
 
 alias install-code="_installcode"
