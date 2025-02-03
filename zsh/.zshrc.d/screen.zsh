@@ -9,14 +9,14 @@ screen () {
     local screenname="screen"
 
     if [[ -n "${TMUX}" ]]; then
-      tmux split-window -h "$@"
+      tmux split-window -h "$*"
 
     else 
      
       tmux has-session -t ${screenname} 2>/dev/null
       if [[ $? != 0 ]]; then
         tmux new-session -d -s ${screenname}
-        tmux send-keys -t ${screenname} $@ C-m
+        tmux send-keys -t ${screenname} "$*" C-m
         tmux attach-session -t ${screenname}
       else
         tmux attach-session -t ${screenname}

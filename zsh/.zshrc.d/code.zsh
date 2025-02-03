@@ -31,6 +31,11 @@ _startcodetunnel() {
         _installcode
     fi
 
+    if [ -z "${HOSTNAME}" ]; then
+        echo "HOSTNAME not set"
+	return 1
+    fi
+
     screen ${_codepath}/code tunnel --accept-server-license-terms --name ${HOSTNAME}
 }
 
