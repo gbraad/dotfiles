@@ -4,7 +4,7 @@ CONFIG="${HOME}/.code"
 alias codeini="git config -f $CONFIG"
 
 _codepath=$(codeini --get code.path) || _codepath="${HOME}/.local/bin"
-_codepath=$(echo ${_codepath} | envsubst)
+eval _codepath=$(echo ${_codepath})
 
 _codeexists() {
     if [ -f "${_codepath}/code" ]; then
