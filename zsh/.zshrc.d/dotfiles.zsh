@@ -109,6 +109,9 @@ dotfiles() {
     "in" | "install")
       dotinstall
       ;;
+    "resource")
+      resource
+      ;; 
     *)
       echo "Unknown command: $0 $COMMAND"
       ;;
