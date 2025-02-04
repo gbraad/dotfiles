@@ -15,16 +15,33 @@ _codeexists() {
 }
 
 _installcode() {
-    echo "Installing code-cli"
     # does not handle architecture yet
+    arch=$(uname -m)
+    case "$arch" in
+      x86_64)
+        download_target="x64"
+        ;;
+      i386 | i686)
+        download_target="x86"
+        ;;
+      armv7l)
+        download_target="arm32"
+        ;;
+      aarch64)
+        download_target="arm64"
+        ;;
+      *)
+        echo "Unsupported architecture: $arch"
+        return 1
+        ;;
+    esac
 
+    echo "Installing code-cli for: ${download_target}"
     tempfile=$(mktemp)
-    curl -fsSL "https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64" -o ${tempfile}
+    curl -fsSL "https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-${download_target}" -o ${tempfile}
     tar -zxvf ${tempfile} -C ${_codepath} > /dev/null 2>&1
     rm -f ${tempfile}
 }
-
-
 
 _startcodetunnel() {
     if ! _codeexists; then
