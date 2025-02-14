@@ -3,7 +3,7 @@ Gerard Braad's dotfiles
 
 [!["Prompt"](https://raw.githubusercontent.com/gbraad/assets/gh-pages/icons/prompt-icon-64.png)](http://github.com/gbraad)
 
-  `using Git and Stow`
+  using `git`, `stow` and `zsh`
 
 
 Do not use this directly, but take parts and learn from it. I share it because
