@@ -1,0 +1,21 @@
+name: Sync to downstream repo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v2
+
+      - name: Push to destination repository
+        run: |
+          git remote add downstream https://gbraad:${{ secrets.PAT }}@github.com/gbraad/dotfiles.git
+          git push -f downstream main
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
