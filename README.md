@@ -41,16 +41,30 @@ Installation
 ### Automated
 
 ```
+$ curl -fsSL https://dotfiles.gbraad.nl/install.sh | sh
+```
+
+> [!NOTE]
+> Source for this file: https://github.com/gbraad-dotfiles/gbraad-dotfiles.github.io/blob/main/install.sh. The `install.sh` in the repository itself is merely a symlink to the helper `dotfiles.zsh`. This will therefore not work when downloaded using `curl`.
+
+
+### Manual
+
+```
 $ git clone https://github.com/gbraad-dotfiles/upstream ~/.dotfiles --recursive
 $ ~/.dotfiles/install.sh
 ```
+
 
 ### Update
 After the dotfiles have been installed, it is easy to update using:
 
 ```
-$ dotup
+$ dotfiles update
 ```
+
+> [!NOTE]
+> You can also use the alias `dot up` or `dotup` if `dotini dotfiles.aliases` returns `true`.
 
 
 Compatibility
