@@ -6,34 +6,33 @@ Gerard Braad's dotfiles
   using `git`, `stow` and `zsh`
 
 
-Do not use this directly, but take parts and learn from it. I share it because
-I got frustrated about moving a tarball around (and being scared of losing
-it). This eventually happened when my notebook got stolen... so, this is not
-an ideal solution for you. Treat it as, "what you see is what it is"...
+I share it because I got frustrated about moving a tarball around (and
+being scared of losing it). This eventually happened when my notebook
+got stolen...
+
+These dotfiles are based around a few helpers that deal with settings
+up development containers, network functions and connectivity to my
+homelab services
+
+
+  - `dotfiles`  
+    handles installation and update of my dotfiles
+  - `devenv`  
+    deals with development environments
+  - `proxy`  
+    sets environment to use a proxy to access services
+  - `davfs`  
+    connects to remote WebDAV endspoints for file sharing
+  - `tailscale`  
+    aliases and commands for use with my tailnet
+  - ...
+
 
 This forms the basis of my [development environment](https://github.com/gbraad-devenv/) images.
 
 
-Requirements
-------------
-
-### CentOS/Fedora
-
-```
-$ dnf install git zsh stow
-```
-
-### CentOS 8 (powerline-local)
-
-```
-$ dnf install epel-release python2
-```
-
-### Debian/Ubuntu
-
-```
-$ apt-get install git zsh stow
-```
+> [!NOTE]
+> Do not use this directly, but take parts and learn from it. Treat it as, "what you see is what it is"... 
 
 
 Installation
@@ -42,17 +41,15 @@ Installation
 ### Automated
 
 ```
-$ curl -sSL https://raw.githubusercontent.com/gbraad/dotfiles/master/install.sh | sh
+$ git clone https://github.com/gbraad-dotfiles/upstream ~/.dotfiles --recursive
+$ ~/.dotfiles/install.sh
 ```
 
-### Manual 
-After setting up the requirements you can use GNU `stow` to install the dotfiles per application
+### Update
+After the dotfiles have been installed, it is easy to update using:
 
 ```
-$ git clone https://github.com/gbraad/dotfiles.git .dotfiles --recursive
-$ cd .dotfiles
-$ ./install.sh  # optional
-$ stow zsh
+$ dotup
 ```
 
 
