@@ -1,7 +1,12 @@
 #!/bin/zsh
 
 CONFIG="${HOME}/.dot"
-alias dotini="git config -f $CONFIG"
+#alias dotini="git config -f $CONFIG"
+
+# this is to make this work with the restricted bash from Debian
+dotini() {
+  git config -f $CONFIG "$@"
+}
 
 dotinstall() {
   # Personal dotfiles
@@ -32,8 +37,8 @@ dotinstall() {
 
 # Temporary including the old installation method
 oldinstall() {
-  APTPKGS="git zsh stow fzf jq powerline"
-  RPMPKGS="git-core zsh stow fzf jq powerline"
+  APTPKGS="git zsh stow vim fzf jq powerline"
+  RPMPKGS="git-core zsh stow vim fzf jq powerline"
 
   # Crude multi-os installation option
   if [ -x "/usr/bin/apt-get" ]
