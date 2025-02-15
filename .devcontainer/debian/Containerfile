@@ -10,6 +10,7 @@ RUN apt-get update \
         systemd \
         sudo \
         git \
+        curl \
     && rm -rf /var/lib/apt/lists/*
 
 RUN useradd -l -u 1000 -G sudo -md /home/gbraad -p gbraad gbraad \
