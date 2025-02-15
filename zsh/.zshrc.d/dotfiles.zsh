@@ -38,6 +38,7 @@ oldinstall() {
   # Crude multi-os installation option
   if [ -x "/usr/bin/apt-get" ]
   then
+    sudo apt-get update
     sudo apt-get install -y $APTPKGS
   elif [ -x "/usr/bin/dnf" ]
   then
