@@ -10,6 +10,9 @@ RUN dnf install -y \
     && dnf clean all \
     && rm -rf /var/cache/yum
 
+# fix for PAM/SSH
+RUN chmod 0640 /etc/shadow
+
 RUN useradd -l -u 1000 -G wheel -md /home/gbraad -s /bin/bash -p gbraad gbraad \
     && sed -i.bkp -e 's/%wheel\s\+ALL=(ALL\(:ALL\)\?)\s\+ALL/%wheel ALL=NOPASSWD:ALL/g' /etc/sudoers 
 
