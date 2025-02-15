@@ -4,6 +4,7 @@
         "dockerfile": "Containerfile"
     },
     "runArgs": [ "--cap-add=NET_ADMIN", "--cap-add=NET_RAW", "--device=/dev/net/tun", "--device=/dev/fuse" ],
+    "postStartCommand": ".github/install.sh",
 
     "overrideCommand": false,
     "privileged": true,
