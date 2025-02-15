@@ -26,5 +26,14 @@ USER root
 
 RUN chsh -s /usr/bin/zsh gbraad
 
+# install tailscale
+RUN dnf config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo \
+    && dnf install -y \
+        tailscale \
+    && dnf clean all \
+    && rm -rf /var/cache/yum \
+    && mkdir -p /var/run/tailscale /var/cache/tailscale /var/lib/tailscale \
+    && systemctl enable tailscaled
+
 # Enable systemd
 ENTRYPOINT [ "/sbin/init" ]
