@@ -1,16 +1,27 @@
-ARG BASE_IMAGE="ghcr.io/gbraad-devenv/fedora/base"
+ARG BASE_IMAGE="fedora"
 ARG BASE_VERSION="41"
 
 FROM ${BASE_IMAGE}:${BASE_VERSION}
+
+RUN dnf install -y \
+        systemd \
+        sudo \
+        git \
+    && dnf clean all \
+    && rm -rf /var/cache/yum
 
 RUN useradd -l -u 1000 -G wheel -md /home/gbraad -s /bin/bash -p gbraad gbraad \
     && sed -i.bkp -e 's/%wheel\s\+ALL=(ALL\(:ALL\)\?)\s\+ALL/%wheel ALL=NOPASSWD:ALL/g' /etc/sudoers 
 
 USER gbraad
 
-RUN git clone https://github.com/gbraad/dotfiles.git ~/.dotfiles \
+RUN git clone https://github.com/gbraad-dotfiles/upstream.git ~/.dotfiles \
     && cd ~/.dotfiles \
-    && ./install.sh
+    && sh ./install.sh
+
+USER root
+
+RUN chsh -s /usr/bin/zsh gbraad
 
 # Should be run as root to start systemd, but if we do Codespaces will run as root too
 # We do this instead with podman --entrypoint=/sbin/init and --user=root
