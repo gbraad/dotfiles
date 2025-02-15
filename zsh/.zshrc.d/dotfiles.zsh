@@ -77,6 +77,19 @@ resource() {
   fi
 }
 
+upstream() {
+  cd ~/.dotfiles
+
+  git remote remove origin
+  git remote add origin git@github.com:gbraad-dotfiles/upstream
+  git fetch
+  git branch --set-upstream-to=origin/main main
+
+  cd -
+
+  dotupdate
+}
+
 dotupdate() {
   cd ~/.dotfiles
   git pull
@@ -111,7 +124,10 @@ dotfiles() {
       ;;
     "resource")
       resource
-      ;; 
+      ;;
+    "switch" | "upstream")
+      upstream
+      ;;
     *)
       echo "Unknown command: $0 $COMMAND"
       ;;
