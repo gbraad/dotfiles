@@ -32,8 +32,8 @@ dotinstall() {
 
 # Temporary including the old installation method
 oldinstall() {
-  APTPKGS="git zsh stow fzf"
-  RPMPKGS="git-core zsh stow fzf"
+  APTPKGS="git zsh stow fzf jq powerline"
+  RPMPKGS="git-core zsh stow fzf jq powerline"
 
   # Crude multi-os installation option
   if [ -x "/usr/bin/apt-get" ]
