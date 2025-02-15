@@ -23,6 +23,5 @@ USER root
 
 RUN chsh -s /usr/bin/zsh gbraad
 
-# Should be run as root to start systemd, but if we do Codespaces will run as root too
-# We do this instead with podman --entrypoint=/sbin/init and --user=root
-#ENTRYPOINT [ "/sbin/init" ]
+# Enable systemd
+ENTRYPOINT [ "/sbin/init" ]

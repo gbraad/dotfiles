@@ -3,8 +3,11 @@
     "build": {
         "dockerfile": "Containerfile"
     },
-    "runArgs": [ "--cap-add=NET_ADMIN", "--cap-add=NET_RAW", "--device=/dev/net/tun" ],
-    "postStartCommand": ".github/install.sh",
+    "runArgs": [ "--cap-add=NET_ADMIN", "--cap-add=NET_RAW", "--device=/dev/net/tun", "--device=/dev/fuse"],
+
+    "overrideCommand": false,
+    "privileged": true,
+    "remoteUser": "gbraad",
 
     "customizations": {
         "vscode": {
