@@ -65,7 +65,6 @@ oldinstall() {
 if [[ "$0" == *install.sh* ]]; then
   echo "Performing install"
   oldinstall
-  return 0
 fi
 
 resource() {
