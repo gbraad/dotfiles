@@ -8,6 +8,7 @@ LABEL org.opencontainers.image.source = "https://github.com/gbraad-dotfiles/debi
 RUN apt-get update \
     && apt-get install -y \
         systemd \
+	init \
         sudo \
         git \
         curl \
