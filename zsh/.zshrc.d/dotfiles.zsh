@@ -61,7 +61,7 @@ oldinstall() {
 
   dotinstall
 
-  echo "Install finished; use \`chsh -s /usr/bin/zsh\` to change shell"
+  echo "Install finished; use \`chsh -s /bin/zsh\` or \`chsh -s /usr/bin/zsh\` to change shell"
 }
 
 if [[ "$0" == *install.sh* ]]; then
