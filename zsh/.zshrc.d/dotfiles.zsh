@@ -92,7 +92,7 @@ upstream() {
   git fetch
   git branch --set-upstream-to=origin/main main
 
-  cd -
+  cd - > /dev/null
 
   dotupdate
 }
@@ -111,7 +111,7 @@ dotupdate() {
     resource
   fi
 
-  cd -
+  cd - > /dev/null
 }
 
 dotfiles() {

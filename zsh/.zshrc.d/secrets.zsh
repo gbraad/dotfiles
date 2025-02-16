@@ -98,3 +98,30 @@ set_secret_variable() {
   printf "Loaded secret '%s' into environment variable '%s'\n" "$secret_name" "$env_var_name" >&2
 }
 
+_updatesecrets() {
+  cd ${_secretspath}
+  git pull
+
+  cd - > /dev/null
+}
+
+secrets() {
+  if [ $# -lt 1 ]; then
+    echo "Usage: $0 <command> [args...]"
+    return 1
+  fi
+
+  local COMMAND=$1
+
+  case "$COMMAND" in
+    "up" | "update")
+      _updatesecrets
+      ;;
+    "in" | "install")
+      _clonesecrets
+      ;;
+    *)
+      echo "Unknown command: $0 $COMMAND"
+      ;;
+  esac
+}
