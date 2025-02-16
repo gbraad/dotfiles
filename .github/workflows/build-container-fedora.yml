@@ -18,6 +18,10 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Run podman build - fedora
-        run: podman build -t ghcr.io/gbraad-dotfiles/fedora:latest -f .devcontainer/fedora/Containerfile .
+        run: |
+          podman build -t ghcr.io/gbraad-dotfiles/fedora:latest \
+            -f .devcontainer/fedora/Containerfile .
       - name: Push image to ghcr.io - fedora
-        run: podman push --creds=${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} ghcr.io/gbraad-dotfiles/fedora:latest
+        run: |
+          podman push --creds=${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} \
+            ghcr.io/gbraad-dotfiles/fedora:latest

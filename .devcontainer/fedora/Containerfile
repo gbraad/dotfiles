@@ -3,6 +3,10 @@ ARG BASE_VERSION="41"
 
 FROM ${BASE_IMAGE}:${BASE_VERSION}
 
+ARG USER="gbraad"
+ARG HOMEBASE="/home"
+ARG HOME="${HOMEBASE}/${USER}"
+
 RUN dnf install -y \
         systemd \
         sudo \
@@ -13,10 +17,10 @@ RUN dnf install -y \
 # fix for PAM/SSH
 RUN chmod 0640 /etc/shadow
 
-RUN useradd -l -u 1000 -G wheel -md /home/gbraad -s /bin/bash -p gbraad gbraad \
+RUN useradd -l -u 1000 -G wheel -md ${HOME} -s /bin/bash -p ${USER} ${USER} \
     && sed -i.bkp -e 's/%wheel\s\+ALL=(ALL\(:ALL\)\?)\s\+ALL/%wheel ALL=NOPASSWD:ALL/g' /etc/sudoers 
 
-USER gbraad
+USER ${USER}
 
 RUN git clone https://github.com/gbraad-dotfiles/upstream.git ~/.dotfiles \
     && cd ~/.dotfiles \
@@ -24,7 +28,7 @@ RUN git clone https://github.com/gbraad-dotfiles/upstream.git ~/.dotfiles \
 
 USER root
 
-RUN chsh -s /usr/bin/zsh gbraad
+RUN chsh -s /usr/bin/zsh ${USER}
 
 # install tailscale
 RUN dnf config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo \

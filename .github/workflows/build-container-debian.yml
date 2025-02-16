@@ -18,6 +18,10 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Run podman build - debian
-        run: podman build -t ghcr.io/gbraad-dotfiles/debian:latest -f .devcontainer/debian/Containerfile .
+        run: |
+          podman build -t ghcr.io/gbraad-dotfiles/debian:latest \
+            -f .devcontainer/debian/Containerfile .
       - name: Push image to ghcr.io - debian
-        run: podman push --creds=${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} ghcr.io/gbraad-dotfiles/debian:latest
+        run: |
+          podman push --creds=${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} \
+            ghcr.io/gbraad-dotfiles/debian:latest
