@@ -38,7 +38,7 @@ dotinstall() {
 # Temporary including the old installation method
 oldinstall() {
   APTPKGS="git zsh stow vim tmux fzf jq powerline"
-  RPMPKGS="git-core zsh stow vim tmux fzf jq powerline"
+  RPMPKGS="git-core zsh stow vim tmux fzf jq powerline vim-powerline tmux-powerline"
 
   # Crude multi-os installation option
   if [ -x "/usr/bin/apt-get" ]
