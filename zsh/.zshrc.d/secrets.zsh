@@ -160,12 +160,11 @@ var_secret() {
     secret_name="$1"
   fi
 
-  local secret_file="${_secretspath}/secrets/${secret_name}"
   local env_var_name=$(echo "$secret_name" | tr '[:lower:]' '[:upper:]')
         
   # Decrypt and store the content
   local secret_content
-  secret_content=$(get_secret "$secret_file")
+  secret_content=$(get_secret "$secret_name")
     
   # Check if decryption was successful
   if [ -z "$secret_content" ]; then
