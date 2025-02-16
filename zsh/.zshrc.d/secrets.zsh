@@ -132,13 +132,14 @@ get_secret() {
 
   local vimcrypt_file
   if [ -z "$1" ]; then
-    vimcrypt_file="${_secretspath}/secrets/$(cd "${_secretspath}/secrets" && find . -type f -not -path '*/\.*' | sed 's|^\./||' | fzf --height=40%)"
-    if [ -z "$vimcrypt_file" ]; then
+    secret_name=$(cd "${_secretspath}/secrets" && find . -type f -not -path '*/\.*' | sed 's|^\./||' | fzf)
+    if [ -z "${secret_name}" ]; then
       echo "Empty selection"
       return 1
     fi
+    vimcrypt_file="${_secretspath}/secrets/${secret_name}"
   else
-    vimcrypt_file="$1"
+    vimcrypt_file="${_secretspath}/secrets/$1"
   fi
 
   vimcrypt_password=$(read_password "Enter the password for the secret")
@@ -150,8 +151,8 @@ get_secret() {
 var_secret() {
   local secret_name="$1"
   if [ -z "$1" ]; then
-    secret_name=$(cd "${_secretspath}/secrets" && find . -type f -not -path '*/\.*' | sed 's|^\./||' | fzf --height=40%)
-    if [ -z "$secret_name" ]; then
+    secret_name=$(cd "${_secretspath}/secrets" && find . -type f -not -path '*/\.*' | sed 's|^\./||' | fzf)
+    if [ -z "${secret_name}" ]; then
       echo "Empty selection"
       return 1
     fi
