@@ -130,14 +130,12 @@ get_secret() {
     _clonesecrets
   fi
 
-  # Check if the correct number of arguments are provided
-  if [ "$#" -ne 1 ]; then
-    echo "Usage: $0 <file>"
-    return 0
+  local vimcrypt_file
+  if [ -z "$1" ]; then
+    vimcrypt_file="${_secretspath}/secrets/$(cd "${_secretspath}/secrets" && find . -type f -not -path '*/\.*' | sed 's|^\./||' | fzf --height=40%)"
+  else
+    vimcrypt_file="$1"
   fi
-
-  # Get the argument
-  vimcrypt_file="$1"
 
   vimcrypt_password=$(read_password "Enter the password for the secret")
   decrypted_text=$(vim_decrypt_file "$vimcrypt_file" "$vimcrypt_password")
