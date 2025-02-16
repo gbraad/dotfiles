@@ -4,6 +4,7 @@ ARG BASE_VERSION="41"
 FROM ${BASE_IMAGE}:${BASE_VERSION}
 
 ARG USER="gbraad"
+ARG USER_PASSWD
 ARG HOMEBASE="/home"
 ARG HOME="${HOMEBASE}/${USER}"
 
@@ -11,6 +12,9 @@ RUN dnf install -y \
         systemd \
         sudo \
         git \
+        dnf-plugins-core \
+    && dnf install -y \
+        'dnf5-command(config-manager)' \
     && dnf clean all \
     && rm -rf /var/cache/yum
 
@@ -18,13 +22,19 @@ RUN dnf install -y \
 RUN chmod 0640 /etc/shadow
 
 RUN useradd -l -u 1000 -G wheel -md ${HOME} -s /bin/bash -p ${USER} ${USER} \
-    && sed -i.bkp -e 's/%wheel\s\+ALL=(ALL\(:ALL\)\?)\s\+ALL/%wheel ALL=NOPASSWD:ALL/g' /etc/sudoers 
+    && sed -i.bkp -e 's/%wheel\s\+ALL=(ALL\(:ALL\)\?)\s\+ALL/%wheel ALL=NOPASSWD:ALL/g' /etc/sudoers \
+    && if [ -n "${USER_PASSWD}" ] ; then \
+        echo "gbraad:${USER_PASSWD}" | sudo chpasswd && echo "Password set to: ${USER_PASSWD}"; \
+    fi
 
 USER ${USER}
 
 RUN git clone https://github.com/gbraad-dotfiles/upstream.git ~/.dotfiles \
     && cd ~/.dotfiles \
     && sh ./install.sh
+
+RUN mkdir -p ~/.ssh/ \
+    && curl https://github.com/${USER}.keys | tee -a ~/.ssh/authorized_keys
 
 USER root
 

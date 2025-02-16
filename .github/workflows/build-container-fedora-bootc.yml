@@ -1,5 +1,5 @@
-name: build container - fedora
-run-name: building container - fedora
+name: build container - fedora-bootc
+run-name: building container - fedora-bootc
 on:
   push:
     branches:
@@ -17,13 +17,15 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-      - name: Run podman build - fedora
+      - name: Run podman build - fedora-bootc
         run: |
-          podman build -t ghcr.io/gbraad-dotfiles/fedora:latest \
-            --build-arg=BASE_IMAGE="quay.io/fedora/fedora" \
+          podman build -t ghcr.io/gbraad-dotfiles/fedora-bootc:latest \
+            --build-arg=BASE_IMAGE="quay.io/fedora/fedora-bootc" \
             --build-arg=BASE_VERSION=41 \
+            --build-arg=HOMEBASE="/var/home" \
+            --build-arg=USER_PASSWD="password" \
             -f .devcontainer/fedora/Containerfile .
-      - name: Push image to ghcr.io - fedora
+      - name: Push image to ghcr.io - fedora-bootc
         run: |
           podman push --creds=${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} \
-            ghcr.io/gbraad-dotfiles/fedora:latest
+            ghcr.io/gbraad-dotfiles/fedora-bootc:latest
