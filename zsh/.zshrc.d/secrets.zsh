@@ -25,6 +25,81 @@ vim_decrypt_file() {
     -c 'q!' 2>/dev/null
 }
 
+vim_encrypt_file() {
+  local file="$1"
+  local password="$2"
+  local content="$3"
+
+  # Create a temporary file with the content
+  local temp_file=$(mktemp)
+  printf "%s" "$content" > "$temp_file"
+
+  # Use vim in ex mode to encrypt the file
+  # Double password entry: first for setting, second for verification
+  printf "%s\n%s\n" "$password" "$password" | vim -n -E -s "$temp_file" \
+    -c 'set cm=blowfish2' \
+    -c 'X' \
+    -c 'w! '"$file" \
+    -c 'q!' 2>/dev/null
+
+  # Clean up the temporary file
+  rm -f "$temp_file"
+
+  # Verify the file exists and is not empty
+  if [ ! -s "$file" ]; then
+    echo "Error: Failed to encrypt file"
+    return 1
+  fi
+}
+
+add_secret() {
+  if ! _secretsexists; then
+    _clonesecrets
+  fi
+
+  # Get the password for encryption
+  local vimcrypt_password=$(read_password "Enter password for encryption")
+
+  # Read the secret content
+  echo "Enter the secret content (press Enter, then Ctrl+D to finish):"
+  local content
+  content=$(cat)
+
+  # Prompt for the secret name if not provided
+  local secret_name
+  if [ "$#" -eq 1 ]; then
+    secret_name="$1"
+  else
+    echo "Enter the secret name: "
+    read secret_name
+  fi
+
+  # Ensure we have a name
+  if [ -z "$secret_name" ]; then
+    echo "Error: Secret name is required"
+    return 1
+  fi
+
+  local secret_file="${_secretspath}/secrets/${secret_name}"
+
+  # Ensure the secrets directory exists
+  mkdir -p "${_secretspath}/secrets"
+
+  # Encrypt and save the content
+  if ! vim_encrypt_file "$secret_file" "$vimcrypt_password" "$content"; then
+    echo "Failed to encrypt secret"
+    return 1
+  fi
+
+  echo "Secret has been encrypted and saved to $secret_file"
+
+  # If we're in a git repository, stage the new file
+  if [ -d "${_secretspath}/.git" ]; then
+    (cd "${_secretspath}" && git add "secrets/${secret_name}")
+    echo "The secret file has been staged in git. Don't forget to commit and push your changes."
+  fi
+}
+
 read_password() {
   local old_tty=$(stty -g </dev/tty)
   
@@ -64,7 +139,7 @@ get_secret() {
   # Get the argument
   vimcrypt_file="$1"
 
-  vimcrypt_password=$(read_password "Enter the password for the file")
+  vimcrypt_password=$(read_password "Enter the password for the secret")
   decrypted_text=$(vim_decrypt_file "$vimcrypt_file" "$vimcrypt_password")
 
   echo "$decrypted_text"
@@ -112,6 +187,7 @@ secrets() {
   fi
 
   local COMMAND=$1
+  shift
 
   case "$COMMAND" in
     "up" | "update")
@@ -120,6 +196,15 @@ secrets() {
     "in" | "install")
       _clonesecrets
       ;;
+    "get" | "show")
+      get_secret $@
+      ;;
+    "set" | "add")
+      add_secret $@
+      ;;
+    "var")
+      set_secret_variable $@
+      ;;      
     *)
       echo "Unknown command: $0 $COMMAND"
       ;;
