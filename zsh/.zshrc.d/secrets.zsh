@@ -133,6 +133,10 @@ get_secret() {
   local vimcrypt_file
   if [ -z "$1" ]; then
     vimcrypt_file="${_secretspath}/secrets/$(cd "${_secretspath}/secrets" && find . -type f -not -path '*/\.*' | sed 's|^\./||' | fzf --height=40%)"
+    if [ -z "$vimcrypt_file" ]; then
+      echo "Empty selection"
+      return 1
+    fi
   else
     vimcrypt_file="$1"
   fi
@@ -143,17 +147,21 @@ get_secret() {
   echo "$decrypted_text"
 }
 
-set_secret_variable() {
+var_secret() {
   local secret_name="$1"
+  if [ -z "$1" ]; then
+    secret_name=$(cd "${_secretspath}/secrets" && find . -type f -not -path '*/\.*' | sed 's|^\./||' | fzf --height=40%)
+    if [ -z "$secret_name" ]; then
+      echo "Empty selection"
+      return 1
+    fi
+  else
+    secret_name="$1"
+  fi
+
   local secret_file="${_secretspath}/secrets/${secret_name}"
   local env_var_name=$(echo "$secret_name" | tr '[:lower:]' '[:upper:]')
-    
-  # Check if file exists
-  if [ ! -f "$secret_file" ]; then
-    printf "Error: Secret file '%s' does not exist\n" "$secret_file" >&2
-    return 1
-  fi
-    
+        
   # Decrypt and store the content
   local secret_content
   secret_content=$(get_secret "$secret_file")
@@ -201,7 +209,7 @@ secrets() {
       add_secret $@
       ;;
     "var")
-      set_secret_variable $@
+      var_secret $@
       ;;      
     *)
       echo "Unknown command: $0 $COMMAND"
